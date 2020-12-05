@@ -14,6 +14,7 @@ export const NavbarTitle = ({ text, link, to }: Props) => {
             component={link ? Link : "h2"}
             color="inherit"
             to={to}
+            style={{ textDecoration: "none" }}
         >
             {text}
         </Typography>

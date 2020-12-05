@@ -1,5 +1,5 @@
 import { NavbarTitle } from "../../atoms/NavbarTitle";
 
 export const Home = () => {
-    return <NavbarTitle text="Test" />;
+    return <NavbarTitle text="Reis" />;
 };
