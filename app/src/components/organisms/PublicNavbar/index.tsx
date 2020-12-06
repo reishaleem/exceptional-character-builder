@@ -3,13 +3,18 @@ import {
     AppBarProps,
     Box,
     Button,
+    Divider,
     Grid,
     Hidden,
+    MenuItem,
     Toolbar,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 import { NavbarTitle } from "../../atoms/NavbarTitle";
+import { UserMenu } from "../../molecules/UserMenu";
+
+import OnePiece from "../../../images/onepieceworldbright.jpg";
 
 interface Props {
     dropdownMenuLabel: string;
@@ -18,7 +23,6 @@ interface Props {
 }
 
 export const Navbar = ({ dropdownMenuLabel, userLoggedIn, color }: Props) => {
-    console.log(userLoggedIn);
     return (
         <AppBar position="static" elevation={0} color={color}>
             <Toolbar>
@@ -33,12 +37,30 @@ export const Navbar = ({ dropdownMenuLabel, userLoggedIn, color }: Props) => {
                             text="The Exceptional Outliner"
                         />
                         <Box marginLeft="auto">
-                            <Button component={Link} to="/register">
-                                Sign Up
-                            </Button>
-                            <Button component={Link} to="/login">
-                                Login
-                            </Button>
+                            {userLoggedIn ? (
+                                <UserMenu
+                                    avatarImage={OnePiece}
+                                    buttonDropdownType="avatar"
+                                    dropdownText={dropdownMenuLabel}
+                                >
+                                    <MenuItem component={Link} to="/dashboard">
+                                        Dashboard
+                                    </MenuItem>
+                                    <Divider />
+                                    <MenuItem component={Link} to="/">
+                                        Sign out
+                                    </MenuItem>
+                                </UserMenu>
+                            ) : (
+                                <>
+                                    <Button component={Link} to="/register">
+                                        Sign Up
+                                    </Button>
+                                    <Button component={Link} to="/login">
+                                        Login
+                                    </Button>
+                                </>
+                            )}
                         </Box>
                     </Grid>
                     <Hidden smDown>
