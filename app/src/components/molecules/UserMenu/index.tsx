@@ -1,11 +1,11 @@
-import { Avatar, Box, Button, Menu } from "@material-ui/core";
-import { ReactNode, MouseEvent, useState, Children, cloneElement } from "react";
+import { Avatar, Button, Menu } from "@material-ui/core";
+import { MouseEvent, useState, Children, cloneElement } from "react";
 
 interface Props {
     avatarImage?: string;
     dropdownText: string;
     buttonDropdownType: "avatar" | "button";
-    children?: any;
+    children?: any; // typed as any so that we can use cloneElement on each child
 }
 
 export const UserMenu = ({
@@ -14,9 +14,13 @@ export const UserMenu = ({
     buttonDropdownType,
     children,
 }: Props) => {
-    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+    const [anchorEl, setAnchorEl] = useState<
+        HTMLButtonElement | HTMLDivElement | null
+    >(null);
 
-    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    const handleClick = (
+        event: MouseEvent<HTMLButtonElement> | MouseEvent<HTMLDivElement>
+    ) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -32,17 +36,16 @@ export const UserMenu = ({
 
     return (
         <>
-            <Box onClick={handleClick}>
-                {buttonDropdownType === "avatar" ? (
-                    <Avatar
-                        alt={dropdownText[0]}
-                        src={avatarImage}
-                        style={{ cursor: "pointer" }}
-                    />
-                ) : (
-                    <Button>{dropdownText}</Button>
-                )}
-            </Box>
+            {buttonDropdownType === "avatar" ? (
+                <Avatar
+                    alt={dropdownText[0]}
+                    src={avatarImage}
+                    onClick={handleClick}
+                    style={{ cursor: "pointer" }}
+                />
+            ) : (
+                <Button>{dropdownText}</Button>
+            )}
             <Menu
                 id="user-menu"
                 anchorEl={anchorEl}
