@@ -44,7 +44,13 @@ export const UserMenu = ({
                     style={{ cursor: "pointer" }}
                 />
             ) : (
-                <Button>{dropdownText}</Button>
+                <Button
+                    onClick={handleClick}
+                    variant="contained"
+                    disableElevation
+                >
+                    {dropdownText}
+                </Button>
             )}
             <Menu
                 id="user-menu"

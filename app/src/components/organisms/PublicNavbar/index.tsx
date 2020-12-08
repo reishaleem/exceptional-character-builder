@@ -30,7 +30,14 @@ export const Navbar = ({ dropdownMenuLabel, userLoggedIn, color }: Props) => {
                     <Hidden smDown>
                         <Grid item md={2}></Grid>
                     </Hidden>
-                    <Grid container item xs={12} sm={12} md={8}>
+                    <Grid
+                        container
+                        item
+                        xs={12}
+                        sm={12}
+                        md={8}
+                        alignItems="center"
+                    >
                         <NavbarTitle
                             link
                             to="/"
@@ -39,8 +46,7 @@ export const Navbar = ({ dropdownMenuLabel, userLoggedIn, color }: Props) => {
                         <Box marginLeft="auto">
                             {userLoggedIn ? (
                                 <UserMenu
-                                    avatarImage={OnePiece}
-                                    buttonDropdownType="avatar"
+                                    buttonDropdownType="button"
                                     dropdownText={dropdownMenuLabel}
                                 >
                                     <MenuItem component={Link} to="/dashboard">
@@ -48,7 +54,7 @@ export const Navbar = ({ dropdownMenuLabel, userLoggedIn, color }: Props) => {
                                     </MenuItem>
                                     <Divider />
                                     <MenuItem component={Link} to="/">
-                                        Sign out
+                                        Logout
                                     </MenuItem>
                                 </UserMenu>
                             ) : (
