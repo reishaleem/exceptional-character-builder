@@ -14,8 +14,6 @@ import { Link } from "react-router-dom";
 import { NavbarTitle } from "../../atoms/NavbarTitle";
 import { UserMenu } from "../../molecules/UserMenu";
 
-import OnePiece from "../../../images/onepieceworldbright.jpg";
-
 interface Props {
     dropdownMenuLabel: string;
     userLoggedIn: boolean;
@@ -25,8 +23,8 @@ interface Props {
 export const Navbar = ({ dropdownMenuLabel, userLoggedIn, color }: Props) => {
     return (
         <AppBar position="static" elevation={0} color={color}>
-            <Toolbar>
-                <Grid container>
+            <Toolbar disableGutters>
+                <Grid container spacing={2}>
                     <Hidden smDown>
                         <Grid item md={2}></Grid>
                     </Hidden>
