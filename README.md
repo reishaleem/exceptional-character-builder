@@ -1,6 +1,6 @@
-# The Exceptional Outliner - Characters
+# The Exceptional Outliner - Magic Systems
 
-A smaller version of the Exceptional Outliner that focuses on Characters.
+A smaller version of the Exceptional Outliner that focuses on Magic Systems.
 
 ## Running the application
 
@@ -8,7 +8,7 @@ A smaller version of the Exceptional Outliner that focuses on Characters.
 
 #### Set VS Code Typescript Version to the current workspace version
 
-Since VSCode uses `Typescript 4.0.3`, you will need to set the current version to `4.1.2` before continuing, or else you will get errors with the `react-jsx` setting on the `--jsx` option in the `tsconfig.json`. To change the setting, go to a file with a `.ts` or `.tsx` extension, enter `Control+Shift+P`, type 
+Since VSCode uses `Typescript 4.0.3`, you will need to set the current version to `4.1.2` before continuing, or else you will get errors with the `react-jsx` setting on the `--jsx` option in the `tsconfig.json`. To change the setting, go to a file with a `.ts` or `.tsx` extension, enter `Control+Shift+P`, type
 "Typescript", and click "Select Typescript Version." Then, you will see an option to use the current workspace version.
 
 #### Installing dependencies
