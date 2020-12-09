@@ -1,5 +1,13 @@
-import { NavbarTitle } from "../../atoms/NavbarTitle";
+import { Navbar } from "../../organisms/PublicNavbar";
 
 export const Home = () => {
-    return <NavbarTitle text="Reis" />;
+    const userName = "Reis Haleem";
+    const loggedIn = true;
+    return (
+        <Navbar
+            color="transparent"
+            dropdownMenuLabel={userName}
+            userLoggedIn={loggedIn}
+        />
+    );
 };
