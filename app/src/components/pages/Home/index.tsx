@@ -1,12 +1,20 @@
-import { Button, Grid, Hidden, Typography } from "@material-ui/core";
+import { Box, Button, Grid, Hidden, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Navbar } from "../../organisms/PublicNavbar";
 
-export const Home = () => {
+interface Props {
+    backgroundColor: string;
+}
+
+export const Home = ({ backgroundColor }: Props) => {
     const userName = "Reis Haleem";
     const loggedIn = false;
     return (
-        <>
+        <Box
+            style={{
+                background: backgroundColor,
+            }}
+        >
             <Navbar
                 color="transparent"
                 dropdownMenuLabel={userName}
@@ -15,7 +23,9 @@ export const Home = () => {
             <Grid
                 container
                 spacing={2}
-                style={{ backgroundColor: "coral", height: "90vh" }}
+                style={{
+                    height: "90vh",
+                }}
                 alignItems="center"
             >
                 <Hidden smDown>
@@ -63,7 +73,14 @@ export const Home = () => {
                 ></div>
             </Grid>
 
-            <Grid container item xs={12} sm={12} md={12}>
+            <Grid
+                container
+                item
+                xs={12}
+                sm={12}
+                md={12}
+                style={{ backgroundColor: "white" }}
+            >
                 <Hidden smDown>
                     <Grid item md={2}></Grid>
                 </Hidden>
@@ -83,6 +100,6 @@ export const Home = () => {
                     <Grid item md={2}></Grid>
                 </Hidden>
             </Grid>
-        </>
+        </Box>
     );
 };
