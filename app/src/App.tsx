@@ -6,7 +6,16 @@ function App() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" component={Home} exact />
+                <Route
+                    path="/"
+                    render={(routeProps) => (
+                        <Home
+                            backgroundColor="linear-gradient(to right, #f12711, #f5af19)"
+                            {...routeProps}
+                        />
+                    )}
+                    exact
+                />
             </Switch>
         </BrowserRouter>
     );
