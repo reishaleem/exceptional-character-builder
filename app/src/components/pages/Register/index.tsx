@@ -78,14 +78,12 @@ export const Register = () => {
                     userLoggedIn={false}
                 />
             </Grid>
-
             <Grid item xs={12} sm={12} md={3}>
                 <Card elevation={1}>
                     <CardContent>
                         <Typography variant="h4" component="h1">
                             Register
                         </Typography>
-
                         <Form handleSubmit={registerForm.handleSubmit}>
                             <Box marginTop="8px" marginBottom="8px">
                                 <TextField
@@ -130,7 +128,6 @@ export const Register = () => {
                                     size="small"
                                     variant="outlined"
                                 />
-
                                 <TextField
                                     fullWidth
                                     id="password"
@@ -152,7 +149,6 @@ export const Register = () => {
                                     size="small"
                                     variant="outlined"
                                 />
-
                                 <TextField
                                     fullWidth
                                     id="confirmPassword"
