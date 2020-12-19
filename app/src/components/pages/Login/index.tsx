@@ -66,7 +66,7 @@ export const Login = () => {
                 <Card elevation={1}>
                     <CardContent>
                         <Typography variant="h4" component="h1">
-                            Register
+                            Login
                         </Typography>
                         <Form handleSubmit={loginForm.handleSubmit}>
                             <Box marginTop="8px" marginBottom="8px">
@@ -122,7 +122,7 @@ export const Login = () => {
                                 disableElevation
                                 disabled={loginForm.isSubmitting}
                             >
-                                Create your account
+                                Login
                             </Button>
                         </Form>
                     </CardContent>
