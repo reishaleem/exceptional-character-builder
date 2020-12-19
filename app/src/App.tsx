@@ -2,6 +2,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import { Home } from "./components/pages/Home";
 import { Register } from "./components/pages/Register";
+import { Login } from "./components/pages/Login";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     exact
                 />
                 <Route path="/register" component={Register} exact />
+                <Route path="/login" component={Login} exact />
             </Switch>
         </BrowserRouter>
     );
