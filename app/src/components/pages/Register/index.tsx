@@ -1,16 +1,15 @@
 import {
-    Box,
     Button,
     Card,
     CardContent,
-    CardHeader,
     Grid,
-    Hidden,
+    makeStyles,
     TextField,
+    Theme,
     Typography,
 } from "@material-ui/core";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+
 import { Navbar } from "../../organisms/PublicNavbar";
 
 interface RegisterFormFields {
@@ -20,10 +19,20 @@ interface RegisterFormFields {
     confirmPassword: string;
 }
 
+const useStyles = makeStyles((theme: Theme) => ({
+    form: {
+        "& .MuiTextField-root": {
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(1),
+        },
+    },
+}));
+
 export const Register = () => {
+    const classes = useStyles();
     const userName = "Reis Haleem";
 
-    const formik = useFormik({
+    const registerForm = useFormik({
         initialValues: {
             name: "",
             email: "",
@@ -49,7 +58,6 @@ export const Register = () => {
             if (!values.password) {
                 errors.password = "Required";
             }
-            // TODO: Add password validation like length and capitlization and whatnot
 
             if (values.confirmPassword !== values.password) {
                 errors.confirmPassword = "Password does not match";
@@ -57,158 +65,142 @@ export const Register = () => {
 
             return errors;
         },
-        onSubmit: async (values: RegisterFormFields, setSubmitting) => {
+        onSubmit: (values: RegisterFormFields, { setSubmitting }) => {
             handleSubmit(values, setSubmitting);
         },
     });
 
-    async function handleSubmit(user: RegisterFormFields, setSubmitting: any) {
+    async function handleSubmit(
+        user: RegisterFormFields,
+        setSubmitting: (isSubmitting: boolean) => void
+    ) {
         await new Promise((r) => setTimeout(r, 500));
         alert(JSON.stringify(user, null, 2));
+        setSubmitting(false);
     }
 
     return (
-        <Box>
-            <Navbar
-                color="primary"
-                dropdownMenuLabel={userName}
-                userLoggedIn={false}
-            />
-            <Grid
-                container
-                spacing={2}
-                style={{ height: "100vh" }}
-                alignItems="center"
-            >
-                <Hidden smDown>
-                    <Grid item md={5}></Grid>
-                </Hidden>
-                <Grid item xs={12} sm={12} md={2}>
-                    <Typography
-                        variant="h2"
-                        component="h1"
-                        align="center"
-                        gutterBottom
-                    >
-                        Register
-                    </Typography>
-                    <Card>
-                        <CardHeader
-                            title={
-                                <Typography
-                                    variant="h2"
-                                    component="h1"
-                                    align="center"
-                                >
-                                    Register
-                                </Typography>
-                            }
-                        />
-                        <CardContent>
-                            <form onSubmit={formik.handleSubmit}>
-                                <TextField
-                                    fullWidth
-                                    id="name"
-                                    name="name"
-                                    label="Name"
-                                    type="text"
-                                    value={formik.values.name}
-                                    onChange={formik.handleChange}
-                                    error={
-                                        formik.touched.name &&
-                                        Boolean(formik.errors.name)
-                                    }
-                                    helperText={
-                                        formik.touched.name &&
-                                        formik.errors.name
-                                    }
-                                    disabled={formik.isSubmitting}
-                                    variant="outlined"
-                                />
-                                <TextField
-                                    fullWidth
-                                    id="email"
-                                    name="email"
-                                    label="Email"
-                                    type="text"
-                                    value={formik.values.email}
-                                    onChange={formik.handleChange}
-                                    error={
-                                        formik.touched.email &&
-                                        Boolean(formik.errors.email)
-                                    }
-                                    helperText={
-                                        formik.touched.email &&
-                                        formik.errors.email
-                                    }
-                                    disabled={formik.isSubmitting}
-                                />
-
-                                <TextField
-                                    fullWidth
-                                    id="password"
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    value={formik.values.password}
-                                    onChange={formik.handleChange}
-                                    error={
-                                        formik.touched.password &&
-                                        Boolean(formik.errors.password)
-                                    }
-                                    helperText={
-                                        formik.touched.password &&
-                                        formik.errors.password
-                                    }
-                                    disabled={formik.isSubmitting}
-                                />
-
-                                <TextField
-                                    fullWidth
-                                    id="confirmPassword"
-                                    name="confirmPassword"
-                                    label="Re-enter password"
-                                    type="password"
-                                    value={formik.values.confirmPassword}
-                                    onChange={formik.handleChange}
-                                    error={
-                                        formik.touched.confirmPassword &&
-                                        Boolean(formik.errors.confirmPassword)
-                                    }
-                                    helperText={
-                                        formik.touched.confirmPassword &&
-                                        formik.errors.confirmPassword
-                                    }
-                                    disabled={formik.isSubmitting}
-                                />
-
-                                <Button
-                                    color="primary"
-                                    variant="contained"
-                                    type="submit"
-                                    fullWidth
-                                    disabled={formik.isSubmitting}
-                                >
-                                    Register
-                                </Button>
-                            </form>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Hidden smDown>
-                    <Grid item md={5}></Grid>
-                </Hidden>
-                <div
-                    style={{
-                        backgroundColor: "white",
-                        height: "50px",
-                        width: "100%",
-                        borderTopRightRadius: "50%",
-                        borderTopLeftRadius: "50%",
-                        marginTop: "auto",
-                    }}
-                ></div>
+        <Grid container justify="center" spacing={2}>
+            <Grid item xs={12}>
+                <Navbar
+                    color="primary"
+                    dropdownMenuLabel={userName}
+                    userLoggedIn={false}
+                />
             </Grid>
-        </Box>
+
+            <Grid item xs={12} sm={12} md={3}>
+                <Card elevation={1}>
+                    <CardContent>
+                        <Typography variant="h4" component="h1" gutterBottom>
+                            Register
+                        </Typography>
+
+                        <form
+                            onSubmit={registerForm.handleSubmit}
+                            className={classes.form}
+                        >
+                            <TextField
+                                fullWidth
+                                id="name"
+                                name="name"
+                                label="Name"
+                                type="text"
+                                value={registerForm.values.name}
+                                onChange={registerForm.handleChange}
+                                error={
+                                    registerForm.touched.name &&
+                                    Boolean(registerForm.errors.name)
+                                }
+                                helperText={
+                                    registerForm.touched.name &&
+                                    registerForm.errors.name
+                                }
+                                disabled={registerForm.isSubmitting}
+                                InputLabelProps={{ shrink: true }}
+                                size="small"
+                                variant="outlined"
+                            />
+                            <TextField
+                                fullWidth
+                                id="email"
+                                name="email"
+                                label="Email"
+                                type="text"
+                                value={registerForm.values.email}
+                                onChange={registerForm.handleChange}
+                                error={
+                                    registerForm.touched.email &&
+                                    Boolean(registerForm.errors.email)
+                                }
+                                helperText={
+                                    registerForm.touched.email &&
+                                    registerForm.errors.email
+                                }
+                                disabled={registerForm.isSubmitting}
+                                InputLabelProps={{ shrink: true }}
+                                size="small"
+                                variant="outlined"
+                            />
+
+                            <TextField
+                                fullWidth
+                                id="password"
+                                name="password"
+                                label="Password"
+                                type="password"
+                                value={registerForm.values.password}
+                                onChange={registerForm.handleChange}
+                                error={
+                                    registerForm.touched.password &&
+                                    Boolean(registerForm.errors.password)
+                                }
+                                helperText={
+                                    registerForm.touched.password &&
+                                    registerForm.errors.password
+                                }
+                                disabled={registerForm.isSubmitting}
+                                InputLabelProps={{ shrink: true }}
+                                size="small"
+                                variant="outlined"
+                            />
+
+                            <TextField
+                                fullWidth
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                label="Re-enter password"
+                                type="password"
+                                value={registerForm.values.confirmPassword}
+                                onChange={registerForm.handleChange}
+                                error={
+                                    registerForm.touched.confirmPassword &&
+                                    Boolean(registerForm.errors.confirmPassword)
+                                }
+                                helperText={
+                                    registerForm.touched.confirmPassword &&
+                                    registerForm.errors.confirmPassword
+                                }
+                                disabled={registerForm.isSubmitting}
+                                InputLabelProps={{ shrink: true }}
+                                size="small"
+                                variant="outlined"
+                            />
+
+                            <Button
+                                color="primary"
+                                variant="contained"
+                                type="submit"
+                                fullWidth
+                                disabled={registerForm.isSubmitting}
+                                style={{ marginTop: "13.6px" }}
+                            >
+                                Register
+                            </Button>
+                        </form>
+                    </CardContent>
+                </Card>
+            </Grid>
+        </Grid>
     );
 };
