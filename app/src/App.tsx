@@ -1,6 +1,7 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import { Home } from "./components/pages/Home";
+import { Register } from "./components/pages/Register";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                     )}
                     exact
                 />
+                <Route path="/register" component={Register} exact />
             </Switch>
         </BrowserRouter>
     );
