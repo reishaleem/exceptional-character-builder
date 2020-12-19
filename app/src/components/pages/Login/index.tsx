@@ -13,7 +13,7 @@ import { Navbar } from "../../organisms/PublicNavbar";
 import { Form } from "../../molecules/Form";
 
 interface LoginFormFields {
-    name: string;
+    email: string;
     password: string;
 }
 
@@ -22,15 +22,13 @@ export const Login = () => {
 
     const loginForm = useFormik({
         initialValues: {
-            name: "",
+            email: "",
             password: "",
         },
         validate: (values: LoginFormFields) => {
             const errors: Partial<LoginFormFields> = {};
-            if (!values.name) {
-                errors.name = "Required";
-            } else if (values.name.length > 50) {
-                errors.name = "Name must be shorted than 5 characters";
+            if (!values.email) {
+                errors.email = "Required";
             }
 
             if (!values.password) {
@@ -72,19 +70,19 @@ export const Login = () => {
                             <Box marginTop="8px" marginBottom="8px">
                                 <TextField
                                     fullWidth
-                                    id="name"
-                                    name="name"
-                                    label="Name"
+                                    id="email"
+                                    name="email"
+                                    label="Email"
                                     type="text"
-                                    value={loginForm.values.name}
+                                    value={loginForm.values.email}
                                     onChange={loginForm.handleChange}
                                     error={
-                                        loginForm.touched.name &&
-                                        Boolean(loginForm.errors.name)
+                                        loginForm.touched.email &&
+                                        Boolean(loginForm.errors.email)
                                     }
                                     helperText={
-                                        loginForm.touched.name &&
-                                        loginForm.errors.name
+                                        loginForm.touched.email &&
+                                        loginForm.errors.email
                                     }
                                     disabled={loginForm.isSubmitting}
                                     InputLabelProps={{ shrink: true }}
