@@ -66,6 +66,8 @@ export const Register = () => {
     ) {
         await new Promise((r) => setTimeout(r, 500));
         alert(JSON.stringify(user, null, 2));
+        // login
+        // direct to magic-systems list
         setSubmitting(false);
     }
 

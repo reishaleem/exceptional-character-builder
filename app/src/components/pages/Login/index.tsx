@@ -46,6 +46,7 @@ export const Login = () => {
     ) {
         await new Promise((r) => setTimeout(r, 500));
         alert(JSON.stringify(user, null, 2));
+        // direct to magic-systems list
         setSubmitting(false);
     }
 
