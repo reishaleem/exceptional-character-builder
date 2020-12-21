@@ -28,11 +28,9 @@ export const Login = () => {
         validate: (values: LoginFormFields) => {
             const errors: Partial<LoginFormFields> = {};
             if (!values.email) {
-                errors.email = "Required";
-            }
-
-            if (!values.password) {
-                errors.password = "Required";
+                errors.email = "";
+            } else if (!values.password) {
+                errors.password = "";
             }
 
             return errors;
