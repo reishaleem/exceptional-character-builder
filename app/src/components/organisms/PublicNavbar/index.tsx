@@ -47,8 +47,11 @@ export const Navbar = ({ dropdownMenuLabel, userLoggedIn, color }: Props) => {
                                     buttonDropdownType="button"
                                     dropdownText={dropdownMenuLabel}
                                 >
-                                    <MenuItem component={Link} to="/dashboard">
-                                        Dashboard
+                                    <MenuItem
+                                        component={Link}
+                                        to="/magic-systems"
+                                    >
+                                        App
                                     </MenuItem>
                                     <Divider />
                                     <MenuItem component={Link} to="/">
