@@ -21,9 +21,11 @@ import {
     TextField,
     Theme,
     Toolbar,
+    Tooltip,
     Typography,
     useTheme,
 } from "@material-ui/core";
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import clsx from "clsx";
@@ -156,21 +158,35 @@ export const CreateMagicSystem = () => {
         <>
             <AppBar position="static">
                 <Toolbar>
-                    <NavbarTitle text="The Exceptional Outliner" />
-                    <Box marginLeft="auto">
-                        <UserMenu
-                            buttonDropdownType="avatar"
-                            dropdownText="Reis Haleem"
+                    <Grid container justify="center">
+                        <Grid
+                            item
+                            xs={12}
+                            sm={12}
+                            md={8}
+                            style={{ display: "flex", alignItems: "center" }}
                         >
-                            <MenuItem component={Link} to="/settings">
-                                Settings
-                            </MenuItem>
-                            <Divider />
-                            <MenuItem component={Link} to="/">
-                                Logout
-                            </MenuItem>
-                        </UserMenu>
-                    </Box>
+                            <NavbarTitle
+                                text="The Exceptional Outliner"
+                                link
+                                to="/magic-systems"
+                            />
+                            <Box marginLeft="auto">
+                                <UserMenu
+                                    buttonDropdownType="avatar"
+                                    dropdownText="Reis Haleem"
+                                >
+                                    <MenuItem component={Link} to="/settings">
+                                        Settings
+                                    </MenuItem>
+                                    <Divider />
+                                    <MenuItem component={Link} to="/">
+                                        Logout
+                                    </MenuItem>
+                                </UserMenu>
+                            </Box>
+                        </Grid>
+                    </Grid>
                 </Toolbar>
             </AppBar>
             <main className={classes.content}>
@@ -385,13 +401,31 @@ export const CreateMagicSystem = () => {
                                     md={5}
                                     style={{ paddingLeft: theme.spacing(1) }}
                                 >
-                                    <Typography
-                                        variant="caption"
-                                        component="p"
-                                        style={{ color: "gray" }}
-                                    >
-                                        Hardness
-                                    </Typography>
+                                    <Box display="flex" alignItems="center">
+                                        <Typography
+                                            variant="caption"
+                                            component="span"
+                                            style={{
+                                                color: "gray",
+                                            }}
+                                        >
+                                            Hardness
+                                        </Typography>
+                                        <Tooltip
+                                            title="Hardness refers to how specific a user of this magic's power would be. In Harry Potter, any single Wizard can do nearly anything, and you can never know what they can do until they do it, so it is very soft (1). With Allomancy, the powers are very well laid out, and to know what the user can do, you just need to know their category (10)."
+                                            placement="right"
+                                            arrow
+                                        >
+                                            <HelpOutlineIcon
+                                                fontSize="small"
+                                                style={{
+                                                    color: "gray",
+
+                                                    marginLeft: "auto",
+                                                }}
+                                            />
+                                        </Tooltip>
+                                    </Box>
                                     <Slider
                                         value={formik.values.hardnessRating}
                                         onChange={(e, v) =>
@@ -434,16 +468,31 @@ export const CreateMagicSystem = () => {
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={12} md={12}>
-                                    <Button
-                                        color="primary"
-                                        variant="contained"
-                                        type="submit"
-                                        fullWidth
-                                        disableElevation
-                                        disabled={formik.isSubmitting}
-                                    >
-                                        Create Magic System
-                                    </Button>
+                                    <Box display="flex">
+                                        <Button
+                                            color="primary"
+                                            variant="contained"
+                                            disableElevation
+                                            disabled={formik.isSubmitting}
+                                            style={{
+                                                marginRight: theme.spacing(1),
+                                                marginLeft: "auto",
+                                            }}
+                                            component={Link}
+                                            to="/magic-systems"
+                                        >
+                                            Cancel
+                                        </Button>
+                                        <Button
+                                            color="primary"
+                                            variant="contained"
+                                            type="submit"
+                                            disableElevation
+                                            disabled={formik.isSubmitting}
+                                        >
+                                            Create
+                                        </Button>
+                                    </Box>
                                 </Grid>
                             </Grid>
                         </Form>
