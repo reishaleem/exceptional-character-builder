@@ -189,21 +189,35 @@ export const UserMagicList = () => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <NavbarTitle text="The Exceptional Outliner" />
-                    <Box marginLeft="auto">
-                        <UserMenu
-                            buttonDropdownType="avatar"
-                            dropdownText="Reis Haleem"
+                    <Grid container justify="center">
+                        <Grid
+                            item
+                            xs={12}
+                            sm={12}
+                            md={8}
+                            style={{ display: "flex", alignItems: "center" }}
                         >
-                            <MenuItem component={Link} to="/settings">
-                                Settings
-                            </MenuItem>
-                            <Divider />
-                            <MenuItem component={Link} to="/">
-                                Logout
-                            </MenuItem>
-                        </UserMenu>
-                    </Box>
+                            <NavbarTitle
+                                text="The Exceptional Outliner"
+                                link
+                                to="/magic-systems"
+                            />
+                            <Box marginLeft="auto">
+                                <UserMenu
+                                    buttonDropdownType="avatar"
+                                    dropdownText="Reis Haleem"
+                                >
+                                    <MenuItem component={Link} to="/settings">
+                                        Settings
+                                    </MenuItem>
+                                    <Divider />
+                                    <MenuItem component={Link} to="/">
+                                        Logout
+                                    </MenuItem>
+                                </UserMenu>
+                            </Box>
+                        </Grid>
+                    </Grid>
                 </Toolbar>
             </AppBar>
             <Hidden smUp>
