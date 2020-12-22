@@ -36,6 +36,7 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import { useFormik } from "formik";
 import { Assignment, Create, Help, Note, NoteAdd } from "@material-ui/icons";
+import { RichTextEditor } from "../../organisms/RichTextEditor";
 
 interface Note {
     id: string;
@@ -455,6 +456,8 @@ export const EditMagicSystemPage = () => {
                             multiline
                             rows={4}
                         />
+                        <Divider />
+                        <RichTextEditor />
                     </Grid>
                 </Grid>
             </main>
