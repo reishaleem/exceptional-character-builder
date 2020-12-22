@@ -1,19 +1,11 @@
 import {
     AppBar,
-    Avatar,
     Box,
     Button,
     Checkbox,
     Chip,
-    CssBaseline,
     Divider,
-    Drawer,
     Grid,
-    Hidden,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemIcon,
     ListItemText,
     makeStyles,
     MenuItem,
@@ -26,40 +18,14 @@ import {
     useTheme,
 } from "@material-ui/core";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import clsx from "clsx";
 
 import { UserMenu } from "../../molecules/UserMenu";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { NavbarTitle } from "../../atoms/NavbarTitle";
 import { Link } from "react-router-dom";
-import dayjs from "dayjs";
+
 import { useFormik } from "formik";
 import { Form } from "../../molecules/Form";
-import { types } from "util";
-
-interface Note {
-    id: string;
-    title: string;
-    body: string;
-}
-
-interface Outline {
-    id: string;
-    title: string;
-    body: string;
-}
-
-interface MagicSystem {
-    id: string;
-    name: string;
-    description: string;
-    page: string;
-    notes: Note[];
-    outlines: Outline[];
-    updatedAt: string;
-}
 
 const drawerWidth = 240;
 
