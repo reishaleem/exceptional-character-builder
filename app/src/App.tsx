@@ -4,6 +4,7 @@ import { Home } from "./components/pages/Home";
 import { Register } from "./components/pages/Register";
 import { Login } from "./components/pages/Login";
 import { UserMagicList } from "./components/pages/UserMagicList";
+import { CreateMagicSystem } from "./components/pages/CreateMagicSystem";
 
 function App() {
     return (
@@ -23,6 +24,11 @@ function App() {
                 <Route path="/login" component={Login} exact />
 
                 <Route path="/magic-systems" component={UserMagicList} exact />
+                <Route
+                    path="/magic-systems/new"
+                    component={CreateMagicSystem}
+                    exact
+                />
             </Switch>
         </BrowserRouter>
     );
