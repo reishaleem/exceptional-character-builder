@@ -3,15 +3,11 @@ import {
     Avatar,
     Box,
     Button,
-    CssBaseline,
     Divider,
-    Drawer,
     Grid,
-    Hidden,
     List,
     ListItem,
     ListItemAvatar,
-    ListItemIcon,
     ListItemText,
     makeStyles,
     MenuItem,
@@ -20,15 +16,12 @@ import {
     Typography,
     useTheme,
 } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import clsx from "clsx";
-
-import { UserMenu } from "../../molecules/UserMenu";
-import { Fragment, useState } from "react";
-import { NavbarTitle } from "../../atoms/NavbarTitle";
-import { Link } from "react-router-dom";
 import dayjs from "dayjs";
+import { Fragment } from "react";
+import { Link } from "react-router-dom";
+
+import { NavbarTitle } from "../../atoms/NavbarTitle";
+import { UserMenu } from "../../molecules/UserMenu";
 
 interface Note {
     id: string;

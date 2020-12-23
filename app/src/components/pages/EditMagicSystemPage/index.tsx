@@ -1,6 +1,5 @@
 import {
     AppBar,
-    Avatar,
     Box,
     Button,
     Collapse,
@@ -9,35 +8,37 @@ import {
     Drawer,
     Grid,
     Hidden,
+    IconButton,
     List,
     ListItem,
-    ListItemAvatar,
     ListItemIcon,
     ListItemText,
     makeStyles,
     MenuItem,
-    TextField,
     Theme,
     Toolbar,
     Typography,
     useTheme,
 } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import DescriptionIcon from "@material-ui/icons/Description";
+import {
+    Assignment,
+    Create,
+    Help,
+    Note,
+    NoteAdd,
+    Menu,
+    ExpandLess,
+    ExpandMore,
+} from "@material-ui/icons";
 import clsx from "clsx";
-
-import { UserMenu } from "../../molecules/UserMenu";
-import { Fragment, useState } from "react";
-import { NavbarTitle } from "../../atoms/NavbarTitle";
+import { useFormik } from "formik";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import dayjs from "dayjs";
-import { FormikProps, useField, useFormik } from "formik";
-import { Assignment, Create, Help, Note, NoteAdd } from "@material-ui/icons";
-import { RichTextEditor } from "../../organisms/RichTextEditor";
+
 import { Form } from "../../molecules/Form";
+import { NavbarTitle } from "../../atoms/NavbarTitle";
+import { RichTextEditor } from "../../organisms/RichTextEditor";
+import { UserMenu } from "../../molecules/UserMenu";
 
 interface Note {
     id: string;
@@ -224,7 +225,7 @@ export const EditMagicSystemPage = () => {
                         }
                         className={clsx(classes.menuButton)}
                     >
-                        <MenuIcon />
+                        <Menu />
                     </IconButton>
 
                     <NavbarTitle
@@ -266,7 +267,7 @@ export const EditMagicSystemPage = () => {
                     <List>
                         <ListItem button>
                             <ListItemIcon>
-                                <MenuIcon />
+                                <Menu />
                             </ListItemIcon>
                             <ListItemText primary={"Item2"} />
                         </ListItem>
@@ -275,7 +276,7 @@ export const EditMagicSystemPage = () => {
                     <List>
                         <ListItem button>
                             <ListItemIcon>
-                                <MenuIcon />
+                                <Menu />
                             </ListItemIcon>
                             <ListItemText primary={"Item1"} />
                         </ListItem>
