@@ -16,10 +16,11 @@ import {
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
-import { magicSystemTypes } from "../../../constants/magic-system";
 
 import { Form } from "../../molecules/Form";
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
+
+import { magicSystemTypes } from "../../../constants/magic-system";
 
 interface FormFields {
     name: string;
