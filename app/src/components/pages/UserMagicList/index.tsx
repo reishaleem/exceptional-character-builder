@@ -1,15 +1,10 @@
 import {
-    Avatar,
     Box,
     Button,
     Divider,
     Grid,
     List,
-    ListItem,
-    ListItemAvatar,
-    ListItemText,
     Typography,
-    useTheme,
 } from "@material-ui/core";
 
 import { Fragment } from "react";
@@ -18,31 +13,9 @@ import { MagicSystemListItem } from "../../molecules/MagicSystemListItem";
 
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
 
-interface Note {
-    id: string;
-    title: string;
-    body: string;
-}
-
-interface Outline {
-    id: string;
-    title: string;
-    body: string;
-}
-
-interface MagicSystem {
-    id: string;
-    name: string;
-    description: string;
-    page: string;
-    notes: Note[];
-    outlines: Outline[];
-    updatedAt: string;
-}
+import { MagicSystem } from "../../../types/magic-system";
 
 export const UserMagicList = () => {
-    const theme = useTheme();
-
     const magicSystems: MagicSystem[] = [
         {
             id: "1",
