@@ -92,11 +92,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
-        transition: theme.transitions.create("margin", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: -drawerWidth,
     },
     contentShift: {
         transition: theme.transitions.create("margin", {
@@ -110,7 +105,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const UserMagicList = () => {
     const classes = useStyles();
     const theme = useTheme();
-    const [drawerOpen, setDrawerOpen] = useState(true);
 
     const magicSystems: MagicSystem[] = [
         {
@@ -160,35 +154,10 @@ export const UserMagicList = () => {
         },
     ];
 
-    function handleDrawerOpen() {
-        setDrawerOpen(true);
-    }
-
-    function handleDrawerClose() {
-        setDrawerOpen(false);
-    }
-
     return (
-        <Box display="flex">
-            <CssBaseline />
-            <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: drawerOpen,
-                })}
-            >
+        <>
+            <AppBar position="static">
                 <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={
-                            drawerOpen ? handleDrawerClose : handleDrawerOpen
-                        }
-                        className={clsx(classes.menuButton)}
-                    >
-                        <MenuIcon />
-                    </IconButton>
                     <Grid container justify="center">
                         <Grid
                             item
@@ -220,76 +189,8 @@ export const UserMagicList = () => {
                     </Grid>
                 </Toolbar>
             </AppBar>
-            <Hidden smUp>
-                <Drawer
-                    //container={container}
-                    variant="temporary"
-                    anchor="left"
-                    open={drawerOpen}
-                    onClose={handleDrawerClose}
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
-                    ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
-                    }}
-                >
-                    <div className={classes.drawerHeader}>Logo</div>
-                    <List>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <MenuIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={"Item2"} />
-                        </ListItem>
-                    </List>
-                    <Divider />
-                    <List>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <MenuIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={"Item1"} />
-                        </ListItem>
-                    </List>
-                </Drawer>
-            </Hidden>
-            <Hidden xsDown>
-                <Drawer
-                    className={classes.drawer}
-                    variant="persistent"
-                    anchor="left"
-                    open={drawerOpen}
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
-                >
-                    <div className={classes.drawerHeader}>Logo</div>
-                    <List>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <MenuIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={"Item1"} />
-                        </ListItem>
-                    </List>
-                    <Divider />
-                    <List>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <MenuIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={"Item1"} />
-                        </ListItem>
-                    </List>
-                </Drawer>
-            </Hidden>
-            <main
-                className={clsx(classes.content, {
-                    [classes.contentShift]: drawerOpen,
-                })}
-            >
-                <div className={classes.drawerHeader} />
+
+            <main className={classes.content}>
                 <Grid container justify="center" spacing={2}>
                     <Grid item xs={12} sm={12} md={8}>
                         <Box display="flex" alignItems="center">
@@ -392,6 +293,8 @@ export const UserMagicList = () => {
                                         <ListItem
                                             alignItems="flex-start"
                                             button
+                                            component={Link}
+                                            to={`/magic-systems/${system.id}/page/edit`}
                                         >
                                             <ListItemAvatar
                                                 style={{
@@ -451,6 +354,6 @@ export const UserMagicList = () => {
                     </Grid>
                 </Grid>
             </main>
-        </Box>
+        </>
     );
 };

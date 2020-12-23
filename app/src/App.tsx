@@ -5,6 +5,7 @@ import { Register } from "./components/pages/Register";
 import { Login } from "./components/pages/Login";
 import { UserMagicList } from "./components/pages/UserMagicList";
 import { CreateMagicSystem } from "./components/pages/CreateMagicSystem";
+import { EditMagicSystemPage } from "./components/pages/EditMagicSystemPage";
 
 function App() {
     return (
@@ -27,6 +28,11 @@ function App() {
                 <Route
                     path="/magic-systems/new"
                     component={CreateMagicSystem}
+                    exact
+                />
+                <Route
+                    path="/magic-systems/:magicSystemId/page/edit"
+                    component={EditMagicSystemPage}
                     exact
                 />
             </Switch>
