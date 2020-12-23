@@ -51,7 +51,7 @@ export const MagicSystemListItem = ({ system }: Props) => {
                         width: theme.spacing(8),
                     }}
                 >
-                    T
+                    {system.name[0]}
                 </Avatar>
             </ListItemAvatar>
             <Box width="60%">
