@@ -1,46 +1,30 @@
-import { Button } from "@material-ui/core";
-import { Editor, EditorState, RichUtils } from "draft-js";
-import "draft-js/dist/Draft.css";
+import { Editor, IAllProps } from "@tinymce/tinymce-react";
+import { useField } from "formik";
 import { useState } from "react";
 
-export const RichTextEditor = () => {
-    const [editorState, setEditorState] = useState(() =>
-        EditorState.createEmpty()
-    );
+interface Props extends IAllProps {
+    content: string;
+    onEditorChange: any;
+}
 
-    function handleKeyCommand(command: any, editorState: any) {
-        const newState = RichUtils.handleKeyCommand(editorState, command);
-
-        if (newState) {
-            setEditorState(newState);
-            return "handled";
-        }
-
-        return "not-handled";
-    }
-
-    function onBoldClick(e: any) {
-        e.preventDefault();
-        const newState = RichUtils.toggleInlineStyle(editorState, "BOLD");
-
-        if (newState) {
-            setEditorState(newState);
-            return "handled";
-        }
-
-        return "not handled";
-    }
-
+export const RichTextEditor = ({ content, onEditorChange }: Props) => {
     return (
-        <div style={{ border: "1px solid black" }}>
-            <Button variant="contained" onClick={onBoldClick}>
-                B
-            </Button>
-            <Editor
-                editorState={editorState}
-                handleKeyCommand={handleKeyCommand}
-                onChange={setEditorState}
-            />
-        </div>
+        <Editor
+            apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
+            value={content}
+            init={{
+                height: 500,
+                menubar: false,
+                plugins: [
+                    "advlist autolink lists link image",
+                    "charmap print preview anchor help",
+                    "searchreplace visualblocks code",
+                    "insertdatetime media table paste wordcount",
+                ],
+                toolbar:
+                    "formatselect | fontselect | bold italic underline | alignleft aligncenter alignright alignjustify | forecolor | lineheight | bullist numlist | help",
+            }}
+            onEditorChange={onEditorChange}
+        />
     );
 };

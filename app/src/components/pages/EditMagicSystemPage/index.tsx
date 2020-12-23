@@ -34,9 +34,10 @@ import { Fragment, useState } from "react";
 import { NavbarTitle } from "../../atoms/NavbarTitle";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
-import { useFormik } from "formik";
+import { FormikProps, useField, useFormik } from "formik";
 import { Assignment, Create, Help, Note, NoteAdd } from "@material-ui/icons";
 import { RichTextEditor } from "../../organisms/RichTextEditor";
+import { Form } from "../../molecules/Form";
 
 interface Note {
     id: string;
@@ -139,7 +140,7 @@ export const EditMagicSystemPage = () => {
         id: "1",
         name: "Nen",
         description: "A magic system from Hunter x Hunter",
-        page: "<h1>Page Code</h1>",
+        page: "<h1>Nen</h1>",
         notes: [
             {
                 id: "1",
@@ -157,10 +158,11 @@ export const EditMagicSystemPage = () => {
         ],
         updatedAt: "1608587625018",
     };
+    const [pageContent, setPageContent] = useState(magicSystem.page);
 
     const formik = useFormik({
         initialValues: {
-            body: "",
+            body: pageContent,
         },
         validate: (values: FormFields) => {
             const errors: Partial<FormFields> = {};
@@ -172,13 +174,18 @@ export const EditMagicSystemPage = () => {
         },
     });
 
+    function handleChange(newContent: string) {
+        setPageContent(newContent);
+        formik.values.body = newContent;
+    }
+
     async function handleSubmit(
         body: FormFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
         await new Promise((r) => setTimeout(r, 500));
         alert(JSON.stringify(body, null, 2));
-        // direct to magic-systems list
+
         setSubmitting(false);
     }
 
@@ -422,42 +429,36 @@ export const EditMagicSystemPage = () => {
                     <Grid item xs={12} sm={12} md={10}>
                         <Box display="flex" alignItems="center">
                             <Typography
-                                variant="h5"
+                                variant="h3"
                                 component="h2"
                                 display="inline"
                             >
                                 {magicSystem.name}
                             </Typography>
+                            <Button
+                                color="primary"
+                                variant="contained"
+                                type="submit"
+                                form="page-body-form"
+                                disabled={formik.isSubmitting}
+                                style={{ marginLeft: "auto" }}
+                            >
+                                Save
+                            </Button>
                         </Box>
                         <Divider />
                     </Grid>
 
                     <Grid item xs={12} sm={12} md={10}>
-                        <TextField
-                            fullWidth
-                            id="body"
-                            name="body"
-                            label="Page body"
-                            placeholder="Add headers, images, links, and text to detail your Page"
-                            type="text"
-                            value={formik.values.body}
-                            onChange={formik.handleChange}
-                            error={
-                                formik.touched.body &&
-                                Boolean(formik.errors.body)
-                            }
-                            helperText={
-                                formik.touched.body && formik.errors.body
-                            }
-                            disabled={formik.isSubmitting}
-                            InputLabelProps={{ shrink: true }}
-                            size="small"
-                            variant="outlined"
-                            multiline
-                            rows={4}
-                        />
-                        <Divider />
-                        <RichTextEditor />
+                        <Form
+                            handleSubmit={formik.handleSubmit}
+                            id="page-body-form"
+                        >
+                            <RichTextEditor
+                                content={pageContent}
+                                onEditorChange={handleChange}
+                            />
+                        </Form>
                     </Grid>
                 </Grid>
             </main>
