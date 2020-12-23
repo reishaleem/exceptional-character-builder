@@ -14,10 +14,10 @@ import {
     useTheme,
 } from "@material-ui/core";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
-
-import { Link } from "react-router-dom";
-
 import { useFormik } from "formik";
+import { Link } from "react-router-dom";
+import { magicSystemTypes } from "../../../constants/magic-system";
+
 import { Form } from "../../molecules/Form";
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
 
@@ -38,7 +38,7 @@ interface FormFieldErrors {
 export const CreateMagicSystem = () => {
     const theme = useTheme();
 
-    const formik = useFormik({
+    const createMagicSystemForm = useFormik({
         initialValues: {
             name: "",
             type: [],
@@ -94,7 +94,7 @@ export const CreateMagicSystem = () => {
                 </Grid>
 
                 <Grid item xs={12} sm={12} md={6}>
-                    <Form handleSubmit={formik.handleSubmit}>
+                    <Form handleSubmit={createMagicSystemForm.handleSubmit}>
                         <Grid container>
                             <Grid item xs={12} sm={12} md={12}>
                                 <TextField
@@ -104,17 +104,23 @@ export const CreateMagicSystem = () => {
                                     label="Name"
                                     placeholder="E.g. Nen, Magic, Allomancy"
                                     type="text"
-                                    value={formik.values.name}
-                                    onChange={formik.handleChange}
+                                    value={createMagicSystemForm.values.name}
+                                    onChange={
+                                        createMagicSystemForm.handleChange
+                                    }
                                     error={
-                                        formik.touched.name &&
-                                        Boolean(formik.errors.name)
+                                        createMagicSystemForm.touched.name &&
+                                        Boolean(
+                                            createMagicSystemForm.errors.name
+                                        )
                                     }
                                     helperText={
-                                        formik.touched.name &&
-                                        formik.errors.name
+                                        createMagicSystemForm.touched.name &&
+                                        createMagicSystemForm.errors.name
                                     }
-                                    disabled={formik.isSubmitting}
+                                    disabled={
+                                        createMagicSystemForm.isSubmitting
+                                    }
                                     InputLabelProps={{ shrink: true }}
                                     size="small"
                                     variant="outlined"
@@ -132,17 +138,21 @@ export const CreateMagicSystem = () => {
                                     name="type"
                                     label="Type(s)"
                                     error={
-                                        formik.touched.type &&
-                                        Boolean(formik.errors.type)
+                                        createMagicSystemForm.touched.type &&
+                                        Boolean(
+                                            createMagicSystemForm.errors.type
+                                        )
                                     }
                                     helperText={
-                                        formik.touched.type &&
-                                        formik.errors.type
+                                        createMagicSystemForm.touched.type &&
+                                        createMagicSystemForm.errors.type
                                     }
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
-                                    disabled={formik.isSubmitting}
+                                    disabled={
+                                        createMagicSystemForm.isSubmitting
+                                    }
                                     fullWidth
                                     select
                                     SelectProps={{
@@ -202,8 +212,9 @@ export const CreateMagicSystem = () => {
                                                                                 value
                                                                             }
                                                                             style={{
-                                                                                margin: 2,
+                                                                                marginRight: 2,
                                                                             }}
+                                                                            size="small"
                                                                         />
                                                                     )
                                                                 )}
@@ -238,8 +249,9 @@ export const CreateMagicSystem = () => {
                                                                 key={value}
                                                                 label={value}
                                                                 style={{
-                                                                    margin: 2,
+                                                                    marginRight: 2,
                                                                 }}
+                                                                size="small"
                                                             />
                                                         )
                                                     )}
@@ -248,22 +260,19 @@ export const CreateMagicSystem = () => {
                                         },
                                         displayEmpty: true,
                                     }}
-                                    value={formik.values.type}
-                                    onChange={formik.handleChange}
+                                    value={createMagicSystemForm.values.type}
+                                    onChange={
+                                        createMagicSystemForm.handleChange
+                                    }
                                     size="small"
                                     variant="outlined"
                                 >
-                                    {[
-                                        "Elemental",
-                                        "Religious",
-                                        "Aura",
-                                        "Chakras",
-                                    ].map((type) => {
+                                    {magicSystemTypes.map((type) => {
                                         return (
                                             <MenuItem value={type} key={type}>
                                                 <Checkbox
                                                     checked={
-                                                        formik.values.type.indexOf(
+                                                        createMagicSystemForm.values.type.indexOf(
                                                             type
                                                         ) > -1
                                                     }
@@ -292,7 +301,7 @@ export const CreateMagicSystem = () => {
                                         Hardness
                                     </Typography>
                                     <Tooltip
-                                        title="Hardness refers to how specific a user of this magic's power would be. In Harry Potter, any single Wizard can do nearly anything, and you can never know what they can do until they do it, so it is very soft (1). With Allomancy, the powers are very well laid out, and to know what the user can do, you just need to know their category (10)."
+                                        title="Hardness refers to how specific a user of this magic's power would be. In Harry Potter, any single Wizard can do nearly anything, and you can never know what they can do until they do it, so it is very soft (1). With Allomancy, the powers are very well laid out, and to know what the user can do, you just need to know their category (10). Note that being a larger Magic System does not imply softness; Devil Fruits have an enormous record of potential abilities, but they only give the user one ability, and those abilities tend to be very hard."
                                         placement="right"
                                         arrow
                                     >
@@ -307,9 +316,12 @@ export const CreateMagicSystem = () => {
                                     </Tooltip>
                                 </Box>
                                 <Slider
-                                    value={formik.values.hardnessRating}
+                                    value={
+                                        createMagicSystemForm.values
+                                            .hardnessRating
+                                    }
                                     onChange={(e, v) =>
-                                        formik.setFieldValue(
+                                        createMagicSystemForm.setFieldValue(
                                             "hardnessRating",
                                             v
                                         )
@@ -329,17 +341,28 @@ export const CreateMagicSystem = () => {
                                     label="Description (Optional)"
                                     placeholder="Give a couple of sentences that capture the fantastic (or not so fantastic) nature of your Magic System"
                                     type="text"
-                                    value={formik.values.description}
-                                    onChange={formik.handleChange}
+                                    value={
+                                        createMagicSystemForm.values.description
+                                    }
+                                    onChange={
+                                        createMagicSystemForm.handleChange
+                                    }
                                     error={
-                                        formik.touched.description &&
-                                        Boolean(formik.errors.description)
+                                        createMagicSystemForm.touched
+                                            .description &&
+                                        Boolean(
+                                            createMagicSystemForm.errors
+                                                .description
+                                        )
                                     }
                                     helperText={
-                                        formik.touched.description &&
-                                        formik.errors.description
+                                        createMagicSystemForm.touched
+                                            .description &&
+                                        createMagicSystemForm.errors.description
                                     }
-                                    disabled={formik.isSubmitting}
+                                    disabled={
+                                        createMagicSystemForm.isSubmitting
+                                    }
                                     InputLabelProps={{ shrink: true }}
                                     size="small"
                                     multiline
@@ -353,7 +376,9 @@ export const CreateMagicSystem = () => {
                                         color="primary"
                                         variant="contained"
                                         disableElevation
-                                        disabled={formik.isSubmitting}
+                                        disabled={
+                                            createMagicSystemForm.isSubmitting
+                                        }
                                         style={{
                                             marginRight: theme.spacing(1),
                                             marginLeft: "auto",
@@ -368,7 +393,9 @@ export const CreateMagicSystem = () => {
                                         variant="contained"
                                         type="submit"
                                         disableElevation
-                                        disabled={formik.isSubmitting}
+                                        disabled={
+                                            createMagicSystemForm.isSubmitting
+                                        }
                                     >
                                         Create
                                     </Button>

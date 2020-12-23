@@ -6,11 +6,10 @@ import {
     List,
     Typography,
 } from "@material-ui/core";
-
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { MagicSystemListItem } from "../../molecules/MagicSystemListItem";
 
+import { MagicSystemListItem } from "../../molecules/MagicSystemListItem";
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
 
 import { MagicSystem } from "../../../types/magic-system";
