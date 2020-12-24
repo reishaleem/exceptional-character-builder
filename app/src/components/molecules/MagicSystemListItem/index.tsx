@@ -17,9 +17,10 @@ dayjs.extend(relativeTime);
 
 interface Props {
     system: MagicSystem;
+    linkDestination: string;
 }
 
-export const MagicSystemListItem = ({ system }: Props) => {
+export const MagicSystemListItem = ({ system, linkDestination }: Props) => {
     const theme = useTheme();
 
     function getTimeSinceUpdatedMessage(lastUpdatedDate: dayjs.Dayjs) {
@@ -37,7 +38,7 @@ export const MagicSystemListItem = ({ system }: Props) => {
             alignItems="flex-start"
             button
             component={Link}
-            to={`/magic-systems/${system.id}/page/edit`}
+            to={linkDestination}
         >
             <ListItemAvatar
                 style={{

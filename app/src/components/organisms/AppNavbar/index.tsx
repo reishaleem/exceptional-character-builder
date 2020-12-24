@@ -1,6 +1,7 @@
 import {
     AppBar,
     Box,
+    Button,
     Divider,
     Grid,
     IconButton,
@@ -93,6 +94,12 @@ export const AppNavbar = ({
                             link
                             to="/magic-systems"
                         />
+                        <Button component={Link} to="/magic-systems">
+                            Home
+                        </Button>
+                        <Button component={Link} to="/explore">
+                            Explore
+                        </Button>
                         <Box marginLeft="auto">
                             <UserMenu
                                 buttonDropdownType="avatar"

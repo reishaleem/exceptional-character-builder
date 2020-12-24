@@ -10,6 +10,7 @@ import { CreateOutline } from "./components/pages/CreateOutline";
 import { EditOutline } from "./components/pages/EditOutline";
 import { CreateNote } from "./components/pages/CreateNote";
 import { EditNote } from "./components/pages/EditNote";
+import { ExploreList } from "./components/pages/ExploreList";
 
 function App() {
     return (
@@ -59,6 +60,8 @@ function App() {
                     component={EditNote}
                     exact
                 />
+
+                <Route path="/explore" component={ExploreList} exact />
             </Switch>
         </BrowserRouter>
     );

@@ -1,20 +1,12 @@
-import {
-    Box,
-    Button,
-    Divider,
-    Grid,
-    List,
-    Typography,
-} from "@material-ui/core";
+import { Box, Divider, Grid, List, Typography } from "@material-ui/core";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
 
 import { MagicSystemListItem } from "../../molecules/MagicSystemListItem";
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
 
 import { MagicSystem } from "../../../types/magic-system";
 
-export const UserMagicList = () => {
+export const ExploreList = () => {
     const magicSystems: MagicSystem[] = [
         {
             id: "1",
@@ -73,19 +65,8 @@ export const UserMagicList = () => {
                             component="h2"
                             display="inline"
                         >
-                            Magic Systems
+                            Explore
                         </Typography>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            component={Link}
-                            to="/magic-systems/new"
-                            style={{
-                                marginLeft: "auto",
-                            }}
-                        >
-                            Create
-                        </Button>
                     </Box>
                     <Divider />
                     <Typography variant="body1" component="p" display="inline">
@@ -108,7 +89,7 @@ export const UserMagicList = () => {
                                     )}
                                     <MagicSystemListItem
                                         system={system}
-                                        linkDestination={`/magic-systems/${system.id}/page/edit`}
+                                        linkDestination={`/magic-systems/view/${system.id}`}
                                     />
                                 </Fragment>
                             );
