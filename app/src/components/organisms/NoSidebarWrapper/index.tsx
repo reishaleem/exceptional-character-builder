@@ -14,7 +14,7 @@ export const NoSidebarWrapper = ({ children }: Props) => {
             <AppNavbar />
 
             <Box flexGrow={1} padding={theme.spacing(0.5)}>
-                <Grid container justify="center">
+                <Grid container justify="center" spacing={2}>
                     {children}
                 </Grid>
             </Box>

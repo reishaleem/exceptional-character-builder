@@ -1,13 +1,5 @@
-import {
-    Box,
-    Button,
-    Divider,
-    Grid,
-    List,
-    Typography,
-} from "@material-ui/core";
+import { Box, Divider, Grid, List, Typography } from "@material-ui/core";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
 
 import { MagicSystemListItem } from "../../molecules/MagicSystemListItem";
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
@@ -83,7 +75,7 @@ export const ExploreList = () => {
                 </Grid>
 
                 <Grid item xs={12} sm={12} md={10}>
-                    <List>
+                    <List disablePadding>
                         {magicSystems.map((system, i) => {
                             return (
                                 <Fragment key={system.id}>
@@ -95,7 +87,10 @@ export const ExploreList = () => {
                                     ) : (
                                         ""
                                     )}
-                                    <MagicSystemListItem system={system} />
+                                    <MagicSystemListItem
+                                        system={system}
+                                        linkDestination={`/magic-systems/view/${system.id}`}
+                                    />
                                 </Fragment>
                             );
                         })}

@@ -94,7 +94,7 @@ export const UserMagicList = () => {
                 </Grid>
 
                 <Grid item xs={12} sm={12} md={10}>
-                    <List>
+                    <List disablePadding>
                         {magicSystems.map((system, i) => {
                             return (
                                 <Fragment key={system.id}>
@@ -106,7 +106,10 @@ export const UserMagicList = () => {
                                     ) : (
                                         ""
                                     )}
-                                    <MagicSystemListItem system={system} />
+                                    <MagicSystemListItem
+                                        system={system}
+                                        linkDestination={`/magic-systems/${system.id}/page/edit`}
+                                    />
                                 </Fragment>
                             );
                         })}
