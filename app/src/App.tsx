@@ -11,6 +11,7 @@ import { EditOutline } from "./components/pages/EditOutline";
 import { CreateNote } from "./components/pages/CreateNote";
 import { EditNote } from "./components/pages/EditNote";
 import { ExploreList } from "./components/pages/ExploreList";
+import { ViewMagicSystem } from "./components/pages/ViewMagicSystem";
 
 function App() {
     return (
@@ -62,6 +63,11 @@ function App() {
                 />
 
                 <Route path="/explore" component={ExploreList} exact />
+                <Route
+                    path="/magic-systems/view/:magicSystemId"
+                    component={ViewMagicSystem}
+                    exact
+                />
             </Switch>
         </BrowserRouter>
     );
