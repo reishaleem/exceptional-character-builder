@@ -1,6 +1,4 @@
 import { Editor, IAllProps } from "@tinymce/tinymce-react";
-import { useField } from "formik";
-import { useState } from "react";
 
 interface Props extends IAllProps {
     content: string;
