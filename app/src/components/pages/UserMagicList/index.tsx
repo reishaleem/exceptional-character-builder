@@ -66,7 +66,7 @@ export const UserMagicList = () => {
     return (
         <>
             <NoSidebarWrapper>
-                <Grid item xs={12} sm={12} md={8}>
+                <Grid item xs={12} sm={12} md={10}>
                     <Box display="flex" alignItems="center">
                         <Typography
                             variant="h3"
@@ -93,7 +93,7 @@ export const UserMagicList = () => {
                     </Typography>
                 </Grid>
 
-                <Grid item xs={12} sm={12} md={8}>
+                <Grid item xs={12} sm={12} md={10}>
                     <List>
                         {magicSystems.map((system, i) => {
                             return (

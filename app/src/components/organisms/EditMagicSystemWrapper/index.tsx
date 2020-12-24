@@ -1,5 +1,4 @@
 import {
-    AppBar,
     Box,
     Collapse,
     CssBaseline,
@@ -7,15 +6,12 @@ import {
     Drawer,
     Grid,
     Hidden,
-    IconButton,
     List,
     ListItem,
     ListItemIcon,
     ListItemText,
     makeStyles,
-    MenuItem,
     Theme,
-    Toolbar,
     useTheme,
 } from "@material-ui/core";
 import {
@@ -30,11 +26,9 @@ import {
 } from "@material-ui/icons";
 import clsx from "clsx";
 import { ReactNode, useState } from "react";
-import { Link } from "react-router-dom";
 import { MagicSystem } from "../../../types/magic-system";
 
-import { NavbarTitle } from "../../atoms/NavbarTitle";
-import { UserMenu } from "../../molecules/UserMenu";
+import { AppNavbar } from "../AppNavbar";
 
 interface Props {
     system: MagicSystem;
@@ -44,23 +38,6 @@ interface Props {
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) => ({
-    appBar: {
-        transition: theme.transitions.create(["margin", "width"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(["margin", "width"], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
     hide: {
         display: "none",
     },
@@ -124,46 +101,12 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
     return (
         <Box display="flex">
             <CssBaseline />
-            <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: drawerOpen,
-                })}
-            >
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={
-                            drawerOpen ? handleDrawerClose : handleDrawerOpen
-                        }
-                        className={clsx(classes.menuButton)}
-                    >
-                        <Menu />
-                    </IconButton>
-
-                    <NavbarTitle
-                        text="The Exceptional Outliner"
-                        link
-                        to="/magic-systems"
-                    />
-                    <Box marginLeft="auto">
-                        <UserMenu
-                            buttonDropdownType="avatar"
-                            dropdownText="Reis Haleem"
-                        >
-                            <MenuItem component={Link} to="/settings">
-                                Settings
-                            </MenuItem>
-                            <Divider />
-                            <MenuItem component={Link} to="/">
-                                Logout
-                            </MenuItem>
-                        </UserMenu>
-                    </Box>
-                </Toolbar>
-            </AppBar>
+            <AppNavbar
+                withDrawerSlider
+                drawerOpen={drawerOpen}
+                handleDrawerOpen={handleDrawerOpen}
+                handleDrawerClose={handleDrawerClose}
+            />
             <Hidden smUp>
                 <Drawer
                     //container={container}
