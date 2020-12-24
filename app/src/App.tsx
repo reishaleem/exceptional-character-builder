@@ -12,7 +12,7 @@ import { CreateNote } from "./components/pages/CreateNote";
 import { EditNote } from "./components/pages/EditNote";
 import { ExploreList } from "./components/pages/ExploreList";
 import { ViewMagicSystem } from "./components/pages/ViewMagicSystem";
-import { UserProfileSettings } from "./components/pages/UserProfileSettings";
+import { UserSettings } from "./components/pages/UserSettings";
 
 function App() {
     return (
@@ -70,11 +70,15 @@ function App() {
                     exact
                 />
 
-                <Route
-                    path="/settings/profile"
-                    component={UserProfileSettings}
-                    exact
-                />
+                <Route path="/settings/profile" exact>
+                    <UserSettings value={0} />
+                </Route>
+                <Route path="/settings/security" exact>
+                    <UserSettings value={1} />
+                </Route>
+                <Route path="/settings/delete" exact>
+                    <UserSettings value={2} />
+                </Route>
             </Switch>
         </BrowserRouter>
     );
