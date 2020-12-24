@@ -205,6 +205,8 @@ export const EditMagicSystemWrapper = ({
                                             selected={
                                                 activeItem === outline.name
                                             }
+                                            component={Link}
+                                            to={`/magic-systems/${system.id}/outlines/${outline.id}/edit`}
                                         >
                                             <ListItemIcon>
                                                 <Assignment />
@@ -221,7 +223,7 @@ export const EditMagicSystemWrapper = ({
                                         paddingLeft: theme.spacing(4),
                                     }}
                                     component={Link}
-                                    to="/magic-systems/1/outlines/new"
+                                    to={`/magic-systems/${system.id}/outlines/new`}
                                     selected={activeItem === "New Outline"}
                                 >
                                     <ListItemIcon>
@@ -257,6 +259,8 @@ export const EditMagicSystemWrapper = ({
                                                 paddingLeft: theme.spacing(4),
                                             }}
                                             selected={activeItem === note.name}
+                                            component={Link}
+                                            to={`/magic-systems/${system.id}/notes/${note.id}/edit`}
                                         >
                                             <ListItemIcon>
                                                 <Note />
@@ -271,7 +275,7 @@ export const EditMagicSystemWrapper = ({
                                         paddingLeft: theme.spacing(4),
                                     }}
                                     component={Link}
-                                    to="/magic-systems/1/notes/new"
+                                    to={`/magic-systems/${system.id}/notes/new`}
                                     selected={activeItem === "New Note"}
                                 >
                                     <ListItemIcon>
