@@ -9,6 +9,7 @@ import { EditMagicSystemPage } from "./components/pages/EditMagicSystemPage";
 import { CreateOutline } from "./components/pages/CreateOutline";
 import { EditOutline } from "./components/pages/EditOutline";
 import { CreateNote } from "./components/pages/CreateNote";
+import { EditNote } from "./components/pages/EditNote";
 
 function App() {
     return (
@@ -51,6 +52,11 @@ function App() {
                 <Route
                     path="/magic-systems/:magicSystemId/notes/new"
                     component={CreateNote}
+                    exact
+                />
+                <Route
+                    path="/magic-systems/:magicSystemId/notes/:noteId/edit"
+                    component={EditNote}
                     exact
                 />
             </Switch>
