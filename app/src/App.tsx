@@ -43,7 +43,7 @@ function App() {
                     exact
                 />
                 <Route
-                    path="/magic-systems/:magicSystemId/outlines/1/edit"
+                    path="/magic-systems/:magicSystemId/outlines/:outlineId/edit"
                     component={EditOutline}
                     exact
                 />
