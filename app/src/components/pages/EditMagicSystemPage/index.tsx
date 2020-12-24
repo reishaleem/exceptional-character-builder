@@ -61,7 +61,7 @@ export const EditMagicSystemPage = () => {
     }
 
     return (
-        <EditMagicSystemWrapper system={magicSystem} activeItem="New Note">
+        <EditMagicSystemWrapper system={magicSystem} activeItem="Page">
             <Grid item xs={12} sm={12} md={10}>
                 <Box display="flex" alignItems="center">
                     <Typography variant="h3" component="h2" display="inline">
