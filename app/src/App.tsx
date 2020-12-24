@@ -6,6 +6,7 @@ import { Login } from "./components/pages/Login";
 import { UserMagicList } from "./components/pages/UserMagicList";
 import { CreateMagicSystem } from "./components/pages/CreateMagicSystem";
 import { EditMagicSystemPage } from "./components/pages/EditMagicSystemPage";
+import { CreateOutline } from "./components/pages/CreateOutline";
 
 function App() {
     return (
@@ -33,6 +34,11 @@ function App() {
                 <Route
                     path="/magic-systems/:magicSystemId/page/edit"
                     component={EditMagicSystemPage}
+                    exact
+                />
+                <Route
+                    path="/magic-systems/:magicSystemId/outlines/new"
+                    component={CreateOutline}
                     exact
                 />
             </Switch>

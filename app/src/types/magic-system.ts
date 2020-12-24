@@ -1,12 +1,12 @@
 export interface Note {
     id: string;
-    title: string;
+    name: string;
     body: string;
 }
 
 export interface Outline {
     id: string;
-    title: string;
+    name: string;
     body: string;
 }
 
