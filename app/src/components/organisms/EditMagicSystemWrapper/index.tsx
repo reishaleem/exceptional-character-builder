@@ -26,12 +26,16 @@ import {
 } from "@material-ui/icons";
 import clsx from "clsx";
 import { ReactNode, useState } from "react";
+import { Link } from "react-router-dom";
 import { MagicSystem } from "../../../types/magic-system";
 
 import { AppNavbar } from "../AppNavbar";
 
 interface Props {
     system: MagicSystem;
+    activeItem: string;
+    startOutlinesDropdownOpen?: boolean;
+    startNotesDropdownOpen?: boolean;
     children: ReactNode;
 }
 
@@ -73,14 +77,22 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export const EditMagicSystemWrapper = ({ system, children }: Props) => {
+export const EditMagicSystemWrapper = ({
+    system,
+    activeItem,
+    startOutlinesDropdownOpen,
+    startNotesDropdownOpen,
+    children,
+}: Props) => {
     const theme = useTheme();
     const classes = useStyles();
     const [drawerOpen, setDrawerOpen] = useState<boolean>(true);
     const [outlinesDropdownOpen, setOutlinesDropdownOpen] = useState<boolean>(
-        false
+        Boolean(startOutlinesDropdownOpen)
     );
-    const [notesDropdownOpen, setNotesDropdownOpen] = useState<boolean>(false);
+    const [notesDropdownOpen, setNotesDropdownOpen] = useState<boolean>(
+        Boolean(startNotesDropdownOpen)
+    );
 
     function handleDrawerOpen() {
         setDrawerOpen(true);
@@ -153,7 +165,12 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
                 >
                     <div className={classes.drawerHeader}>Logo</div>
                     <List>
-                        <ListItem button selected>
+                        <ListItem
+                            button
+                            selected={activeItem === "Page"}
+                            component={Link}
+                            to="/magic-systems/1/page/edit"
+                        >
                             <ListItemIcon>
                                 <Create />
                             </ListItemIcon>
@@ -177,40 +194,41 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
                             unmountOnExit
                         >
                             <List component="div" disablePadding>
-                                {system.outlines.length > 0 ? (
-                                    system.outlines.map((outline) => {
-                                        return (
-                                            <ListItem
-                                                key={outline.id}
-                                                button
-                                                style={{
-                                                    paddingLeft: theme.spacing(
-                                                        4
-                                                    ),
-                                                }}
-                                            >
-                                                <ListItemIcon>
-                                                    <Assignment />
-                                                </ListItemIcon>
-                                                <ListItemText
-                                                    primary={outline.title}
-                                                />
-                                            </ListItem>
-                                        );
-                                    })
-                                ) : (
-                                    <ListItem
-                                        button
-                                        style={{
-                                            paddingLeft: theme.spacing(4),
-                                        }}
-                                    >
-                                        <ListItemIcon>
-                                            <Assignment />
-                                        </ListItemIcon>
-                                        <ListItemText primary="New Outline" />
-                                    </ListItem>
-                                )}
+                                {system.outlines.map((outline) => {
+                                    return (
+                                        <ListItem
+                                            key={outline.id}
+                                            button
+                                            style={{
+                                                paddingLeft: theme.spacing(4),
+                                            }}
+                                            selected={
+                                                activeItem === outline.name
+                                            }
+                                        >
+                                            <ListItemIcon>
+                                                <Assignment />
+                                            </ListItemIcon>
+                                            <ListItemText
+                                                primary={outline.name}
+                                            />
+                                        </ListItem>
+                                    );
+                                })}
+                                <ListItem
+                                    button
+                                    style={{
+                                        paddingLeft: theme.spacing(4),
+                                    }}
+                                    component={Link}
+                                    to="/magic-systems/1/outlines/new"
+                                    selected={activeItem === "New Outline"}
+                                >
+                                    <ListItemIcon>
+                                        <Assignment />
+                                    </ListItemIcon>
+                                    <ListItemText primary="New Outline" />
+                                </ListItem>
                             </List>
                         </Collapse>
                         <ListItem button onClick={handleNotesDropdownClick}>
@@ -230,40 +248,37 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
                             unmountOnExit
                         >
                             <List component="div" disablePadding>
-                                {system.notes.length > 0 ? (
-                                    system.notes.map((note) => {
-                                        return (
-                                            <ListItem
-                                                key={note.id}
-                                                button
-                                                style={{
-                                                    paddingLeft: theme.spacing(
-                                                        4
-                                                    ),
-                                                }}
-                                            >
-                                                <ListItemIcon>
-                                                    <Note />
-                                                </ListItemIcon>
-                                                <ListItemText
-                                                    primary={note.title}
-                                                />
-                                            </ListItem>
-                                        );
-                                    })
-                                ) : (
-                                    <ListItem
-                                        button
-                                        style={{
-                                            paddingLeft: theme.spacing(4),
-                                        }}
-                                    >
-                                        <ListItemIcon>
-                                            <NoteAdd />
-                                        </ListItemIcon>
-                                        <ListItemText primary="New Note" />
-                                    </ListItem>
-                                )}
+                                {system.notes.map((note) => {
+                                    return (
+                                        <ListItem
+                                            key={note.id}
+                                            button
+                                            style={{
+                                                paddingLeft: theme.spacing(4),
+                                            }}
+                                            selected={activeItem === note.name}
+                                        >
+                                            <ListItemIcon>
+                                                <Note />
+                                            </ListItemIcon>
+                                            <ListItemText primary={note.name} />
+                                        </ListItem>
+                                    );
+                                })}
+                                <ListItem
+                                    button
+                                    style={{
+                                        paddingLeft: theme.spacing(4),
+                                    }}
+                                    component={Link}
+                                    to="/magic-systems/1/notes/new"
+                                    selected={activeItem === "New Note"}
+                                >
+                                    <ListItemIcon>
+                                        <NoteAdd />
+                                    </ListItemIcon>
+                                    <ListItemText primary="New Note" />
+                                </ListItem>
                             </List>
                         </Collapse>
                         <Divider />

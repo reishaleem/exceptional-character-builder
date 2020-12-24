@@ -24,14 +24,14 @@ export const UserMagicList = () => {
             notes: [
                 {
                     id: "1",
-                    title: "Test note",
+                    name: "Test note",
                     body: "This is just a test note",
                 },
             ],
             outlines: [
                 {
                     id: "1",
-                    title: "Source outline",
+                    name: "Source outline",
                     body:
                         "This is the body of the outline about the source of magic",
                 },
@@ -47,14 +47,14 @@ export const UserMagicList = () => {
             notes: [
                 {
                     id: "1",
-                    title: "Test note",
+                    name: "Test note",
                     body: "This is just a test note",
                 },
             ],
             outlines: [
                 {
                     id: "1",
-                    title: "Source outline",
+                    name: "Source outline",
                     body:
                         "This is the body of the outline about the source of magic",
                 },
