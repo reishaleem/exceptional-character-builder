@@ -12,6 +12,7 @@ import { CreateNote } from "./components/pages/CreateNote";
 import { EditNote } from "./components/pages/EditNote";
 import { ExploreList } from "./components/pages/ExploreList";
 import { ViewMagicSystem } from "./components/pages/ViewMagicSystem";
+import { UserProfileSettings } from "./components/pages/UserProfileSettings";
 
 function App() {
     return (
@@ -66,6 +67,12 @@ function App() {
                 <Route
                     path="/magic-systems/view/:magicSystemId"
                     component={ViewMagicSystem}
+                    exact
+                />
+
+                <Route
+                    path="/settings/profile"
+                    component={UserProfileSettings}
                     exact
                 />
             </Switch>
