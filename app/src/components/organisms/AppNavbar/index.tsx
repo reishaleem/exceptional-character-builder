@@ -105,7 +105,10 @@ export const AppNavbar = ({
                                 buttonDropdownType="avatar"
                                 dropdownText="Reis Haleem"
                             >
-                                <MenuItem component={Link} to="/settings">
+                                <MenuItem
+                                    component={Link}
+                                    to="/settings/profile"
+                                >
                                     Settings
                                 </MenuItem>
                                 <Divider />
