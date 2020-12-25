@@ -8,22 +8,20 @@ import {
     TextField,
     Typography,
     useTheme,
+    Theme,
 } from "@material-ui/core";
-import { EditMagicSystemWrapper } from "../../organisms/EditMagicSystemWrapper";
-
-import { Form } from "../../molecules/Form";
-import { MagicSystem } from "../../../types/magic-system";
 import { useFormik } from "formik";
-import { outlineTypes } from "../../../constants/magic-system";
 import { Link } from "react-router-dom";
 
-interface FormFields {
-    name: string;
-    type: string;
-}
+import { Form } from "../../molecules/Form";
+import { EditMagicSystemWrapper } from "../../organisms/EditMagicSystemWrapper";
+
+import { outlineTypes } from "../../../constants/magic-system";
+import { MagicSystem } from "../../../types/magic-system";
+import { CreateOutlineFields } from "../../../types/form-types";
 
 export const CreateOutline = () => {
-    const theme = useTheme();
+    const theme: Theme = useTheme();
     const magicSystem: MagicSystem = {
         id: "1",
         name: "Nen",
@@ -52,8 +50,8 @@ export const CreateOutline = () => {
             name: "",
             type: "",
         },
-        validate: (values: FormFields) => {
-            const errors: Partial<FormFields> = {};
+        validate: (values: CreateOutlineFields) => {
+            const errors: Partial<CreateOutlineFields> = {};
 
             if (!values.name) {
                 errors.name = "Required";
@@ -65,13 +63,13 @@ export const CreateOutline = () => {
 
             return errors;
         },
-        onSubmit: (values: FormFields, { setSubmitting }) => {
+        onSubmit: (values: CreateOutlineFields, { setSubmitting }) => {
             handleSubmit(values, setSubmitting);
         },
     });
 
     async function handleSubmit(
-        outline: FormFields,
+        outline: CreateOutlineFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
         await new Promise((r) => setTimeout(r, 500));
@@ -88,7 +86,7 @@ export const CreateOutline = () => {
         >
             <Grid item xs={12} sm={12} md={10}>
                 <Box display="flex" alignItems="center">
-                    <Typography variant="h3" component="h2" display="inline">
+                    <Typography variant="h3" component="h1">
                         New Outline
                     </Typography>
                 </Box>
@@ -98,7 +96,6 @@ export const CreateOutline = () => {
             <Grid item xs={12} sm={12} md={10}>
                 <Form handleSubmit={createMagicSystemForm.handleSubmit}>
                     <TextField
-                        fullWidth
                         id="name"
                         name="name"
                         label="Name"
@@ -114,8 +111,9 @@ export const CreateOutline = () => {
                             createMagicSystemForm.touched.name &&
                             createMagicSystemForm.errors.name
                         }
-                        disabled={createMagicSystemForm.isSubmitting}
                         InputLabelProps={{ shrink: true }}
+                        disabled={createMagicSystemForm.isSubmitting}
+                        fullWidth
                         size="small"
                         variant="outlined"
                     />
@@ -124,6 +122,8 @@ export const CreateOutline = () => {
                         id="type"
                         name="type"
                         label="Type"
+                        value={createMagicSystemForm.values.type}
+                        onChange={createMagicSystemForm.handleChange}
                         error={
                             createMagicSystemForm.touched.type &&
                             Boolean(createMagicSystemForm.errors.type)
@@ -136,7 +136,6 @@ export const CreateOutline = () => {
                             shrink: true,
                         }}
                         disabled={createMagicSystemForm.isSubmitting}
-                        fullWidth
                         select
                         SelectProps={{
                             MenuProps: {
@@ -174,12 +173,11 @@ export const CreateOutline = () => {
                             },
                             displayEmpty: true,
                         }}
-                        value={createMagicSystemForm.values.type}
-                        onChange={createMagicSystemForm.handleChange}
+                        fullWidth
                         size="small"
                         variant="outlined"
                     >
-                        {outlineTypes.map((type) => {
+                        {outlineTypes.map((type: string) => {
                             return (
                                 <MenuItem value={type} key={type}>
                                     <ListItemText primary={type} />

@@ -11,3 +11,8 @@ export interface MagicSystemDetailsFieldsErrors {
     hardnessRating: string;
     description: string;
 }
+
+export interface CreateOutlineFields {
+    name: string;
+    type: string;
+}
