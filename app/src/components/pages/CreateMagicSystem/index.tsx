@@ -22,14 +22,14 @@ import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
 
 import { magicSystemTypes } from "../../../constants/magic-system";
 
-interface FormFields {
+interface CreateMagicSystemFormFields {
     name: string;
     hardnessRating: number;
     type: string[];
     description: string;
 }
 
-interface FormFieldErrors {
+interface CreateMagicSystemFormFieldErrors {
     name: string;
     type: string;
     hardnessRating: string;
@@ -46,8 +46,8 @@ export const CreateMagicSystem = () => {
             hardnessRating: 5,
             description: "",
         },
-        validate: (values: FormFields) => {
-            const errors: Partial<FormFieldErrors> = {};
+        validate: (values: CreateMagicSystemFormFields) => {
+            const errors: Partial<CreateMagicSystemFormFieldErrors> = {};
 
             if (!values.name) {
                 errors.name = "Required";
@@ -63,13 +63,13 @@ export const CreateMagicSystem = () => {
 
             return errors;
         },
-        onSubmit: (values: FormFields, { setSubmitting }) => {
+        onSubmit: (values: CreateMagicSystemFormFields, { setSubmitting }) => {
             handleSubmit(values, setSubmitting);
         },
     });
 
     async function handleSubmit(
-        magicSystem: FormFields,
+        magicSystem: CreateMagicSystemFormFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
         await new Promise((r) => setTimeout(r, 500));
