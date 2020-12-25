@@ -20,3 +20,7 @@ export interface CreateOutlineFields {
 export interface EditPageFields {
     body: string;
 }
+
+export interface EditNoteFields {
+    body: string;
+}
