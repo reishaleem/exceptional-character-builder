@@ -2,11 +2,13 @@ import { Box, Button, Divider, Grid, Typography } from "@material-ui/core";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { EditNoteFields } from "../../../types/form-types";
-import { MagicSystem } from "../../../types/magic-system";
+
 import { Form } from "../../molecules/Form";
 import { EditMagicSystemWrapper } from "../../organisms/EditMagicSystemWrapper";
 import { RichTextEditor } from "../../organisms/RichTextEditor";
+
+import { EditNoteFields } from "../../../types/form-types";
+import { MagicSystem } from "../../../types/magic-system";
 
 interface URLParameters {
     magicSystemId: string;

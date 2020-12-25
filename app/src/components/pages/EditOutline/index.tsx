@@ -2,18 +2,17 @@ import { Box, Button, Divider, Grid, Typography } from "@material-ui/core";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { MagicSystem } from "../../../types/magic-system";
+
 import { Form } from "../../molecules/Form";
 import { EditMagicSystemWrapper } from "../../organisms/EditMagicSystemWrapper";
 import { RichTextEditor } from "../../organisms/RichTextEditor";
 
-interface Params {
+import { EditOutlineFields } from "../../../types/form-types";
+import { MagicSystem } from "../../../types/magic-system";
+
+interface URLParameters {
     magicSystemId: string;
     outlineId: string;
-}
-
-interface FormFields {
-    body: string;
 }
 
 export const EditOutline = () => {
@@ -40,15 +39,15 @@ export const EditOutline = () => {
         updatedAt: "1608587625018",
     };
 
-    const { outlineId }: Params = useParams();
+    const { outlineId }: URLParameters = useParams();
     const outline = magicSystem.outlines.find((item) => item.id === outlineId)!;
-    const [outlineContent, setOutlineContent] = useState(outline.body);
+    const [outlineContent, setOutlineContent] = useState<string>(outline.body);
 
     const editOutlineForm = useFormik({
         initialValues: {
             body: outlineContent,
         },
-        onSubmit: (values: FormFields, { setSubmitting }) => {
+        onSubmit: (values: EditOutlineFields, { setSubmitting }) => {
             handleSubmit(values, setSubmitting);
         },
     });
@@ -59,7 +58,7 @@ export const EditOutline = () => {
     }
 
     async function handleSubmit(
-        body: FormFields,
+        body: EditOutlineFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
         await new Promise((r) => setTimeout(r, 500));

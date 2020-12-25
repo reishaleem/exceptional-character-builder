@@ -24,3 +24,7 @@ export interface EditPageFields {
 export interface EditNoteFields {
     body: string;
 }
+
+export interface EditOutlineFields {
+    body: string;
+}
