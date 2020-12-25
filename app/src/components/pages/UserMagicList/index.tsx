@@ -70,7 +70,7 @@ export const UserMagicList = () => {
                     <Box display="flex" alignItems="center">
                         <Typography
                             variant="h3"
-                            component="h2"
+                            component="h1"
                             display="inline"
                         >
                             Magic Systems
