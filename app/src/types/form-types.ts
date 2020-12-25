@@ -1,3 +1,4 @@
+// magic system related forms
 export interface MagicSystemDetailsFields {
     name: string;
     hardnessRating: number;
@@ -29,6 +30,7 @@ export interface EditOutlineFields {
     body: string;
 }
 
+// user settings related forms
 export interface DeleteAccountFields {
     name: string;
 }
@@ -46,6 +48,7 @@ export interface EditProfileFields {
     bio: string;
 }
 
+// auth related forms
 export interface LoginFields {
     email: string;
     password: string;
