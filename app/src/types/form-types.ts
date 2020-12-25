@@ -16,3 +16,7 @@ export interface CreateOutlineFields {
     name: string;
     type: string;
 }
+
+export interface EditPageFields {
+    body: string;
+}

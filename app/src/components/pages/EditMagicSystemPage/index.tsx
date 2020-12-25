@@ -7,10 +7,7 @@ import { EditMagicSystemWrapper } from "../../organisms/EditMagicSystemWrapper";
 import { RichTextEditor } from "../../organisms/RichTextEditor";
 
 import { MagicSystem } from "../../../types/magic-system";
-
-interface FormFields {
-    body: string;
-}
+import { EditPageFields } from "../../../types/form-types";
 
 export const EditMagicSystemPage = () => {
     const magicSystem: MagicSystem = {
@@ -35,13 +32,13 @@ export const EditMagicSystemPage = () => {
         ],
         updatedAt: "1608587625018",
     };
-    const [pageContent, setPageContent] = useState(magicSystem.page);
+    const [pageContent, setPageContent] = useState<string>(magicSystem.page);
 
     const editMagicSystemPageForm = useFormik({
         initialValues: {
             body: pageContent,
         },
-        onSubmit: (values: FormFields, { setSubmitting }) => {
+        onSubmit: (values: EditPageFields, { setSubmitting }) => {
             handleSubmit(values, setSubmitting);
         },
     });
@@ -52,7 +49,7 @@ export const EditMagicSystemPage = () => {
     }
 
     async function handleSubmit(
-        body: FormFields,
+        body: EditPageFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
         await new Promise((r) => setTimeout(r, 500));
