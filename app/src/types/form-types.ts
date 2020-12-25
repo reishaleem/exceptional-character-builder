@@ -29,6 +29,23 @@ export interface EditOutlineFields {
     body: string;
 }
 
+export interface DeleteAccountFields {
+    name: string;
+}
+
+export interface ChangePasswordFields {
+    currentPassword: string;
+    newPassword: string;
+    confirmNewPassword: string;
+}
+
+export interface EditProfileFields {
+    name: string;
+    email: string;
+    penName: string;
+    bio: string;
+}
+
 export interface LoginFields {
     email: string;
     password: string;

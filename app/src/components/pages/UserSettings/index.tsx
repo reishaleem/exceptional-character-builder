@@ -14,32 +14,22 @@ import {
 } from "@material-ui/core";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
+
 import { TabPanel } from "../../atoms/TabPanel";
 import { Form } from "../../molecules/Form";
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
+
+import {
+    ChangePasswordFields,
+    DeleteAccountFields,
+    EditProfileFields,
+} from "../../../types/form-types";
 
 function a11yProps(index: any) {
     return {
         id: `vertical-tab-${index}`,
         "aria-controls": `vertical-tabpanel-${index}`,
     };
-}
-
-interface FormFields {
-    name: string;
-}
-
-interface ChangePasswordFormFields {
-    currentPassword: string;
-    newPassword: string;
-    confirmNewPassword: string;
-}
-
-interface ProfileFormFields {
-    name: string;
-    email: string;
-    penName: string;
-    bio: string;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -63,7 +53,7 @@ interface Props {
 
 export const UserSettings = ({ value }: Props) => {
     const classes = useStyles();
-    const theme = useTheme();
+    const theme: Theme = useTheme();
 
     const currentUser = {
         name: "Reis",
@@ -72,12 +62,12 @@ export const UserSettings = ({ value }: Props) => {
         bio: "",
     };
 
-    const formik = useFormik({
+    const deleteForm = useFormik({
         initialValues: {
             name: "",
         },
-        validate: (values: FormFields) => {
-            const errors: Partial<FormFields> = {};
+        validate: (values: DeleteAccountFields) => {
+            const errors: Partial<DeleteAccountFields> = {};
             if (!values.name) {
                 errors.name = "Required";
             } else if (values.name !== currentUser.name) {
@@ -86,8 +76,8 @@ export const UserSettings = ({ value }: Props) => {
 
             return errors;
         },
-        onSubmit: (values: FormFields, { setSubmitting }) => {
-            handleSubmit(values, setSubmitting);
+        onSubmit: (values: DeleteAccountFields, { setSubmitting }) => {
+            handleDeleteSubmit(values, setSubmitting);
         },
     });
 
@@ -97,8 +87,8 @@ export const UserSettings = ({ value }: Props) => {
             newPassword: "",
             confirmNewPassword: "",
         },
-        validate: (values: ChangePasswordFormFields) => {
-            const errors: Partial<ChangePasswordFormFields> = {};
+        validate: (values: ChangePasswordFields) => {
+            const errors: Partial<ChangePasswordFields> = {};
             if (!values.currentPassword) {
                 errors.currentPassword = "Required";
             }
@@ -117,20 +107,20 @@ export const UserSettings = ({ value }: Props) => {
 
             return errors;
         },
-        onSubmit: (values: ChangePasswordFormFields, { setSubmitting }) => {
+        onSubmit: (values: ChangePasswordFields, { setSubmitting }) => {
             handleChangePasswordSubmit(values, setSubmitting);
         },
     });
 
-    const ProfileForm = useFormik({
+    const profileForm = useFormik({
         initialValues: {
             name: currentUser.name,
             email: currentUser.email,
             penName: currentUser.penName,
             bio: currentUser.bio,
         },
-        validate: (values: ProfileFormFields) => {
-            const errors: Partial<ProfileFormFields> = {};
+        validate: (values: EditProfileFields) => {
+            const errors: Partial<EditProfileFields> = {};
             if (!values.name) {
                 errors.name = "Required";
             }
@@ -147,13 +137,13 @@ export const UserSettings = ({ value }: Props) => {
 
             return errors;
         },
-        onSubmit: (values: ProfileFormFields, { setSubmitting }) => {
+        onSubmit: (values: EditProfileFields, { setSubmitting }) => {
             handleProfileSubmit(values, setSubmitting);
         },
     });
 
     async function handleProfileSubmit(
-        user: ProfileFormFields,
+        user: EditProfileFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
         await new Promise((r) => setTimeout(r, 500));
@@ -163,8 +153,8 @@ export const UserSettings = ({ value }: Props) => {
         setSubmitting(false);
     }
 
-    async function handleSubmit(
-        user: FormFields,
+    async function handleDeleteSubmit(
+        user: DeleteAccountFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
         await new Promise((r) => setTimeout(r, 500));
@@ -175,7 +165,7 @@ export const UserSettings = ({ value }: Props) => {
     }
 
     async function handleChangePasswordSubmit(
-        user: ChangePasswordFormFields,
+        user: ChangePasswordFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
         await new Promise((r) => setTimeout(r, 500));
@@ -233,111 +223,111 @@ export const UserSettings = ({ value }: Props) => {
                         Profile
                     </Typography>
                     <Divider />
-                    <Form handleSubmit={ProfileForm.handleSubmit}>
+                    <Form handleSubmit={profileForm.handleSubmit}>
                         <TextField
-                            fullWidth
                             id="name"
                             name="name"
                             label="Name"
                             type="text"
-                            value={ProfileForm.values.name}
-                            onChange={ProfileForm.handleChange}
+                            value={profileForm.values.name}
+                            onChange={profileForm.handleChange}
                             error={
-                                ProfileForm.touched.name &&
-                                Boolean(ProfileForm.errors.name)
+                                profileForm.touched.name &&
+                                Boolean(profileForm.errors.name)
                             }
                             helperText={
-                                ProfileForm.touched.name &&
-                                ProfileForm.errors.name
+                                profileForm.touched.name &&
+                                profileForm.errors.name
                             }
-                            disabled={ProfileForm.isSubmitting}
                             InputLabelProps={{ shrink: true }}
+                            disabled={profileForm.isSubmitting}
+                            fullWidth
                             size="small"
                             variant="outlined"
                         />
                         <TextField
-                            fullWidth
                             id="email"
                             name="email"
                             label="Email"
                             type="text"
-                            value={ProfileForm.values.email}
-                            onChange={ProfileForm.handleChange}
+                            value={profileForm.values.email}
+                            onChange={profileForm.handleChange}
                             error={
-                                ProfileForm.touched.email &&
-                                Boolean(ProfileForm.errors.email)
+                                profileForm.touched.email &&
+                                Boolean(profileForm.errors.email)
                             }
                             helperText={
-                                ProfileForm.touched.email &&
-                                ProfileForm.errors.email
+                                profileForm.touched.email &&
+                                profileForm.errors.email
                             }
-                            disabled={ProfileForm.isSubmitting}
                             InputLabelProps={{ shrink: true }}
+                            disabled={profileForm.isSubmitting}
+                            fullWidth
                             size="small"
                             variant="outlined"
                         />
                         <TextField
-                            fullWidth
                             id="penName"
                             name="penName"
                             label="Pen Name"
                             type="text"
-                            value={ProfileForm.values.penName}
-                            onChange={ProfileForm.handleChange}
+                            value={profileForm.values.penName}
+                            onChange={profileForm.handleChange}
                             error={
-                                ProfileForm.touched.penName &&
-                                Boolean(ProfileForm.errors.penName)
+                                profileForm.touched.penName &&
+                                Boolean(profileForm.errors.penName)
                             }
                             helperText={
-                                ProfileForm.touched.penName &&
-                                ProfileForm.errors.penName
+                                profileForm.touched.penName &&
+                                profileForm.errors.penName
                             }
-                            disabled={ProfileForm.isSubmitting}
                             InputLabelProps={{ shrink: true }}
+                            disabled={profileForm.isSubmitting}
+                            fullWidth
                             size="small"
                             variant="outlined"
                         />
                         <TextField
-                            fullWidth
                             id="bio"
                             name="bio"
                             label="Bio"
                             placeholder="Tell us about yourself"
                             type="text"
-                            value={ProfileForm.values.bio}
-                            onChange={ProfileForm.handleChange}
+                            value={profileForm.values.bio}
+                            onChange={profileForm.handleChange}
                             error={
-                                ProfileForm.touched.bio &&
-                                Boolean(ProfileForm.errors.bio)
+                                profileForm.touched.bio &&
+                                Boolean(profileForm.errors.bio)
                             }
                             helperText={
-                                ProfileForm.touched.bio &&
-                                ProfileForm.errors.bio
+                                profileForm.touched.bio &&
+                                profileForm.errors.bio
                             }
-                            disabled={ProfileForm.isSubmitting}
                             InputLabelProps={{ shrink: true }}
                             inputProps={{
                                 maxLength: 255,
                             }}
+                            disabled={profileForm.isSubmitting}
+                            fullWidth
                             size="small"
                             variant="outlined"
                             multiline
                             rows={4}
                         />
                         <Typography variant="body2" component="p">
-                            {`${ProfileForm.values.bio.length} / 255`}
+                            {`${profileForm.values.bio.length} / 255`}
                         </Typography>
                         <Box display="flex">
                             <Button
                                 color="primary"
                                 variant="contained"
                                 disableElevation
-                                disabled={ProfileForm.isSubmitting}
+                                disabled={profileForm.isSubmitting}
                                 style={{
                                     marginRight: theme.spacing(1),
                                     marginLeft: "auto",
                                 }}
-                                onClick={ProfileForm.handleReset}
+                                onClick={profileForm.handleReset}
                             >
                                 Reset
                             </Button>
@@ -346,7 +336,7 @@ export const UserSettings = ({ value }: Props) => {
                                 variant="contained"
                                 type="submit"
                                 disableElevation
-                                disabled={ProfileForm.isSubmitting}
+                                disabled={profileForm.isSubmitting}
                             >
                                 Create
                             </Button>
@@ -360,7 +350,6 @@ export const UserSettings = ({ value }: Props) => {
                     <Divider />
                     <Form handleSubmit={changePasswordForm.handleSubmit}>
                         <TextField
-                            fullWidth
                             id="currentPassword"
                             name="currentPassword"
                             label="Current Password"
@@ -377,13 +366,13 @@ export const UserSettings = ({ value }: Props) => {
                                 changePasswordForm.touched.currentPassword &&
                                 changePasswordForm.errors.currentPassword
                             }
-                            disabled={changePasswordForm.isSubmitting}
                             InputLabelProps={{ shrink: true }}
+                            disabled={changePasswordForm.isSubmitting}
+                            fullWidth
                             size="small"
                             variant="outlined"
                         />
                         <TextField
-                            fullWidth
                             id="newPassword"
                             name="newPassword"
                             label="New password"
@@ -398,13 +387,13 @@ export const UserSettings = ({ value }: Props) => {
                                 changePasswordForm.touched.newPassword &&
                                 changePasswordForm.errors.newPassword
                             }
-                            disabled={changePasswordForm.isSubmitting}
                             InputLabelProps={{ shrink: true }}
+                            disabled={changePasswordForm.isSubmitting}
+                            fullWidth
                             size="small"
                             variant="outlined"
                         />
                         <TextField
-                            fullWidth
                             id="confirmNewPassword"
                             name="confirmNewPassword"
                             label="Re-enter new password"
@@ -421,8 +410,9 @@ export const UserSettings = ({ value }: Props) => {
                                 changePasswordForm.touched.confirmNewPassword &&
                                 changePasswordForm.errors.confirmNewPassword
                             }
-                            disabled={changePasswordForm.isSubmitting}
                             InputLabelProps={{ shrink: true }}
+                            disabled={changePasswordForm.isSubmitting}
+                            fullWidth
                             size="small"
                             variant="outlined"
                         />
@@ -452,24 +442,25 @@ export const UserSettings = ({ value }: Props) => {
                         irreversible process. To permanently delete your
                         account, enter the name on your account below.
                     </Typography>
-                    <Form handleSubmit={formik.handleSubmit}>
+                    <Form handleSubmit={deleteForm.handleSubmit}>
                         <TextField
-                            fullWidth
                             id="name"
                             name="name"
                             label="Name"
                             type="text"
-                            value={formik.values.name}
-                            onChange={formik.handleChange}
+                            value={deleteForm.values.name}
+                            onChange={deleteForm.handleChange}
                             error={
-                                formik.touched.name &&
-                                Boolean(formik.errors.name)
+                                deleteForm.touched.name &&
+                                Boolean(deleteForm.errors.name)
                             }
                             helperText={
-                                formik.touched.name && formik.errors.name
+                                deleteForm.touched.name &&
+                                deleteForm.errors.name
                             }
-                            disabled={formik.isSubmitting}
                             InputLabelProps={{ shrink: true }}
+                            disabled={deleteForm.isSubmitting}
+                            fullWidth
                             size="small"
                             variant="outlined"
                         />
@@ -480,7 +471,7 @@ export const UserSettings = ({ value }: Props) => {
                                 variant="contained"
                                 type="submit"
                                 disableElevation
-                                disabled={formik.isSubmitting}
+                                disabled={deleteForm.isSubmitting}
                                 style={{ marginLeft: "auto" }}
                             >
                                 Delete Account
