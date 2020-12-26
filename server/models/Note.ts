@@ -1,6 +1,7 @@
 import { Document, model, Schema } from "mongoose";
 
 export interface NoteFields {
+    _id?: string;
     name: string;
     body: string;
 }
