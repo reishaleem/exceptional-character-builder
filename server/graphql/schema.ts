@@ -1,6 +1,7 @@
 import { GraphQLObjectType, GraphQLSchema } from "graphql";
 import {
     createUserMutation,
+    deleteUserMutation,
     updatePasswordMutation,
     updateUserProfileMutation,
 } from "./mutations/user";
@@ -22,6 +23,7 @@ const RootMutation = new GraphQLObjectType({
         createUser: createUserMutation,
         updateUserProfile: updateUserProfileMutation,
         updateUserPassword: updatePasswordMutation,
+        deleteUser: deleteUserMutation,
     }),
 });
 

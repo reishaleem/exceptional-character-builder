@@ -1,3 +1,4 @@
+import { request } from "express";
 import { CreateUserRequest } from "../graphql/types/user";
 import { MagicSystemFields } from "../models/MagicSystem";
 import { User } from "../models/User";
@@ -116,5 +117,14 @@ export async function updateUserPassword(request: any) {
         }
     } else {
         throw new Error("Current password is incorrect");
+    }
+}
+
+export async function deleteUser(user: any) {
+    try {
+        // log the user out, then proceed to delete
+        return await User.deleteOne({ _id: user.id });
+    } catch (error) {
+        throw error;
     }
 }

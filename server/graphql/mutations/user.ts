@@ -1,6 +1,7 @@
 import { GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
 import {
     createUserResolver,
+    deleteUserResolver,
     updateUserPasswordResolver,
     updateUserProfileResolver,
 } from "../resolvers/user";
@@ -44,5 +45,16 @@ export const updatePasswordMutation = {
     },
     resolve: async (_parent: any, args: any) => {
         return updateUserPasswordResolver(args);
+    },
+};
+
+export const deleteUserMutation = {
+    type: UserType,
+    description: "Delete an existing user",
+    args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+    },
+    resolve: async (_parent: any, args: any) => {
+        return deleteUserResolver(args);
     },
 };

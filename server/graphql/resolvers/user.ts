@@ -1,5 +1,6 @@
 import {
     createUser,
+    deleteUser,
     getAllUsers,
     getUserById,
     updateUserPassword,
@@ -45,4 +46,12 @@ export function updateUserPasswordResolver(args: any) {
     };
 
     return updateUserPassword(request);
+}
+
+export function deleteUserResolver(args: any) {
+    const request = {
+        id: args.id,
+    };
+
+    return deleteUser(request);
 }
