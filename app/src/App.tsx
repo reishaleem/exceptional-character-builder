@@ -39,7 +39,7 @@ function App() {
 
                 <Route path="/explore" component={ExploreList} exact />
                 <Route
-                    path="/magic-systems/view/:magicSystemId"
+                    path="/explore/view/:magicSystemId"
                     component={ViewMagicSystem}
                     exact
                 />

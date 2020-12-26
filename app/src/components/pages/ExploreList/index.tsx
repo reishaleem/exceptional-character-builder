@@ -76,7 +76,7 @@ export const ExploreList = () => {
                                     {i ? <Divider component="li" /> : ""}
                                     <MagicSystemListItem
                                         system={system}
-                                        linkDestination={`/magic-systems/view/${system.id}`}
+                                        linkDestination={`/explore/view/${system.id}`}
                                     />
                                 </Fragment>
                             );
