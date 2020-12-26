@@ -1,5 +1,9 @@
 import { GraphQLID, GraphQLList, GraphQLNonNull, GraphQLString } from "graphql";
-import { createNoteResolver, updateNoteResolver } from "../resolvers/note";
+import {
+    createNoteResolver,
+    deleteNoteResolver,
+    updateNoteResolver,
+} from "../resolvers/note";
 import { NoteType } from "../typeDefs/Note";
 
 export const createNoteMutation = {
@@ -27,5 +31,18 @@ export const updateNoteMutation = {
     },
     resolve: async (_parent: any, args: any) => {
         return updateNoteResolver(args);
+    },
+};
+
+export const deleteNoteMutation = {
+    type: GraphQLString,
+    description: "Deletes a Note with the incoming note id",
+    args: {
+        ownerId: { type: GraphQLNonNull(GraphQLID) },
+        magicSystemId: { type: GraphQLNonNull(GraphQLString) },
+        noteId: { type: GraphQLNonNull(GraphQLString) },
+    },
+    resolve: async (_parent: any, args: any) => {
+        return deleteNoteResolver(args);
     },
 };
