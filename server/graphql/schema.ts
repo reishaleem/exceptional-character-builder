@@ -3,6 +3,7 @@ import {
     createMagicSystemMutation,
     deleteMagicSystemMutation,
 } from "./mutations/magicSystem";
+import { createNoteMutation } from "./mutations/note";
 import {
     createUserMutation,
     deleteUserMutation,
@@ -39,7 +40,7 @@ const RootMutation = new GraphQLObjectType({
         createMagicSystem: createMagicSystemMutation,
         // update system Page
         deleteMagicSystem: deleteMagicSystemMutation,
-        // create note
+        createNote: createNoteMutation,
         // update note
         // delete note
         //create outline
