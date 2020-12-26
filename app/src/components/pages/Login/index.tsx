@@ -9,13 +9,10 @@ import {
 } from "@material-ui/core";
 import { useFormik } from "formik";
 
-import { Navbar } from "../../organisms/PublicNavbar";
 import { Form } from "../../molecules/Form";
+import { Navbar } from "../../organisms/PublicNavbar";
 
-interface LoginFormFields {
-    email: string;
-    password: string;
-}
+import { LoginFields } from "../../../types/form-types";
 
 export const Login = () => {
     const userName = "Reis Haleem";
@@ -25,8 +22,8 @@ export const Login = () => {
             email: "",
             password: "",
         },
-        validate: (values: LoginFormFields) => {
-            const errors: Partial<LoginFormFields> = {};
+        validate: (values: LoginFields) => {
+            const errors: Partial<LoginFields> = {};
             if (!values.email) {
                 errors.email = "";
             } else if (!values.password) {
@@ -35,13 +32,13 @@ export const Login = () => {
 
             return errors;
         },
-        onSubmit: (values: LoginFormFields, { setSubmitting }) => {
+        onSubmit: (values: LoginFields, { setSubmitting }) => {
             handleSubmit(values, setSubmitting);
         },
     });
 
     async function handleSubmit(
-        user: LoginFormFields,
+        user: LoginFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
         await new Promise((r) => setTimeout(r, 500));
@@ -68,7 +65,6 @@ export const Login = () => {
                         <Form handleSubmit={loginForm.handleSubmit}>
                             <Box marginTop="8px" marginBottom="8px">
                                 <TextField
-                                    fullWidth
                                     id="email"
                                     name="email"
                                     label="Email"
@@ -83,14 +79,14 @@ export const Login = () => {
                                         loginForm.touched.email &&
                                         loginForm.errors.email
                                     }
-                                    disabled={loginForm.isSubmitting}
                                     InputLabelProps={{ shrink: true }}
+                                    disabled={loginForm.isSubmitting}
+                                    fullWidth
                                     size="small"
                                     variant="outlined"
                                 />
 
                                 <TextField
-                                    fullWidth
                                     id="password"
                                     name="password"
                                     label="Password"
@@ -105,8 +101,9 @@ export const Login = () => {
                                         loginForm.touched.password &&
                                         loginForm.errors.password
                                     }
-                                    disabled={loginForm.isSubmitting}
                                     InputLabelProps={{ shrink: true }}
+                                    disabled={loginForm.isSubmitting}
+                                    fullWidth
                                     size="small"
                                     variant="outlined"
                                 />

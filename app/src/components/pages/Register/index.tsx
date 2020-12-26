@@ -9,15 +9,10 @@ import {
 } from "@material-ui/core";
 import { useFormik } from "formik";
 
-import { Navbar } from "../../organisms/PublicNavbar";
 import { Form } from "../../molecules/Form";
+import { Navbar } from "../../organisms/PublicNavbar";
 
-interface RegisterFormFields {
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-}
+import { RegisterFields } from "../../../types/form-types";
 
 export const Register = () => {
     const userName = "Reis Haleem";
@@ -29,8 +24,8 @@ export const Register = () => {
             password: "",
             confirmPassword: "",
         },
-        validate: (values: RegisterFormFields) => {
-            const errors: Partial<RegisterFormFields> = {};
+        validate: (values: RegisterFields) => {
+            const errors: Partial<RegisterFields> = {};
             if (!values.name) {
                 errors.name = "Required";
             } else if (values.name.length > 50) {
@@ -55,13 +50,13 @@ export const Register = () => {
 
             return errors;
         },
-        onSubmit: (values: RegisterFormFields, { setSubmitting }) => {
+        onSubmit: (values: RegisterFields, { setSubmitting }) => {
             handleSubmit(values, setSubmitting);
         },
     });
 
     async function handleSubmit(
-        user: RegisterFormFields,
+        user: RegisterFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
         await new Promise((r) => setTimeout(r, 500));
@@ -89,7 +84,6 @@ export const Register = () => {
                         <Form handleSubmit={registerForm.handleSubmit}>
                             <Box marginTop="8px" marginBottom="8px">
                                 <TextField
-                                    fullWidth
                                     id="name"
                                     name="name"
                                     label="Name"
@@ -104,13 +98,13 @@ export const Register = () => {
                                         registerForm.touched.name &&
                                         registerForm.errors.name
                                     }
-                                    disabled={registerForm.isSubmitting}
                                     InputLabelProps={{ shrink: true }}
+                                    disabled={registerForm.isSubmitting}
+                                    fullWidth
                                     size="small"
                                     variant="outlined"
                                 />
                                 <TextField
-                                    fullWidth
                                     id="email"
                                     name="email"
                                     label="Email"
@@ -125,13 +119,13 @@ export const Register = () => {
                                         registerForm.touched.email &&
                                         registerForm.errors.email
                                     }
-                                    disabled={registerForm.isSubmitting}
                                     InputLabelProps={{ shrink: true }}
+                                    disabled={registerForm.isSubmitting}
+                                    fullWidth
                                     size="small"
                                     variant="outlined"
                                 />
                                 <TextField
-                                    fullWidth
                                     id="password"
                                     name="password"
                                     label="Password"
@@ -146,13 +140,13 @@ export const Register = () => {
                                         registerForm.touched.password &&
                                         registerForm.errors.password
                                     }
-                                    disabled={registerForm.isSubmitting}
                                     InputLabelProps={{ shrink: true }}
+                                    disabled={registerForm.isSubmitting}
+                                    fullWidth
                                     size="small"
                                     variant="outlined"
                                 />
                                 <TextField
-                                    fullWidth
                                     id="confirmPassword"
                                     name="confirmPassword"
                                     label="Re-enter password"
@@ -169,8 +163,9 @@ export const Register = () => {
                                         registerForm.touched.confirmPassword &&
                                         registerForm.errors.confirmPassword
                                     }
-                                    disabled={registerForm.isSubmitting}
                                     InputLabelProps={{ shrink: true }}
+                                    disabled={registerForm.isSubmitting}
+                                    fullWidth
                                     size="small"
                                     variant="outlined"
                                 />

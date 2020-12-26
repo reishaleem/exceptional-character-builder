@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, List, Typography } from "@material-ui/core";
+import { Divider, Grid, List, Typography } from "@material-ui/core";
 import { Fragment } from "react";
 
 import { MagicSystemListItem } from "../../molecules/MagicSystemListItem";
@@ -59,15 +59,9 @@ export const ExploreList = () => {
         <>
             <NoSidebarWrapper>
                 <Grid item xs={12} sm={12} md={10}>
-                    <Box display="flex" alignItems="center">
-                        <Typography
-                            variant="h3"
-                            component="h2"
-                            display="inline"
-                        >
-                            Explore
-                        </Typography>
-                    </Box>
+                    <Typography variant="h3" component="h2">
+                        Explore
+                    </Typography>
                     <Divider />
                     <Typography variant="body1" component="p" display="inline">
                         Filter:
@@ -79,14 +73,7 @@ export const ExploreList = () => {
                         {magicSystems.map((system, i) => {
                             return (
                                 <Fragment key={system.id}>
-                                    {i ? (
-                                        <Divider
-                                            //variant="inset"
-                                            component="li"
-                                        />
-                                    ) : (
-                                        ""
-                                    )}
+                                    {i ? <Divider component="li" /> : ""}
                                     <MagicSystemListItem
                                         system={system}
                                         linkDestination={`/magic-systems/view/${system.id}`}

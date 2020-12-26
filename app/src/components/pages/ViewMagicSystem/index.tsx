@@ -1,6 +1,8 @@
 import { Grid } from "@material-ui/core";
-import { MagicSystem } from "../../../types/magic-system";
+
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
+
+import { MagicSystem } from "../../../types/magic-system";
 
 export const ViewMagicSystem = () => {
     const magicSystem: MagicSystem = {

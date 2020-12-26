@@ -20,23 +20,20 @@ import {
     Help,
     Note,
     NoteAdd,
-    Menu,
     ExpandLess,
     ExpandMore,
 } from "@material-ui/icons";
 import clsx from "clsx";
 import { ReactNode, useState } from "react";
-import { Link } from "react-router-dom";
-import { MagicSystem } from "../../../types/magic-system";
+import { Link, useRouteMatch } from "react-router-dom";
 
 import { AppNavbar } from "../AppNavbar";
 
+import { MagicSystem } from "../../../types/magic-system";
+
 interface Props {
     system: MagicSystem;
-    activeItem: string;
-    startOutlinesDropdownOpen?: boolean;
-    startNotesDropdownOpen?: boolean;
-    children: ReactNode;
+    children?: ReactNode;
 }
 
 const drawerWidth = 240;
@@ -77,22 +74,26 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export const EditMagicSystemWrapper = ({
-    system,
-    activeItem,
-    startOutlinesDropdownOpen,
-    startNotesDropdownOpen,
-    children,
-}: Props) => {
-    const theme = useTheme();
+export const EditMagicSystemWrapper = ({ system, children }: Props) => {
+    const theme: Theme = useTheme();
     const classes = useStyles();
     const [drawerOpen, setDrawerOpen] = useState<boolean>(true);
     const [outlinesDropdownOpen, setOutlinesDropdownOpen] = useState<boolean>(
-        Boolean(startOutlinesDropdownOpen)
+        Boolean(false)
     );
     const [notesDropdownOpen, setNotesDropdownOpen] = useState<boolean>(
-        Boolean(startNotesDropdownOpen)
+        Boolean(false)
     );
+    const [selectedIndex, setSelectedIndex] = useState<number>(0);
+
+    const { url } = useRouteMatch();
+
+    const handleListItemClick = (
+        _event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+        index: number
+    ) => {
+        setSelectedIndex(index);
+    };
 
     function handleDrawerOpen() {
         setDrawerOpen(true);
@@ -119,40 +120,7 @@ export const EditMagicSystemWrapper = ({
                 handleDrawerOpen={handleDrawerOpen}
                 handleDrawerClose={handleDrawerClose}
             />
-            <Hidden smUp>
-                <Drawer
-                    //container={container}
-                    variant="temporary"
-                    anchor="left"
-                    open={drawerOpen}
-                    onClose={handleDrawerClose}
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}
-                    ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
-                    }}
-                >
-                    <div className={classes.drawerHeader}>Logo</div>
-                    <List>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <Menu />
-                            </ListItemIcon>
-                            <ListItemText primary={"Item2"} />
-                        </ListItem>
-                    </List>
-                    <Divider />
-                    <List>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <Menu />
-                            </ListItemIcon>
-                            <ListItemText primary={"Item1"} />
-                        </ListItem>
-                    </List>
-                </Drawer>
-            </Hidden>
+
             <Hidden xsDown>
                 <Drawer
                     className={classes.drawer}
@@ -167,9 +135,12 @@ export const EditMagicSystemWrapper = ({
                     <List>
                         <ListItem
                             button
-                            selected={activeItem === "Page"}
+                            selected={selectedIndex === 0}
+                            onClick={(event: any) =>
+                                handleListItemClick(event, 0)
+                            }
                             component={Link}
-                            to="/magic-systems/1/page/edit"
+                            to={`${url}/page/edit`}
                         >
                             <ListItemIcon>
                                 <Create />
@@ -194,7 +165,7 @@ export const EditMagicSystemWrapper = ({
                             unmountOnExit
                         >
                             <List component="div" disablePadding>
-                                {system.outlines.map((outline) => {
+                                {system.outlines.map((outline, i) => {
                                     return (
                                         <ListItem
                                             key={outline.id}
@@ -202,11 +173,15 @@ export const EditMagicSystemWrapper = ({
                                             style={{
                                                 paddingLeft: theme.spacing(4),
                                             }}
-                                            selected={
-                                                activeItem === outline.name
+                                            selected={selectedIndex === i + 1}
+                                            onClick={(event: any) =>
+                                                handleListItemClick(
+                                                    event,
+                                                    i + 1
+                                                )
                                             }
                                             component={Link}
-                                            to={`/magic-systems/${system.id}/outlines/${outline.id}/edit`}
+                                            to={`${url}/outlines/${outline.id}/edit`}
                                         >
                                             <ListItemIcon>
                                                 <Assignment />
@@ -223,8 +198,17 @@ export const EditMagicSystemWrapper = ({
                                         paddingLeft: theme.spacing(4),
                                     }}
                                     component={Link}
-                                    to={`/magic-systems/${system.id}/outlines/new`}
-                                    selected={activeItem === "New Outline"}
+                                    to={`${url}/outlines/new`}
+                                    selected={
+                                        selectedIndex ===
+                                        1 + system.outlines.length
+                                    }
+                                    onClick={(event: any) =>
+                                        handleListItemClick(
+                                            event,
+                                            1 + system.outlines.length
+                                        )
+                                    }
                                 >
                                     <ListItemIcon>
                                         <Assignment />
@@ -250,7 +234,7 @@ export const EditMagicSystemWrapper = ({
                             unmountOnExit
                         >
                             <List component="div" disablePadding>
-                                {system.notes.map((note) => {
+                                {system.notes.map((note, i) => {
                                     return (
                                         <ListItem
                                             key={note.id}
@@ -258,9 +242,26 @@ export const EditMagicSystemWrapper = ({
                                             style={{
                                                 paddingLeft: theme.spacing(4),
                                             }}
-                                            selected={activeItem === note.name}
+                                            selected={
+                                                selectedIndex ===
+                                                1 +
+                                                    system.outlines.length +
+                                                    1 +
+                                                    1 +
+                                                    i
+                                            }
+                                            onClick={(event: any) =>
+                                                handleListItemClick(
+                                                    event,
+                                                    1 +
+                                                        system.outlines.length +
+                                                        1 +
+                                                        1 +
+                                                        i
+                                                )
+                                            }
                                             component={Link}
-                                            to={`/magic-systems/${system.id}/notes/${note.id}/edit`}
+                                            to={`${url}/notes/${note.id}/edit`}
                                         >
                                             <ListItemIcon>
                                                 <Note />
@@ -275,8 +276,27 @@ export const EditMagicSystemWrapper = ({
                                         paddingLeft: theme.spacing(4),
                                     }}
                                     component={Link}
-                                    to={`/magic-systems/${system.id}/notes/new`}
-                                    selected={activeItem === "New Note"}
+                                    to={`${url}/notes/new`}
+                                    selected={
+                                        selectedIndex ===
+                                        1 +
+                                            system.outlines.length +
+                                            1 +
+                                            1 +
+                                            system.notes.length +
+                                            1
+                                    }
+                                    onClick={(event: any) =>
+                                        handleListItemClick(
+                                            event,
+                                            1 +
+                                                system.outlines.length +
+                                                1 +
+                                                1 +
+                                                system.notes.length +
+                                                1
+                                        )
+                                    }
                                 >
                                     <ListItemIcon>
                                         <NoteAdd />

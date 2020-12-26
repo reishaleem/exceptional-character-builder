@@ -5,7 +5,6 @@ import {
     Button,
     Divider,
     Grid,
-    Hidden,
     MenuItem,
     Toolbar,
 } from "@material-ui/core";
@@ -24,10 +23,7 @@ export const Navbar = ({ dropdownMenuLabel, userLoggedIn, color }: Props) => {
     return (
         <AppBar position="static" elevation={0} color={color}>
             <Toolbar disableGutters>
-                <Grid container spacing={2}>
-                    <Hidden smDown>
-                        <Grid item md={2}></Grid>
-                    </Hidden>
+                <Grid container spacing={2} justify="center">
                     <Grid
                         container
                         item
@@ -70,9 +66,6 @@ export const Navbar = ({ dropdownMenuLabel, userLoggedIn, color }: Props) => {
                             )}
                         </Box>
                     </Grid>
-                    <Hidden smDown>
-                        <Grid item md={2}></Grid>
-                    </Hidden>
                 </Grid>
             </Toolbar>
         </AppBar>

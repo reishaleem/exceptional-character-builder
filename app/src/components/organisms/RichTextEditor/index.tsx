@@ -1,6 +1,6 @@
-import { Editor, IAllProps } from "@tinymce/tinymce-react";
+import { Editor } from "@tinymce/tinymce-react";
 
-interface Props extends IAllProps {
+interface Props {
     content: string;
     onEditorChange: any;
 }

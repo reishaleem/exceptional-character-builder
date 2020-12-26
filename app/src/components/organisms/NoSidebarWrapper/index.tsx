@@ -1,4 +1,4 @@
-import { Box, Grid, useTheme } from "@material-ui/core";
+import { Box, Grid, Theme, useTheme } from "@material-ui/core";
 import { ReactNode } from "react";
 import { AppNavbar } from "../AppNavbar";
 
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const NoSidebarWrapper = ({ children }: Props) => {
-    const theme = useTheme();
+    const theme: Theme = useTheme();
 
     return (
         <>

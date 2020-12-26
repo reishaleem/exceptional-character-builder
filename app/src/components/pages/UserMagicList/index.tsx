@@ -7,7 +7,7 @@ import {
     Typography,
 } from "@material-ui/core";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 
 import { MagicSystemListItem } from "../../molecules/MagicSystemListItem";
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
@@ -15,6 +15,8 @@ import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
 import { MagicSystem } from "../../../types/magic-system";
 
 export const UserMagicList = () => {
+    const { url } = useRouteMatch();
+
     const magicSystems: MagicSystem[] = [
         {
             id: "1",
@@ -70,7 +72,7 @@ export const UserMagicList = () => {
                     <Box display="flex" alignItems="center">
                         <Typography
                             variant="h3"
-                            component="h2"
+                            component="h1"
                             display="inline"
                         >
                             Magic Systems
@@ -108,7 +110,7 @@ export const UserMagicList = () => {
                                     )}
                                     <MagicSystemListItem
                                         system={system}
-                                        linkDestination={`/magic-systems/${system.id}/page/edit`}
+                                        linkDestination={`${url}/${system.id}/page/edit`}
                                     />
                                 </Fragment>
                             );

@@ -5,14 +5,10 @@ import { Register } from "./components/pages/Register";
 import { Login } from "./components/pages/Login";
 import { UserMagicList } from "./components/pages/UserMagicList";
 import { CreateMagicSystem } from "./components/pages/CreateMagicSystem";
-import { EditMagicSystemPage } from "./components/pages/EditMagicSystemPage";
-import { CreateOutline } from "./components/pages/CreateOutline";
-import { EditOutline } from "./components/pages/EditOutline";
-import { CreateNote } from "./components/pages/CreateNote";
-import { EditNote } from "./components/pages/EditNote";
 import { ExploreList } from "./components/pages/ExploreList";
 import { ViewMagicSystem } from "./components/pages/ViewMagicSystem";
 import { UserSettings } from "./components/pages/UserSettings";
+import { MagicSystemRouter } from "./MagicSystemRouter";
 
 function App() {
     return (
@@ -37,31 +33,9 @@ function App() {
                     component={CreateMagicSystem}
                     exact
                 />
-                <Route
-                    path="/magic-systems/:magicSystemId/page/edit"
-                    component={EditMagicSystemPage}
-                    exact
-                />
-                <Route
-                    path="/magic-systems/:magicSystemId/outlines/new"
-                    component={CreateOutline}
-                    exact
-                />
-                <Route
-                    path="/magic-systems/:magicSystemId/outlines/:outlineId/edit"
-                    component={EditOutline}
-                    exact
-                />
-                <Route
-                    path="/magic-systems/:magicSystemId/notes/new"
-                    component={CreateNote}
-                    exact
-                />
-                <Route
-                    path="/magic-systems/:magicSystemId/notes/:noteId/edit"
-                    component={EditNote}
-                    exact
-                />
+                <Route path="/magic-systems/:magicSystemId">
+                    <MagicSystemRouter />
+                </Route>
 
                 <Route path="/explore" component={ExploreList} exact />
                 <Route

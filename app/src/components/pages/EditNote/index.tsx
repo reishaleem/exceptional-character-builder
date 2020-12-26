@@ -2,18 +2,16 @@ import { Box, Button, Divider, Grid, Typography } from "@material-ui/core";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { MagicSystem } from "../../../types/magic-system";
+
 import { Form } from "../../molecules/Form";
-import { EditMagicSystemWrapper } from "../../organisms/EditMagicSystemWrapper";
 import { RichTextEditor } from "../../organisms/RichTextEditor";
 
-interface Params {
+import { EditNoteFields } from "../../../types/form-types";
+import { MagicSystem } from "../../../types/magic-system";
+
+interface URLParameters {
     magicSystemId: string;
     noteId: string;
-}
-
-interface FormFields {
-    body: string;
 }
 
 export const EditNote = () => {
@@ -40,15 +38,15 @@ export const EditNote = () => {
         updatedAt: "1608587625018",
     };
 
-    const { noteId }: Params = useParams();
+    const { noteId }: URLParameters = useParams();
     const note = magicSystem.notes.find((item) => item.id === noteId)!;
-    const [noteContent, setNoteContent] = useState(note.body);
+    const [noteContent, setNoteContent] = useState<string>(note.body);
 
     const editNoteForm = useFormik({
         initialValues: {
             body: noteContent,
         },
-        onSubmit: (values: FormFields, { setSubmitting }) => {
+        onSubmit: (values: EditNoteFields, { setSubmitting }) => {
             handleSubmit(values, setSubmitting);
         },
     });
@@ -59,7 +57,7 @@ export const EditNote = () => {
     }
 
     async function handleSubmit(
-        body: FormFields,
+        body: EditNoteFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
         await new Promise((r) => setTimeout(r, 500));
@@ -68,11 +66,7 @@ export const EditNote = () => {
     }
 
     return (
-        <EditMagicSystemWrapper
-            system={magicSystem}
-            activeItem={note.name}
-            startNotesDropdownOpen
-        >
+        <>
             <Grid item xs={12} sm={12} md={10}>
                 <Box display="flex" alignItems="center">
                     <Typography variant="h3" component="h2" display="inline">
@@ -102,6 +96,6 @@ export const EditNote = () => {
                     />
                 </Form>
             </Grid>
-        </EditMagicSystemWrapper>
+        </>
     );
 };
