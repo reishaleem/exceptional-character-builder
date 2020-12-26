@@ -1,7 +1,7 @@
 import { CreateUserRequest } from "../graphql/types/user";
 import { MagicSystemFields } from "../models/MagicSystem";
 import { User } from "../models/User";
-import { encryptPassword } from "./auth";
+import { encryptPassword, verifyPassword } from "./auth";
 
 export async function getAllUsers() {
     try {
@@ -79,5 +79,42 @@ export async function updateUserProfile(request: any) {
             throw new Error("That email is already in use!");
         }
         throw error;
+    }
+}
+
+export async function updateUserPassword(request: any) {
+    const currentPassword = request.currentPassword;
+    const newPassword = request.newPassword;
+
+    let user = null;
+    try {
+        user = await User.findById(request.id);
+    } catch (error) {
+        throw error;
+    }
+
+    let passwordMatches = null;
+    try {
+        passwordMatches = await verifyPassword(currentPassword, user!.password);
+    } catch (error) {
+        throw new Error("Current password is incorrect");
+    }
+
+    if (passwordMatches) {
+        let password = null;
+        try {
+            password = await encryptPassword(newPassword);
+        } catch (error) {
+            throw new Error("Something went wrong. Please try again.");
+        }
+
+        user!.password = password;
+        try {
+            return await user!.save();
+        } catch (error) {
+            throw error;
+        }
+    } else {
+        throw new Error("Current password is incorrect");
     }
 }

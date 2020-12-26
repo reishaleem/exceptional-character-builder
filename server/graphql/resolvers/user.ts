@@ -2,6 +2,7 @@ import {
     createUser,
     getAllUsers,
     getUserById,
+    updateUserPassword,
     updateUserProfile,
 } from "../../services/user";
 import { CreateUserRequest } from "../types/user";
@@ -34,4 +35,14 @@ export function updateUserProfileResolver(args: any) {
     };
 
     return updateUserProfile(request);
+}
+
+export function updateUserPasswordResolver(args: any) {
+    const request = {
+        id: args.id,
+        currentPassword: args.currentPassword,
+        newPassword: args.newPassword,
+    };
+
+    return updateUserPassword(request);
 }
