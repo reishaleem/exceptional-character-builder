@@ -3,6 +3,14 @@ import { MagicSystemFields } from "../models/MagicSystem";
 import { User } from "../models/User";
 import { encryptPassword } from "./auth";
 
+export async function getAllUsers() {
+    try {
+        return await User.find();
+    } catch (error) {
+        throw error;
+    }
+}
+
 export async function createUser(user: CreateUserRequest) {
     const email: string = user.email;
     const name: string = user.name;

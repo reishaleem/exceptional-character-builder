@@ -1,17 +1,12 @@
-import { GraphQLObjectType, GraphQLSchema, GraphQLString } from "graphql";
+import { GraphQLObjectType, GraphQLSchema } from "graphql";
 import { createUserMutation } from "./mutations/user";
+import { getAllUsersQuery } from "./queries/user";
 
 const RootQuery = new GraphQLObjectType({
     name: "Query",
     description: "Root query for reads",
     fields: () => ({
-        hello: {
-            type: GraphQLString,
-            description: "test hello",
-            resolve: (_parent: any, _args: any) => {
-                return "Hello world";
-            },
-        },
+        users: getAllUsersQuery,
     }),
 });
 
