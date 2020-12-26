@@ -4,6 +4,11 @@ import {
     deleteMagicSystemMutation,
 } from "./mutations/magicSystem";
 import {
+    createNoteMutation,
+    deleteNoteMutation,
+    updateNoteMutation,
+} from "./mutations/note";
+import {
     createUserMutation,
     deleteUserMutation,
     updatePasswordMutation,
@@ -23,8 +28,6 @@ const RootQuery = new GraphQLObjectType({
         user: getUserQuery,
         magicSystems: getAllMagicSystemsQuery,
         magicSystem: getMagicSystemQuery,
-        // get individual note
-        // get individual outline
     }),
 });
 
@@ -39,9 +42,9 @@ const RootMutation = new GraphQLObjectType({
         createMagicSystem: createMagicSystemMutation,
         // update system Page
         deleteMagicSystem: deleteMagicSystemMutation,
-        // create note
-        // update note
-        // delete note
+        createNote: createNoteMutation,
+        updateNote: updateNoteMutation,
+        deleteNote: deleteNoteMutation,
         //create outline
         // update outline
         // delete outline
