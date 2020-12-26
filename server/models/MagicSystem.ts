@@ -3,6 +3,7 @@ import { noteSchema, NoteFields } from "./Note";
 import { outlineSchema, OutlineFields } from "./Outline";
 
 export interface MagicSystemFields {
+    _id?: any;
     name: string;
     description: string;
     type: string[];
