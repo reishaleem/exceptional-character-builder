@@ -1,12 +1,16 @@
 import { GraphQLObjectType, GraphQLSchema } from "graphql";
-import { createUserMutation } from "./mutations/user";
-import { getAllUsersQuery } from "./queries/user";
+import {
+    createUserMutation,
+    updateUserProfileMutation,
+} from "./mutations/user";
+import { getAllUsersQuery, getUserQuery } from "./queries/user";
 
 const RootQuery = new GraphQLObjectType({
     name: "Query",
     description: "Root query for reads",
     fields: () => ({
         users: getAllUsersQuery,
+        user: getUserQuery,
     }),
 });
 
@@ -15,6 +19,7 @@ const RootMutation = new GraphQLObjectType({
     description: "Root mutation for updates, deletes, and creation",
     fields: () => ({
         createUser: createUserMutation,
+        updateUserProfile: updateUserProfileMutation,
     }),
 });
 
