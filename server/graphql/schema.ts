@@ -23,6 +23,8 @@ const RootQuery = new GraphQLObjectType({
         user: getUserQuery,
         magicSystems: getAllMagicSystemsQuery,
         magicSystem: getMagicSystemQuery,
+        // get individual note
+        // get individual outline
     }),
 });
 
@@ -35,7 +37,14 @@ const RootMutation = new GraphQLObjectType({
         updateUserPassword: updatePasswordMutation,
         deleteUser: deleteUserMutation,
         createMagicSystem: createMagicSystemMutation,
+        // update system Page
         deleteMagicSystem: deleteMagicSystemMutation,
+        // create note
+        // update note
+        // delete note
+        //create outline
+        // update outline
+        // delete outline
     }),
 });
 
