@@ -64,3 +64,26 @@ export async function getMagicSystemById(request: any) {
         (magicSystem) => magicSystem._id == request.magicSystemId
     );
 }
+
+export async function deleteMagicSystem(request: any) {
+    let owner = await User.findById(request.ownerId).exec();
+    if (owner == null) {
+        throw `User with id ${request.ownerId} does not exist`;
+    }
+
+    const index = owner.magicSystems
+        .map((magicSystem) => {
+            return magicSystem._id;
+        })
+        .indexOf(request.magicSystemId);
+    owner.magicSystems.splice(index, 1);
+
+    try {
+        owner = await owner.save();
+
+        // return the last created magicSystem. Returning owner.save() would return the user itself.
+        return "Successfully deleted magic system";
+    } catch (error) {
+        throw error;
+    }
+}

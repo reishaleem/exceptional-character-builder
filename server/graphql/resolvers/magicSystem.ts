@@ -1,5 +1,6 @@
 import {
     createMagicSystem,
+    deleteMagicSystem,
     getAllMagicSystems,
     getMagicSystemById,
     getMagicSystemsByUserId,
@@ -36,4 +37,13 @@ export function createMagicSystemResolver(args: any) {
     };
 
     return createMagicSystem(request);
+}
+
+export function deleteMagicSystemResolver(args: any) {
+    const request = {
+        ownerId: args.ownerId,
+        magicSystemId: args.magicSystemId,
+    };
+
+    return deleteMagicSystem(request);
 }
