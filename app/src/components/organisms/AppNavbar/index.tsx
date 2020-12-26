@@ -14,7 +14,6 @@ import { Menu } from "@material-ui/icons";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
 
-import { NavbarTitle } from "../../atoms/NavbarTitle";
 import { UserMenu } from "../../molecules/UserMenu";
 
 interface Props {
@@ -89,11 +88,6 @@ export const AppNavbar = ({
                             </IconButton>
                         )}
 
-                        <NavbarTitle
-                            text="The Exceptional Outliner"
-                            link
-                            to="/magic-systems"
-                        />
                         <Button component={Link} to="/magic-systems">
                             Home
                         </Button>
