@@ -1,10 +1,18 @@
 import { GraphQLObjectType, GraphQLSchema } from "graphql";
 import {
+    createMagicSystemMutation,
+    deleteMagicSystemMutation,
+} from "./mutations/magicSystem";
+import {
     createUserMutation,
     deleteUserMutation,
     updatePasswordMutation,
     updateUserProfileMutation,
 } from "./mutations/user";
+import {
+    getAllMagicSystemsQuery,
+    getMagicSystemQuery,
+} from "./queries/magicSystem";
 import { getAllUsersQuery, getUserQuery } from "./queries/user";
 
 const RootQuery = new GraphQLObjectType({
@@ -13,6 +21,8 @@ const RootQuery = new GraphQLObjectType({
     fields: () => ({
         users: getAllUsersQuery,
         user: getUserQuery,
+        magicSystems: getAllMagicSystemsQuery,
+        magicSystem: getMagicSystemQuery,
     }),
 });
 
@@ -24,6 +34,8 @@ const RootMutation = new GraphQLObjectType({
         updateUserProfile: updateUserProfileMutation,
         updateUserPassword: updatePasswordMutation,
         deleteUser: deleteUserMutation,
+        createMagicSystem: createMagicSystemMutation,
+        deleteMagicSystem: deleteMagicSystemMutation,
     }),
 });
 

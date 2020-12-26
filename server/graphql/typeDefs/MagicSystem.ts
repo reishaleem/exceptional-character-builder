@@ -1,5 +1,6 @@
 import {
     GraphQLID,
+    GraphQLInt,
     GraphQLList,
     GraphQLObjectType,
     GraphQLString,
@@ -15,7 +16,8 @@ export const MagicSystemType = new GraphQLObjectType({
         id: { type: GraphQLID },
         name: { type: GraphQLString },
         description: { type: GraphQLString },
-        type: { type: GraphQLString },
+        hardnessRating: { type: GraphQLInt },
+        type: { type: GraphQLList(GraphQLString) },
         page: { type: GraphQLString },
         notes: { type: GraphQLList(NoteType) },
         outlines: { type: GraphQLList(OutlineType) },
