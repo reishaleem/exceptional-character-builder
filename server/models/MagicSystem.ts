@@ -1,11 +1,12 @@
-import { Document, model, Schema } from "mongoose";
+import { Document, Schema } from "mongoose";
 import { noteSchema, NoteFields } from "./Note";
 import { outlineSchema, OutlineFields } from "./Outline";
 
-export interface MagicSystemFields extends Document {
+export interface MagicSystemFields {
     name: string;
     description: string;
-    type: string;
+    type: string[];
+    hardnessRating: number;
     page: string;
     notes: NoteFields[];
     outlines: OutlineFields[];
@@ -24,8 +25,11 @@ export const magicSystemSchema = new Schema({
         maxLength: 255,
     },
     type: {
-        type: String,
+        type: [String],
         required: true,
+    },
+    hardnessRating: {
+        type: Number,
     },
     page: {
         type: String,

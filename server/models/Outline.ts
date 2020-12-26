@@ -1,6 +1,6 @@
 import { Document, model, Schema } from "mongoose";
 
-export interface OutlineFields extends Document {
+export interface OutlineFields {
     name: string;
     type: string;
     body: string;

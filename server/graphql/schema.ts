@@ -1,4 +1,5 @@
 import { GraphQLObjectType, GraphQLSchema } from "graphql";
+import { createMagicSystemMutation } from "./mutations/magicSystem";
 import {
     createUserMutation,
     deleteUserMutation,
@@ -24,6 +25,7 @@ const RootMutation = new GraphQLObjectType({
         updateUserProfile: updateUserProfileMutation,
         updateUserPassword: updatePasswordMutation,
         deleteUser: deleteUserMutation,
+        createMagicSystem: createMagicSystemMutation,
     }),
 });
 

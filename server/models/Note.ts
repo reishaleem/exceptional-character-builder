@@ -1,6 +1,6 @@
 import { Document, model, Schema } from "mongoose";
 
-export interface NoteFields extends Document {
+export interface NoteFields {
     name: string;
     body: string;
 }
