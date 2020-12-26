@@ -9,6 +9,7 @@ import {
 import {
     getAllMagicSystemsQuery,
     getMagicSystemQuery,
+    getUserMagicSystemsQuery,
 } from "./queries/magicSystem";
 import { getAllUsersQuery, getUserQuery } from "./queries/user";
 
@@ -19,6 +20,7 @@ const RootQuery = new GraphQLObjectType({
         users: getAllUsersQuery,
         user: getUserQuery,
         magicSystems: getAllMagicSystemsQuery,
+        userMagicSystems: getUserMagicSystemsQuery,
         magicSystem: getMagicSystemQuery,
     }),
 });
