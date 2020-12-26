@@ -4,13 +4,12 @@ import {
     Divider,
     Grid,
     TextField,
+    Theme,
     Typography,
     useTheme,
 } from "@material-ui/core";
-import { EditMagicSystemWrapper } from "../../organisms/EditMagicSystemWrapper";
 
 import { Form } from "../../molecules/Form";
-import { MagicSystem } from "../../../types/magic-system";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 
@@ -19,29 +18,7 @@ interface FormFields {
 }
 
 export const CreateNote = () => {
-    const theme = useTheme();
-    const magicSystem: MagicSystem = {
-        id: "1",
-        name: "Nen",
-        description: "A magic system from Hunter x Hunter",
-        page: "<h1>Nen</h1>",
-        notes: [
-            {
-                id: "1",
-                name: "Test note",
-                body: "This is just a test note",
-            },
-        ],
-        outlines: [
-            {
-                id: "1",
-                name: "Source outline",
-                body:
-                    "This is the body of the outline about the source of magic",
-            },
-        ],
-        updatedAt: "1608587625018",
-    };
+    const theme: Theme = useTheme();
 
     const createNoteForm = useFormik({
         initialValues: {
@@ -72,11 +49,7 @@ export const CreateNote = () => {
     }
 
     return (
-        <EditMagicSystemWrapper
-            system={magicSystem}
-            activeItem="New Note"
-            startNotesDropdownOpen
-        >
+        <>
             <Grid item xs={12} sm={12} md={10}>
                 <Box display="flex" alignItems="center">
                     <Typography variant="h3" component="h2" display="inline">
@@ -138,6 +111,6 @@ export const CreateNote = () => {
                     </Box>
                 </Form>
             </Grid>
-        </EditMagicSystemWrapper>
+        </>
     );
 };

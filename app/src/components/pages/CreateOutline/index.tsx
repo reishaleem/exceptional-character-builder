@@ -14,36 +14,12 @@ import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 
 import { Form } from "../../molecules/Form";
-import { EditMagicSystemWrapper } from "../../organisms/EditMagicSystemWrapper";
 
 import { outlineTypes } from "../../../constants/magic-system";
-import { MagicSystem } from "../../../types/magic-system";
 import { CreateOutlineFields } from "../../../types/form-types";
 
 export const CreateOutline = () => {
     const theme: Theme = useTheme();
-    const magicSystem: MagicSystem = {
-        id: "1",
-        name: "Nen",
-        description: "A magic system from Hunter x Hunter",
-        page: "<h1>Nen</h1>",
-        notes: [
-            {
-                id: "1",
-                name: "Test note",
-                body: "This is just a test note",
-            },
-        ],
-        outlines: [
-            {
-                id: "1",
-                name: "Source outline",
-                body:
-                    "This is the body of the outline about the source of magic",
-            },
-        ],
-        updatedAt: "1608587625018",
-    };
 
     const createMagicSystemForm = useFormik({
         initialValues: {
@@ -79,11 +55,7 @@ export const CreateOutline = () => {
     }
 
     return (
-        <EditMagicSystemWrapper
-            system={magicSystem}
-            activeItem="New Outline"
-            startOutlinesDropdownOpen
-        >
+        <>
             <Grid item xs={12} sm={12} md={10}>
                 <Box display="flex" alignItems="center">
                     <Typography variant="h3" component="h1">
@@ -212,6 +184,6 @@ export const CreateOutline = () => {
                     </Box>
                 </Form>
             </Grid>
-        </EditMagicSystemWrapper>
+        </>
     );
 };

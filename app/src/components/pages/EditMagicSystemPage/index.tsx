@@ -3,7 +3,6 @@ import { useFormik } from "formik";
 import { useState } from "react";
 
 import { Form } from "../../molecules/Form";
-import { EditMagicSystemWrapper } from "../../organisms/EditMagicSystemWrapper";
 import { RichTextEditor } from "../../organisms/RichTextEditor";
 
 import { MagicSystem } from "../../../types/magic-system";
@@ -58,7 +57,7 @@ export const EditMagicSystemPage = () => {
     }
 
     return (
-        <EditMagicSystemWrapper system={magicSystem} activeItem="Page">
+        <>
             <Grid item xs={12} sm={12} md={10}>
                 <Box display="flex" alignItems="center">
                     <Typography variant="h3" component="h2" display="inline">
@@ -89,6 +88,6 @@ export const EditMagicSystemPage = () => {
                     />
                 </Form>
             </Grid>
-        </EditMagicSystemWrapper>
+        </>
     );
 };

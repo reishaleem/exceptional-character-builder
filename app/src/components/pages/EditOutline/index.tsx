@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { Form } from "../../molecules/Form";
-import { EditMagicSystemWrapper } from "../../organisms/EditMagicSystemWrapper";
 import { RichTextEditor } from "../../organisms/RichTextEditor";
 
 import { EditOutlineFields } from "../../../types/form-types";
@@ -67,11 +66,7 @@ export const EditOutline = () => {
     }
 
     return (
-        <EditMagicSystemWrapper
-            system={magicSystem}
-            activeItem={"Source outline"} // change to the actual outline name later
-            startOutlinesDropdownOpen
-        >
+        <>
             <Grid item xs={12} sm={12} md={10}>
                 <Box display="flex" alignItems="center">
                     <Typography variant="h3" component="h2" display="inline">
@@ -101,6 +96,6 @@ export const EditOutline = () => {
                     />
                 </Form>
             </Grid>
-        </EditMagicSystemWrapper>
+        </>
     );
 };
