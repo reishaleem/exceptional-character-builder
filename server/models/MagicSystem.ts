@@ -1,6 +1,6 @@
 import { Document, model, Schema } from "mongoose";
-import { Note, NoteFields } from "./Note";
-import { Outline, OutlineFields } from "./Outline";
+import { noteSchema, NoteFields } from "./Note";
+import { outlineSchema, OutlineFields } from "./Outline";
 
 export interface MagicSystemFields extends Document {
     name: string;
@@ -11,7 +11,7 @@ export interface MagicSystemFields extends Document {
     outlines: OutlineFields[];
 }
 
-const magicSystemSchema = new Schema({
+export const magicSystemSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -31,14 +31,9 @@ const magicSystemSchema = new Schema({
         type: String,
     },
     notes: {
-        type: [Note],
+        type: [noteSchema],
     },
     outlines: {
-        type: [Outline],
+        type: [outlineSchema],
     },
 });
-
-export const MagicSystem = model<MagicSystemFields>(
-    "MagicSystem",
-    magicSystemSchema
-);

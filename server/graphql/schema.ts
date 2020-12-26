@@ -1,4 +1,5 @@
 import { GraphQLObjectType, GraphQLSchema, GraphQLString } from "graphql";
+import { createUserMutation } from "./mutations/user";
 
 const RootQuery = new GraphQLObjectType({
     name: "Query",
@@ -14,7 +15,15 @@ const RootQuery = new GraphQLObjectType({
     }),
 });
 
+const RootMutation = new GraphQLObjectType({
+    name: "Mutation",
+    description: "Root mutation for updates, deletes, and creation",
+    fields: () => ({
+        createUser: createUserMutation,
+    }),
+});
+
 export default new GraphQLSchema({
     query: RootQuery,
-    mutation: undefined,
+    mutation: RootMutation,
 });

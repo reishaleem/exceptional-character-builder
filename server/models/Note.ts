@@ -5,7 +5,7 @@ export interface NoteFields extends Document {
     body: string;
 }
 
-const noteSchema = new Schema({
+export const noteSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -15,5 +15,3 @@ const noteSchema = new Schema({
         type: String,
     },
 });
-
-export const Note = model<NoteFields>("Note", noteSchema);

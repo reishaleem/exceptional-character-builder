@@ -1,5 +1,5 @@
 import { Document, model, Schema } from "mongoose";
-import { MagicSystem, MagicSystemFields } from "./MagicSystem";
+import { magicSystemSchema, MagicSystemFields } from "./MagicSystem";
 
 interface UserFields extends Document {
     name: string;
@@ -44,7 +44,7 @@ const userSchema = new Schema(
             maxlength: 255,
         },
         magicSystems: {
-            type: [MagicSystem],
+            type: [magicSystemSchema],
         },
     },
     {

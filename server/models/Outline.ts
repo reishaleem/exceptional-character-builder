@@ -6,7 +6,7 @@ export interface OutlineFields extends Document {
     body: string;
 }
 
-const outlineSchema = new Schema({
+export const outlineSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -20,5 +20,3 @@ const outlineSchema = new Schema({
         type: String,
     },
 });
-
-export const Outline = model<OutlineFields>("Outline", outlineSchema);
