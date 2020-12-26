@@ -1,4 +1,4 @@
-import { magicSystemSchema } from "../models/MagicSystem";
+import { MagicSystemFields, magicSystemSchema } from "../models/MagicSystem";
 import { User } from "../models/User";
 
 export async function createMagicSystem(magicSystem: any) {
@@ -30,4 +30,17 @@ export async function createMagicSystem(magicSystem: any) {
     } catch (error) {
         throw error;
     }
+}
+
+export async function getAllMagicSystems() {
+    const users = await User.find();
+    let magicSystems: MagicSystemFields[] = [];
+
+    users.forEach((user) => {
+        user.magicSystems.forEach((magicSystem) => {
+            magicSystems.push(magicSystem);
+        });
+    });
+
+    return magicSystems;
 }

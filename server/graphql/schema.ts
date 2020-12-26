@@ -6,6 +6,7 @@ import {
     updatePasswordMutation,
     updateUserProfileMutation,
 } from "./mutations/user";
+import { getAllMagicSystemsQuery } from "./queries/magicSystem";
 import { getAllUsersQuery, getUserQuery } from "./queries/user";
 
 const RootQuery = new GraphQLObjectType({
@@ -14,6 +15,7 @@ const RootQuery = new GraphQLObjectType({
     fields: () => ({
         users: getAllUsersQuery,
         user: getUserQuery,
+        magicSystems: getAllMagicSystemsQuery,
     }),
 });
 

@@ -1,4 +1,11 @@
-import { createMagicSystem } from "../../services/magicSystem";
+import {
+    createMagicSystem,
+    getAllMagicSystems,
+} from "../../services/magicSystem";
+
+export function magicSystemsResolver() {
+    return getAllMagicSystems();
+}
 
 export function createMagicSystemResolver(args: any) {
     const request = {
