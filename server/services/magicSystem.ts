@@ -45,15 +45,6 @@ export async function getAllMagicSystems() {
     return magicSystems;
 }
 
-export async function getMagicSystemsByUserId(request: any) {
-    let owner = await User.findById(request.ownerId).exec();
-    if (owner == null) {
-        throw `User with id ${request.ownerId} does not exist`;
-    }
-
-    return owner.magicSystems;
-}
-
 export async function getMagicSystemById(request: any) {
     let owner = await User.findById(request.ownerId).exec();
     if (owner == null) {

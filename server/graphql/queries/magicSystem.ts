@@ -2,7 +2,6 @@ import { GraphQLID, GraphQLList } from "graphql";
 import {
     magicSystemResolver,
     magicSystemsResolver,
-    userMagicSystemsResolver,
 } from "../resolvers/magicSystem";
 import { MagicSystemType } from "../typeDefs/MagicSystem";
 
@@ -11,17 +10,6 @@ export const getAllMagicSystemsQuery = {
     description: "A list of all Magic Systems",
     resolve: (_parent: any, _args: any) => {
         return magicSystemsResolver();
-    },
-};
-
-export const getUserMagicSystemsQuery = {
-    type: GraphQLList(MagicSystemType),
-    description: "A list of all Magic Systems",
-    args: {
-        ownerId: { type: GraphQLID },
-    },
-    resolve: (_parent: any, args: any) => {
-        return userMagicSystemsResolver(args);
     },
 };
 
