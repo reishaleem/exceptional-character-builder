@@ -12,14 +12,6 @@ export async function getAllUsers() {
     }
 }
 
-export async function getUserById(id: string) {
-    try {
-        return await User.findById(id);
-    } catch (error) {
-        throw new Error(`No user with id ${id} exists`);
-    }
-}
-
 export async function createUser(user: CreateUserRequest) {
     const email: string = user.email;
     const name: string = user.name;
@@ -51,6 +43,14 @@ export async function createUser(user: CreateUserRequest) {
             throw new Error("That email is already in use!");
         }
         throw error;
+    }
+}
+
+export async function getUserById(id: string) {
+    try {
+        return await User.findById(id);
+    } catch (error) {
+        throw new Error(`No user with id ${id} exists`);
     }
 }
 
