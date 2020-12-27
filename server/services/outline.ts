@@ -1,4 +1,4 @@
-import { historyTemplate } from "../graphql/constants/outline-templates";
+import { historyTemplate } from "../constants/outline-templates";
 import { OutlineFields } from "../models/Outline";
 import { User } from "../models/User";
 
