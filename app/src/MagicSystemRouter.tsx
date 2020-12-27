@@ -9,51 +9,51 @@ import { EditNote } from "./components/pages/EditNote";
 
 import { MagicSystem } from "./types/magic-system";
 import { AppRoute } from "./components/atoms/AppRoute";
+import { getCurrentUser } from "./services/auth";
+import { useQuery } from "@apollo/client";
+import { GET_MAGIC_SYSTEM_QUERY } from "./graphql/queries/magic-system";
 
 export const MagicSystemRouter = () => {
-    let { path } = useRouteMatch();
+    let { path, url } = useRouteMatch();
+    const currentUser = getCurrentUser();
+    const splitUrl = url.split("/");
+    const magicSystemId = splitUrl[splitUrl.length - 1];
+    const { loading, error, data } = useQuery(GET_MAGIC_SYSTEM_QUERY, {
+        variables: {
+            ownerId: currentUser.id,
+            magicSystemId: magicSystemId,
+        },
+        fetchPolicy: "network-only",
+    });
 
-    const magicSystem: MagicSystem = {
-        id: "1",
-        name: "Nen",
-        description: "A magic system from Hunter x Hunter",
-        page: "<h1>Nen</h1>",
-        notes: [
-            {
-                id: "1",
-                name: "Test note",
-                body: "This is just a test note",
-            },
-        ],
-        outlines: [
-            {
-                id: "1",
-                name: "Source outline",
-                body:
-                    "This is the body of the outline about the source of magic",
-            },
-        ],
-        updatedAt: "1608587625018",
-    };
-    return (
-        <EditMagicSystemWrapper system={magicSystem}>
-            <Switch>
-                <AppRoute path={`${path}/page/edit`} exact>
-                    <EditMagicSystemPage />
-                </AppRoute>
-                <AppRoute path={`${path}/outlines/new`} exact>
-                    <CreateOutline />
-                </AppRoute>
-                <AppRoute path={`${path}/outlines/:outlineId/edit`} exact>
-                    <EditOutline />
-                </AppRoute>
-                <AppRoute path={`${path}/notes/new`} exact>
-                    <CreateNote />
-                </AppRoute>
-                <AppRoute path={`${path}/notes/:noteId/edit`} exact>
-                    <EditNote />
-                </AppRoute>
-            </Switch>
-        </EditMagicSystemWrapper>
-    );
+    if (loading) {
+        return <p>Loading</p>;
+    } else if (error) {
+        return <p>error</p>;
+    } else {
+        const magicSystem: MagicSystem = data.magicSystem;
+        console.log("System in router", magicSystem);
+
+        return (
+            <EditMagicSystemWrapper system={magicSystem}>
+                <Switch>
+                    <AppRoute path={`${path}/page/edit`} exact>
+                        <EditMagicSystemPage magicSystem={magicSystem} />
+                    </AppRoute>
+                    <AppRoute path={`${path}/outlines/new`} exact>
+                        <CreateOutline />
+                    </AppRoute>
+                    <AppRoute path={`${path}/outlines/:outlineId/edit`} exact>
+                        <EditOutline />
+                    </AppRoute>
+                    <AppRoute path={`${path}/notes/new`} exact>
+                        <CreateNote />
+                    </AppRoute>
+                    <AppRoute path={`${path}/notes/:noteId/edit`} exact>
+                        <EditNote />
+                    </AppRoute>
+                </Switch>
+            </EditMagicSystemWrapper>
+        );
+    }
 };

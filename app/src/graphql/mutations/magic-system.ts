@@ -19,3 +19,19 @@ export const CREATE_MAGIC_SYSTEM_MUTATION = gql`
         }
     }
 `;
+
+export const UPDATE_MAGIC_SYSTEM_PAGE_MUTATION = gql`
+    mutation UpdateMagicSystemPage(
+        $ownerId: ID!
+        $magicSystemId: ID!
+        $page: String!
+    ) {
+        updateMagicSystemPage(
+            ownerId: $ownerId
+            magicSystemId: $magicSystemId
+            page: $page
+        ) {
+            page
+        }
+    }
+`;
