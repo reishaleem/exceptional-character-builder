@@ -33,7 +33,7 @@ export const UserMagicList = () => {
     if (error) {
         return <p>Error...</p>;
     } else {
-        const magicSystems: MagicSystem[] = data.user.magicSystems;
+        const magicSystems: MagicSystem[] = data?.user?.magicSystems;
         return (
             <>
                 <NoSidebarWrapper>
