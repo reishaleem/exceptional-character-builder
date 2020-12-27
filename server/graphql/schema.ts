@@ -2,12 +2,19 @@ import { GraphQLObjectType, GraphQLSchema } from "graphql";
 import {
     createMagicSystemMutation,
     deleteMagicSystemMutation,
+    updateMagicSystemDetailsMutation,
+    updateMagicSystemPageMutation,
 } from "./mutations/magicSystem";
 import {
     createNoteMutation,
     deleteNoteMutation,
     updateNoteMutation,
 } from "./mutations/note";
+import {
+    createOutlineMutation,
+    deleteOutlineMutation,
+    updateOutlineMutation,
+} from "./mutations/outline";
 import {
     createUserMutation,
     deleteUserMutation,
@@ -40,14 +47,15 @@ const RootMutation = new GraphQLObjectType({
         updateUserPassword: updatePasswordMutation,
         deleteUser: deleteUserMutation,
         createMagicSystem: createMagicSystemMutation,
-        // update system Page
+        updateMagicSystemDetails: updateMagicSystemDetailsMutation,
+        updateMagicSystemPage: updateMagicSystemPageMutation,
         deleteMagicSystem: deleteMagicSystemMutation,
         createNote: createNoteMutation,
         updateNote: updateNoteMutation,
         deleteNote: deleteNoteMutation,
-        //create outline
-        // update outline
-        // delete outline
+        createOutline: createOutlineMutation,
+        updateOutline: updateOutlineMutation,
+        deleteOutline: deleteOutlineMutation,
     }),
 });
 

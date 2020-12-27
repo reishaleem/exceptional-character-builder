@@ -56,6 +56,49 @@ export async function getMagicSystemById(request: any) {
     );
 }
 
+export async function updateMagicSystemDetails(request: any) {
+    let owner = await User.findById(request.ownerId).exec();
+    if (owner == null) {
+        throw `User with id ${request.ownerId} does not exist`;
+    }
+
+    let magicSystem = owner.magicSystems.find(
+        (magicSystem) => magicSystem._id == request.magicSystemId
+    )!;
+    magicSystem.name = request.name;
+    magicSystem.type = request.type;
+    magicSystem.hardnessRating = request.hardnessRating;
+    magicSystem.description = request.description;
+
+    try {
+        owner = await owner.save();
+
+        return magicSystem;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function updateMagicSystemPage(request: any) {
+    let owner = await User.findById(request.ownerId).exec();
+    if (owner == null) {
+        throw `User with id ${request.ownerId} does not exist`;
+    }
+
+    let magicSystem = owner.magicSystems.find(
+        (magicSystem) => magicSystem._id == request.magicSystemId
+    )!;
+    magicSystem.page = request.page;
+
+    try {
+        owner = await owner.save();
+
+        return magicSystem;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export async function deleteMagicSystem(request: any) {
     let owner = await User.findById(request.ownerId).exec();
     if (owner == null) {

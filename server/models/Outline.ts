@@ -1,6 +1,7 @@
 import { Document, model, Schema } from "mongoose";
 
 export interface OutlineFields {
+    _id?: string;
     name: string;
     type: string;
     body: string;
