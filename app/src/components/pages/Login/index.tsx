@@ -17,10 +17,14 @@ import { useMutation } from "@apollo/client";
 import { LOGIN_MUTATION } from "../../../graphql/mutations/auth";
 import { setAccessToken } from "../../../services/auth";
 import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
 export const Login = () => {
     const history = useHistory();
-    const [login] = useMutation(LOGIN_MUTATION);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [login] = useMutation(LOGIN_MUTATION, {
+        onError: (error) => setErrorMessage(error.message),
+    });
 
     const loginForm = useFormik({
         initialValues: {
@@ -71,6 +75,9 @@ export const Login = () => {
                     <CardContent>
                         <Typography variant="h4" component="h1">
                             Login
+                        </Typography>
+                        <Typography variant="h6" component="h3" color="error">
+                            {errorMessage}
                         </Typography>
                         <Form handleSubmit={loginForm.handleSubmit}>
                             <Box marginTop="8px" marginBottom="8px">

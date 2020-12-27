@@ -20,6 +20,7 @@ import { Link, useHistory, useRouteMatch } from "react-router-dom";
 
 import { Form } from "../../molecules/Form";
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
+import { Notification } from "../../molecules/Notification";
 
 import { magicSystemTypes } from "../../../constants/magic-system";
 import {
@@ -29,13 +30,14 @@ import {
 import { useMutation } from "@apollo/client";
 import { CREATE_MAGIC_SYSTEM_MUTATION } from "../../../graphql/mutations/magic-system";
 import { getCurrentUser } from "../../../services/auth";
+import { useState } from "react";
 
 export const CreateMagicSystem = () => {
     const theme: Theme = useTheme();
     const [createMagicSystem] = useMutation(CREATE_MAGIC_SYSTEM_MUTATION);
     const currentUser = getCurrentUser();
     const history = useHistory();
-    const { url } = useRouteMatch();
+    const [openError, setOpenError] = useState<boolean>(false);
 
     const createMagicSystemForm = useFormik({
         initialValues: {
@@ -442,6 +444,12 @@ export const CreateMagicSystem = () => {
                     </Form>
                 </Grid>
             </NoSidebarWrapper>
+            <Notification
+                message="An error occurred. Please try again."
+                severity="error"
+                open={openError}
+                setOpen={setOpenError}
+            />
         </>
     );
 };

@@ -16,13 +16,21 @@ import { RegisterFields } from "../../../types/form-types";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER_MUTATION } from "../../../graphql/mutations/user";
 import { LOGIN_MUTATION } from "../../../graphql/mutations/auth";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { setAccessToken } from "../../../services/auth";
+import { useState } from "react";
 
 export const Register = () => {
     const history = useHistory();
-    const [createUser] = useMutation(CREATE_USER_MUTATION);
-    const [login] = useMutation(LOGIN_MUTATION);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [createUser] = useMutation(CREATE_USER_MUTATION, {
+        onError: (error) => setErrorMessage(error.message),
+    });
+    const [login] = useMutation(LOGIN_MUTATION, {
+        onError: () => {
+            <Redirect to="/login" />;
+        },
+    });
 
     const registerForm = useFormik({
         initialValues: {
@@ -102,6 +110,9 @@ export const Register = () => {
                     <CardContent>
                         <Typography variant="h4" component="h1">
                             Register
+                        </Typography>
+                        <Typography variant="h6" component="h3" color="error">
+                            {errorMessage}
                         </Typography>
                         <Form handleSubmit={registerForm.handleSubmit}>
                             <Box marginTop="8px" marginBottom="8px">
