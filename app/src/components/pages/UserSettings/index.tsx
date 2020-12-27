@@ -13,7 +13,7 @@ import {
     useTheme,
 } from "@material-ui/core";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { TabPanel } from "../../atoms/TabPanel";
 import { Form } from "../../molecules/Form";
@@ -24,6 +24,13 @@ import {
     DeleteAccountFields,
     EditProfileFields,
 } from "../../../types/form-types";
+import { getCurrentUser } from "../../../services/auth";
+import { useMutation } from "@apollo/client";
+import {
+    DELETE_USER_MUTATION,
+    UPDATE_USER_PROFILE_MUTATION,
+    UPDATE_USER_SECURITY_MUTATION,
+} from "../../../graphql/mutations/user";
 
 function a11yProps(index: any) {
     return {
@@ -54,13 +61,12 @@ interface Props {
 export const UserSettings = ({ value }: Props) => {
     const classes = useStyles();
     const theme: Theme = useTheme();
+    const history = useHistory();
 
-    const currentUser = {
-        name: "Reis",
-        email: "reishaleem@gmail.com",
-        penName: "Reis Haleem",
-        bio: "",
-    };
+    const currentUser = getCurrentUser();
+    const [updateUserProfile] = useMutation(UPDATE_USER_PROFILE_MUTATION);
+    const [updateUserPassword] = useMutation(UPDATE_USER_SECURITY_MUTATION);
+    const [deleteUser] = useMutation(DELETE_USER_MUTATION);
 
     const deleteForm = useFormik({
         initialValues: {
@@ -146,10 +152,17 @@ export const UserSettings = ({ value }: Props) => {
         user: EditProfileFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
-        await new Promise((r) => setTimeout(r, 500));
-        alert(JSON.stringify(user, null, 2));
-        // login
-        // direct to magic-systems list
+        const response = await updateUserProfile({
+            variables: {
+                id: currentUser.id,
+                name: user.name,
+                email: user.email,
+                penName: user.penName,
+                bio: user.bio,
+            },
+        });
+        console.log(response);
+
         setSubmitting(false);
     }
 
@@ -157,21 +170,32 @@ export const UserSettings = ({ value }: Props) => {
         user: DeleteAccountFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
-        await new Promise((r) => setTimeout(r, 500));
-        alert(JSON.stringify(user, null, 2));
-        // login
-        // direct to magic-systems list
-        setSubmitting(false);
+        const response = await deleteUser({
+            variables: {
+                id: currentUser.id,
+            },
+        });
+        console.log(response);
+        if (response && response.data) {
+            history.push("/");
+        } else {
+            setSubmitting(false);
+        }
     }
 
     async function handleChangePasswordSubmit(
         user: ChangePasswordFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
-        await new Promise((r) => setTimeout(r, 500));
-        alert(JSON.stringify(user, null, 2));
-        // login
-        // direct to magic-systems list
+        const response = await updateUserPassword({
+            variables: {
+                id: currentUser.id,
+                currentPassword: user.currentPassword,
+                newPassword: user.newPassword,
+            },
+        });
+        console.log(response);
+
         setSubmitting(false);
     }
 
@@ -338,7 +362,7 @@ export const UserSettings = ({ value }: Props) => {
                                 disableElevation
                                 disabled={profileForm.isSubmitting}
                             >
-                                Create
+                                Submit
                             </Button>
                         </Box>
                     </Form>

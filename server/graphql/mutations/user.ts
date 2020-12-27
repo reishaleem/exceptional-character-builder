@@ -28,7 +28,7 @@ export const updateUserProfileMutation = {
         name: { type: GraphQLNonNull(GraphQLString) },
         email: { type: GraphQLNonNull(GraphQLString) },
         penName: { type: GraphQLNonNull(GraphQLString) },
-        bio: { type: GraphQLNonNull(GraphQLString) },
+        bio: { type: GraphQLString },
     },
     resolve: async (_parent: any, args: any) => {
         return updateUserProfileResolver(args);
