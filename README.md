@@ -57,3 +57,5 @@ $ node server.ts
 ```
 
 While in development, you may want to use `nodemon` instead of `node`, to automatically refresh the server when you make a change.
+
+**_ note: to get random string for jwt secret, use require('crypto').randomBytes(64).toString('hex) _**

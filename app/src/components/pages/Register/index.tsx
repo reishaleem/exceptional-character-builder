@@ -13,9 +13,16 @@ import { Form } from "../../molecules/Form";
 import { Navbar } from "../../organisms/PublicNavbar";
 
 import { RegisterFields } from "../../../types/form-types";
+import { useMutation } from "@apollo/client";
+import { CREATE_USER_MUTATION } from "../../../graphql/mutations/user";
+import { LOGIN_MUTATION } from "../../../graphql/mutations/auth";
+import { useHistory } from "react-router-dom";
+import { setAccessToken } from "../../../services/auth";
 
 export const Register = () => {
-    const userName = "Reis Haleem";
+    const history = useHistory();
+    const [createUser] = useMutation(CREATE_USER_MUTATION);
+    const [login] = useMutation(LOGIN_MUTATION);
 
     const registerForm = useFormik({
         initialValues: {
@@ -59,21 +66,36 @@ export const Register = () => {
         user: RegisterFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
-        await new Promise((r) => setTimeout(r, 500));
-        alert(JSON.stringify(user, null, 2));
-        // login
-        // direct to magic-systems list
-        setSubmitting(false);
+        const newUser = await createUser({
+            variables: {
+                name: user.name,
+                email: user.email,
+                password: user.password,
+            },
+        });
+        if (newUser) {
+            const response = await login({
+                variables: {
+                    email: user.email,
+                    password: user.password,
+                },
+            });
+
+            if (response && response.data) {
+                setAccessToken(response.data.login.accessToken);
+                history.push("/magic-systems");
+            } else {
+                history.push("/login"); // send them to login screen if there was an error for some reason...
+            }
+        } else {
+            setSubmitting(false);
+        }
     }
 
     return (
         <Grid container justify="center" spacing={2}>
             <Grid item xs={12}>
-                <Navbar
-                    color="primary"
-                    dropdownMenuLabel={userName}
-                    userLoggedIn={false}
-                />
+                <Navbar color="primary" userLoggedIn={false} />
             </Grid>
             <Grid item xs={12} sm={12} md={3}>
                 <Card elevation={1}>

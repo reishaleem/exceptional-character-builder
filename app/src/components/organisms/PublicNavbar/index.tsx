@@ -11,10 +11,11 @@ import {
 import { Link } from "react-router-dom";
 
 import { NavbarTitle } from "../../atoms/NavbarTitle";
+import { Logout } from "../../atoms/Logout";
 import { UserMenu } from "../../molecules/UserMenu";
 
 interface Props {
-    dropdownMenuLabel: string;
+    dropdownMenuLabel?: string;
     userLoggedIn: boolean;
     color?: AppBarProps["color"];
 }
@@ -41,7 +42,7 @@ export const Navbar = ({ dropdownMenuLabel, userLoggedIn, color }: Props) => {
                             {userLoggedIn ? (
                                 <UserMenu
                                     buttonDropdownType="button"
-                                    dropdownText={dropdownMenuLabel}
+                                    dropdownText={dropdownMenuLabel!}
                                 >
                                     <MenuItem
                                         component={Link}
@@ -50,9 +51,11 @@ export const Navbar = ({ dropdownMenuLabel, userLoggedIn, color }: Props) => {
                                         App
                                     </MenuItem>
                                     <Divider />
-                                    <MenuItem component={Link} to="/">
-                                        Logout
-                                    </MenuItem>
+                                    <Logout refreshOnClick>
+                                        <MenuItem component={Link} to="/">
+                                            Logout
+                                        </MenuItem>
+                                    </Logout>
                                 </UserMenu>
                             ) : (
                                 <>

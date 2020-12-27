@@ -16,7 +16,7 @@ import {
 } from "@material-ui/core";
 import { HelpOutline } from "@material-ui/icons/";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
 
 import { Form } from "../../molecules/Form";
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
@@ -26,9 +26,16 @@ import {
     MagicSystemDetailsFields,
     MagicSystemDetailsFieldsErrors,
 } from "../../../types/form-types";
+import { useMutation } from "@apollo/client";
+import { CREATE_MAGIC_SYSTEM_MUTATION } from "../../../graphql/mutations/magic-system";
+import { getCurrentUser } from "../../../services/auth";
 
 export const CreateMagicSystem = () => {
     const theme: Theme = useTheme();
+    const [createMagicSystem] = useMutation(CREATE_MAGIC_SYSTEM_MUTATION);
+    const currentUser = getCurrentUser();
+    const history = useHistory();
+    const { url } = useRouteMatch();
 
     const createMagicSystemForm = useFormik({
         initialValues: {
@@ -63,10 +70,22 @@ export const CreateMagicSystem = () => {
         magicSystem: MagicSystemDetailsFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
-        await new Promise((r) => setTimeout(r, 500));
-        alert(JSON.stringify(magicSystem, null, 2));
-        // direct to new magic system
-        setSubmitting(false);
+        const response = await createMagicSystem({
+            variables: {
+                ownerId: currentUser.id,
+                name: magicSystem.name,
+                type: magicSystem.type,
+                hardnessRating: magicSystem.hardnessRating,
+                description: magicSystem.description,
+            },
+        });
+        if (response && response.data) {
+            history.push(
+                `/magic-systems/${response.data.createMagicSystem.id}/page/edit`
+            );
+        } else {
+            setSubmitting(false);
+        }
     }
 
     return (
@@ -121,6 +140,7 @@ export const CreateMagicSystem = () => {
                                         }
                                         InputLabelProps={{ shrink: true }}
                                         fullWidth
+                                        size="small"
                                         variant="outlined"
                                     />
                                 </Grid>

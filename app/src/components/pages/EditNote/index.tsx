@@ -1,6 +1,6 @@
 import { Box, Button, Divider, Grid, Typography } from "@material-ui/core";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { Form } from "../../molecules/Form";
@@ -8,39 +8,31 @@ import { RichTextEditor } from "../../organisms/RichTextEditor";
 
 import { EditNoteFields } from "../../../types/form-types";
 import { MagicSystem } from "../../../types/magic-system";
+import { getCurrentUser } from "../../../services/auth";
+import { useMutation } from "@apollo/client";
+import { UPDATE_NOTE_MUTATION } from "../../../graphql/mutations/magic-system";
+import { GET_MAGIC_SYSTEM_QUERY } from "../../../graphql/queries/magic-system";
 
 interface URLParameters {
     magicSystemId: string;
     noteId: string;
 }
 
-export const EditNote = () => {
-    const magicSystem: MagicSystem = {
-        id: "1",
-        name: "Nen",
-        description: "A magic system from Hunter x Hunter",
-        page: "<h1>Nen</h1>",
-        notes: [
-            {
-                id: "1",
-                name: "Test note",
-                body: "This is just a test note",
-            },
-        ],
-        outlines: [
-            {
-                id: "1",
-                name: "Source outline",
-                body:
-                    "This is the body of the outline about the source of magic",
-            },
-        ],
-        updatedAt: "1608587625018",
-    };
+interface Props {
+    magicSystem: MagicSystem;
+}
 
+export const EditNote = ({ magicSystem }: Props) => {
     const { noteId }: URLParameters = useParams();
     const note = magicSystem.notes.find((item) => item.id === noteId)!;
-    const [noteContent, setNoteContent] = useState<string>(note.body);
+    console.log(magicSystem.notes);
+    const [noteContent, setNoteContent] = useState<string>("");
+    const currentUser = getCurrentUser();
+    const [updateNote] = useMutation(UPDATE_NOTE_MUTATION);
+
+    useEffect(() => {
+        setNoteContent(note?.body);
+    }, [note]);
 
     const editNoteForm = useFormik({
         initialValues: {
@@ -57,11 +49,31 @@ export const EditNote = () => {
     }
 
     async function handleSubmit(
-        body: EditNoteFields,
+        note: EditNoteFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
-        await new Promise((r) => setTimeout(r, 500));
-        alert(JSON.stringify(body, null, 2));
+        const response = await updateNote({
+            variables: {
+                ownerId: currentUser.id,
+                magicSystemId: magicSystem.id,
+                noteId: noteId,
+                name: "Note", // need to add a new text field to allow name editing
+                body: note.body,
+            },
+            refetchQueries: [
+                {
+                    query: GET_MAGIC_SYSTEM_QUERY,
+                    variables: {
+                        ownerId: currentUser.id,
+                        magicSystemId: magicSystem.id,
+                    },
+                },
+            ],
+            awaitRefetchQueries: true,
+        });
+        if (response && response.data) {
+            setNoteContent(response.data.updateNote.body);
+        }
         setSubmitting(false);
     }
 
@@ -70,7 +82,7 @@ export const EditNote = () => {
             <Grid item xs={12} sm={12} md={10}>
                 <Box display="flex" alignItems="center">
                     <Typography variant="h3" component="h2" display="inline">
-                        {note.name}
+                        {note?.name}
                     </Typography>
                     <Button
                         color="primary"

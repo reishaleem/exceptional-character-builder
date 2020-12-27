@@ -5,85 +5,52 @@ import { MagicSystemListItem } from "../../molecules/MagicSystemListItem";
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
 
 import { MagicSystem } from "../../../types/magic-system";
+import { useQuery } from "@apollo/client";
+import { GET_ALL_MAGIC_SYSTEMS_QUERY } from "../../../graphql/queries/magic-system";
 
 export const ExploreList = () => {
-    const magicSystems: MagicSystem[] = [
-        {
-            id: "1",
-            name: "Nen",
-            description: "A magic system from Hunter x Hunter",
-            page: "<h1>Page Code</h1>",
-            notes: [
-                {
-                    id: "1",
-                    name: "Test note",
-                    body: "This is just a test note",
-                },
-            ],
-            outlines: [
-                {
-                    id: "1",
-                    name: "Source outline",
-                    body:
-                        "This is the body of the outline about the source of magic",
-                },
-            ],
-            updatedAt: "1606150372000",
-        },
-        {
-            id: "2",
-            name: "Devil Fruits",
-            description:
-                "A magic system from One Piece. It has 3 different types of fruits that gives you differnt poweres depending on which you eat.",
-            page: "<h1>Page Code 2</h1>",
-            notes: [
-                {
-                    id: "1",
-                    name: "Test note",
-                    body: "This is just a test note",
-                },
-            ],
-            outlines: [
-                {
-                    id: "1",
-                    name: "Source outline",
-                    body:
-                        "This is the body of the outline about the source of magic",
-                },
-            ],
-            updatedAt: "1608589417000",
-        },
-    ];
+    const { loading, error, data } = useQuery(GET_ALL_MAGIC_SYSTEMS_QUERY);
 
-    return (
-        <>
-            <NoSidebarWrapper>
-                <Grid item xs={12} sm={12} md={10}>
-                    <Typography variant="h3" component="h2">
-                        Explore
-                    </Typography>
-                    <Divider />
-                    <Typography variant="body1" component="p" display="inline">
-                        Filter:
-                    </Typography>
-                </Grid>
+    if (loading) {
+        return <p>Loading</p>;
+    } else if (error) {
+        return <p>Error</p>;
+    } else {
+        const magicSystems: MagicSystem[] = data.magicSystems;
+        return (
+            <>
+                <NoSidebarWrapper>
+                    <Grid item xs={12} sm={12} md={10}>
+                        <Typography variant="h3" component="h2">
+                            Explore
+                        </Typography>
+                        <Divider />
+                        <Typography
+                            variant="body1"
+                            component="p"
+                            display="inline"
+                        >
+                            Filter:
+                        </Typography>
+                    </Grid>
 
-                <Grid item xs={12} sm={12} md={10}>
-                    <List disablePadding>
-                        {magicSystems.map((system, i) => {
-                            return (
-                                <Fragment key={system.id}>
-                                    {i ? <Divider component="li" /> : ""}
-                                    <MagicSystemListItem
-                                        system={system}
-                                        linkDestination={`/explore/view/${system.id}`}
-                                    />
-                                </Fragment>
-                            );
-                        })}
-                    </List>
-                </Grid>
-            </NoSidebarWrapper>
-        </>
-    );
+                    <Grid item xs={12} sm={12} md={10}>
+                        <List disablePadding>
+                            {magicSystems.map((system, i) => {
+                                return (
+                                    <Fragment key={system.id}>
+                                        {i ? <Divider component="li" /> : ""}
+                                        <MagicSystemListItem
+                                            system={system}
+                                            linkDestination={`/explore/view/${system.id}`}
+                                        />
+                                    </Fragment>
+                                );
+                            })}
+                        </List>
+                    </Grid>
+                </NoSidebarWrapper>
+            </>
+        );
+    }
 };

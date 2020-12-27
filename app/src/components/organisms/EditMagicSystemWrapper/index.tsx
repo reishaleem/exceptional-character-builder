@@ -25,11 +25,15 @@ import {
 } from "@material-ui/icons";
 import clsx from "clsx";
 import { ReactNode, useState } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
 
 import { AppNavbar } from "../AppNavbar";
 
 import { MagicSystem } from "../../../types/magic-system";
+import { useMutation } from "@apollo/client";
+import { CREATE_NOTE_MUTATION } from "../../../graphql/mutations/magic-system";
+import { getCurrentUser } from "../../../services/auth";
+import { GET_MAGIC_SYSTEM_QUERY } from "../../../graphql/queries/magic-system";
 
 interface Props {
     system: MagicSystem;
@@ -85,6 +89,9 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
         Boolean(false)
     );
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
+    const [createNote] = useMutation(CREATE_NOTE_MUTATION);
+    const currentUser = getCurrentUser();
+    const history = useHistory();
 
     const { url } = useRouteMatch();
 
@@ -109,6 +116,32 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
 
     function handleNotesDropdownClick() {
         setNotesDropdownOpen(!notesDropdownOpen);
+    }
+
+    async function handleCreateNoteClick() {
+        const response = await createNote({
+            variables: {
+                ownerId: currentUser.id,
+                magicSystemId: system.id,
+            },
+            refetchQueries: [
+                {
+                    query: GET_MAGIC_SYSTEM_QUERY,
+                    variables: {
+                        ownerId: currentUser.id,
+                        magicSystemId: system.id,
+                    },
+                },
+            ],
+            awaitRefetchQueries: true,
+        });
+        console.log(system);
+        if (response && response.data) {
+            console.log("about to redirect");
+            history.push(
+                `/magic-systems/${system.id}/notes/${response.data.createNote.id}/edit`
+            );
+        }
     }
 
     return (
@@ -165,7 +198,7 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
                             unmountOnExit
                         >
                             <List component="div" disablePadding>
-                                {system.outlines.map((outline, i) => {
+                                {system?.outlines.map((outline, i) => {
                                     return (
                                         <ListItem
                                             key={outline.id}
@@ -201,12 +234,12 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
                                     to={`${url}/outlines/new`}
                                     selected={
                                         selectedIndex ===
-                                        1 + system.outlines.length
+                                        1 + system?.outlines.length
                                     }
                                     onClick={(event: any) =>
                                         handleListItemClick(
                                             event,
-                                            1 + system.outlines.length
+                                            1 + system?.outlines.length
                                         )
                                     }
                                 >
@@ -234,7 +267,7 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
                             unmountOnExit
                         >
                             <List component="div" disablePadding>
-                                {system.notes.map((note, i) => {
+                                {system?.notes.map((note, i) => {
                                     return (
                                         <ListItem
                                             key={note.id}
@@ -245,7 +278,7 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
                                             selected={
                                                 selectedIndex ===
                                                 1 +
-                                                    system.outlines.length +
+                                                    system?.outlines.length +
                                                     1 +
                                                     1 +
                                                     i
@@ -254,7 +287,8 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
                                                 handleListItemClick(
                                                     event,
                                                     1 +
-                                                        system.outlines.length +
+                                                        system?.outlines
+                                                            .length +
                                                         1 +
                                                         1 +
                                                         i
@@ -275,28 +309,16 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
                                     style={{
                                         paddingLeft: theme.spacing(4),
                                     }}
-                                    component={Link}
-                                    to={`${url}/notes/new`}
                                     selected={
                                         selectedIndex ===
                                         1 +
-                                            system.outlines.length +
+                                            system?.outlines.length +
                                             1 +
                                             1 +
-                                            system.notes.length +
+                                            system?.notes.length +
                                             1
                                     }
-                                    onClick={(event: any) =>
-                                        handleListItemClick(
-                                            event,
-                                            1 +
-                                                system.outlines.length +
-                                                1 +
-                                                1 +
-                                                system.notes.length +
-                                                1
-                                        )
-                                    }
+                                    onClick={handleCreateNoteClick}
                                 >
                                     <ListItemIcon>
                                         <NoteAdd />

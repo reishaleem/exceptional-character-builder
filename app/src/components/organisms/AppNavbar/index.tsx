@@ -13,6 +13,7 @@ import {
 import { Menu } from "@material-ui/icons";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
+import { Logout } from "../../atoms/Logout";
 
 import { UserMenu } from "../../molecules/UserMenu";
 
@@ -106,9 +107,11 @@ export const AppNavbar = ({
                                     Settings
                                 </MenuItem>
                                 <Divider />
-                                <MenuItem component={Link} to="/">
-                                    Logout
-                                </MenuItem>
+                                <Logout>
+                                    <MenuItem component={Link} to="/">
+                                        Logout
+                                    </MenuItem>
+                                </Logout>
                             </UserMenu>
                         </Box>
                     </Grid>

@@ -13,9 +13,14 @@ import { Form } from "../../molecules/Form";
 import { Navbar } from "../../organisms/PublicNavbar";
 
 import { LoginFields } from "../../../types/form-types";
+import { useMutation } from "@apollo/client";
+import { LOGIN_MUTATION } from "../../../graphql/mutations/auth";
+import { setAccessToken } from "../../../services/auth";
+import { useHistory } from "react-router-dom";
 
 export const Login = () => {
-    const userName = "Reis Haleem";
+    const history = useHistory();
+    const [login] = useMutation(LOGIN_MUTATION);
 
     const loginForm = useFormik({
         initialValues: {
@@ -41,20 +46,25 @@ export const Login = () => {
         user: LoginFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
-        await new Promise((r) => setTimeout(r, 500));
-        alert(JSON.stringify(user, null, 2));
-        // direct to magic-systems list
-        setSubmitting(false);
+        const response = await login({
+            variables: {
+                email: user.email,
+                password: user.password,
+            },
+        });
+
+        if (response && response.data) {
+            setAccessToken(response.data.login.accessToken);
+            history.push("/magic-systems");
+        } else {
+            setSubmitting(false);
+        }
     }
 
     return (
         <Grid container justify="center" spacing={2}>
             <Grid item xs={12}>
-                <Navbar
-                    color="primary"
-                    dropdownMenuLabel={userName}
-                    userLoggedIn={false}
-                />
+                <Navbar color="primary" userLoggedIn={false} />
             </Grid>
             <Grid item xs={12} sm={12} md={3}>
                 <Card elevation={1}>

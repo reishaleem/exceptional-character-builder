@@ -7,31 +7,21 @@ import { RichTextEditor } from "../../organisms/RichTextEditor";
 
 import { MagicSystem } from "../../../types/magic-system";
 import { EditPageFields } from "../../../types/form-types";
+import { useMutation } from "@apollo/client";
+import { UPDATE_MAGIC_SYSTEM_PAGE_MUTATION } from "../../../graphql/mutations/magic-system";
+import { getCurrentUser } from "../../../services/auth";
+import { GET_MAGIC_SYSTEM_QUERY } from "../../../graphql/queries/magic-system";
 
-export const EditMagicSystemPage = () => {
-    const magicSystem: MagicSystem = {
-        id: "1",
-        name: "Nen",
-        description: "A magic system from Hunter x Hunter",
-        page: "<h1>Nen</h1>",
-        notes: [
-            {
-                id: "1",
-                name: "Test note",
-                body: "This is just a test note",
-            },
-        ],
-        outlines: [
-            {
-                id: "1",
-                name: "Source outline",
-                body:
-                    "This is the body of the outline about the source of magic",
-            },
-        ],
-        updatedAt: "1608587625018",
-    };
+interface Props {
+    magicSystem: MagicSystem;
+}
+export const EditMagicSystemPage = ({ magicSystem }: Props) => {
     const [pageContent, setPageContent] = useState<string>(magicSystem.page);
+    const [updateMagicSystemPage] = useMutation(
+        UPDATE_MAGIC_SYSTEM_PAGE_MUTATION
+    );
+    const currentUser = getCurrentUser();
+    console.log(magicSystem.page);
 
     const editMagicSystemPageForm = useFormik({
         initialValues: {
@@ -48,11 +38,29 @@ export const EditMagicSystemPage = () => {
     }
 
     async function handleSubmit(
-        body: EditPageFields,
+        page: EditPageFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
-        await new Promise((r) => setTimeout(r, 500));
-        alert(JSON.stringify(body, null, 2));
+        const response = await updateMagicSystemPage({
+            variables: {
+                ownerId: currentUser.id,
+                magicSystemId: magicSystem.id,
+                page: page.body,
+            },
+            refetchQueries: [
+                {
+                    query: GET_MAGIC_SYSTEM_QUERY,
+                    variables: {
+                        ownerId: currentUser.id,
+                        magicSystemId: magicSystem.id,
+                    },
+                },
+            ],
+            awaitRefetchQueries: true,
+        });
+        if (response && response.data) {
+            setPageContent(response.data.updateMagicSystemPage.page);
+        }
         setSubmitting(false);
     }
 
