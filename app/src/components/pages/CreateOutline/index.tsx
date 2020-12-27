@@ -11,15 +11,28 @@ import {
     Theme,
 } from "@material-ui/core";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
 
 import { Form } from "../../molecules/Form";
 
 import { outlineTypes } from "../../../constants/magic-system";
 import { CreateOutlineFields } from "../../../types/form-types";
+import { useMutation } from "@apollo/client";
+import { CREATE_OUTLINE_MUTATION } from "../../../graphql/mutations/magic-system";
+import { getCurrentUser } from "../../../services/auth";
+import { MagicSystem } from "../../../types/magic-system";
+import { GET_MAGIC_SYSTEM_QUERY } from "../../../graphql/queries/magic-system";
 
-export const CreateOutline = () => {
+interface Props {
+    magicSystem: MagicSystem;
+}
+
+export const CreateOutline = ({ magicSystem }: Props) => {
     const theme: Theme = useTheme();
+    const history = useHistory();
+    const { url } = useRouteMatch();
+    const currentUser = getCurrentUser();
+    const [createOutline] = useMutation(CREATE_OUTLINE_MUTATION);
 
     const createMagicSystemForm = useFormik({
         initialValues: {
@@ -48,10 +61,31 @@ export const CreateOutline = () => {
         outline: CreateOutlineFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
-        await new Promise((r) => setTimeout(r, 500));
-        alert(JSON.stringify(outline, null, 2));
-        // direct to new outline
-        setSubmitting(false);
+        const response = await createOutline({
+            variables: {
+                ownerId: currentUser.id,
+                magicSystemId: magicSystem.id,
+                name: outline.name,
+                type: outline.type,
+            },
+            refetchQueries: [
+                {
+                    query: GET_MAGIC_SYSTEM_QUERY,
+                    variables: {
+                        ownerId: currentUser.id,
+                        magicSystemId: magicSystem.id,
+                    },
+                },
+            ],
+            awaitRefetchQueries: true,
+        });
+        if (response && response.data) {
+            history.push(
+                `/magic-systems/${magicSystem.id}/outlines/${response.data.createOutline.id}/edit`
+            );
+        } else {
+            setSubmitting(false);
+        }
     }
 
     return (

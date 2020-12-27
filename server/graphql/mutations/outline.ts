@@ -12,7 +12,7 @@ export const createOutlineMutation = {
         "Creates a new outline in the magic system with a matching ID, belonging to the user with a matching ID",
     args: {
         ownerId: { type: GraphQLNonNull(GraphQLID) },
-        magicSystemId: { type: GraphQLNonNull(GraphQLString) },
+        magicSystemId: { type: GraphQLNonNull(GraphQLID) },
         name: { type: GraphQLNonNull(GraphQLString) },
         type: { type: GraphQLNonNull(GraphQLString) },
     },
@@ -26,8 +26,8 @@ export const updateOutlineMutation = {
     description: "Updates an Outline with the incoming body and name",
     args: {
         ownerId: { type: GraphQLNonNull(GraphQLID) },
-        magicSystemId: { type: GraphQLNonNull(GraphQLString) },
-        outlineId: { type: GraphQLNonNull(GraphQLString) },
+        magicSystemId: { type: GraphQLNonNull(GraphQLID) },
+        outlineId: { type: GraphQLNonNull(GraphQLID) },
         name: { type: GraphQLNonNull(GraphQLString) },
         body: { type: GraphQLNonNull(GraphQLString) },
     },

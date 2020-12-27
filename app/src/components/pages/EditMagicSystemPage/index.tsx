@@ -1,6 +1,6 @@
 import { Box, Button, Divider, Grid, Typography } from "@material-ui/core";
 import { useFormik } from "formik";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Form } from "../../molecules/Form";
 import { RichTextEditor } from "../../organisms/RichTextEditor";

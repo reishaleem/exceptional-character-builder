@@ -20,6 +20,24 @@ export const CREATE_MAGIC_SYSTEM_MUTATION = gql`
     }
 `;
 
+export const CREATE_OUTLINE_MUTATION = gql`
+    mutation CreateOutline(
+        $ownerId: ID!
+        $magicSystemId: ID!
+        $name: String!
+        $type: String!
+    ) {
+        createOutline(
+            ownerId: $ownerId
+            magicSystemId: $magicSystemId
+            name: $name
+            type: $type
+        ) {
+            id
+        }
+    }
+`;
+
 export const UPDATE_MAGIC_SYSTEM_PAGE_MUTATION = gql`
     mutation UpdateMagicSystemPage(
         $ownerId: ID!
@@ -32,6 +50,26 @@ export const UPDATE_MAGIC_SYSTEM_PAGE_MUTATION = gql`
             page: $page
         ) {
             page
+        }
+    }
+`;
+
+export const UPDATE_OUTLINE_MUTATION = gql`
+    mutation UpdateOutline(
+        $ownerId: ID!
+        $magicSystemId: ID!
+        $outlineId: ID!
+        $name: String!
+        $body: String!
+    ) {
+        updateOutline(
+            ownerId: $ownerId
+            magicSystemId: $magicSystemId
+            outlineId: $outlineId
+            name: $name
+            body: $body
+        ) {
+            body
         }
     }
 `;
