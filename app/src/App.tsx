@@ -15,19 +15,14 @@ import { useEffect, useState } from "react";
 import { AppRoute } from "./components/atoms/AppRoute";
 
 function App() {
-    const [loading, setLoading] = useState(true);
-
     useEffect(() => {
         async function refreshToken() {
             await refreshAccessToken();
-            setLoading(false);
         }
         refreshToken();
     }, []);
 
-    return loading ? (
-        <p>loading...</p>
-    ) : (
+    return (
         <BrowserRouter>
             <Switch>
                 <Route
