@@ -1,4 +1,4 @@
-import { createOutline } from "../../services/outline";
+import { createOutline, updateOutline } from "../../services/outline";
 
 export function createOutlineResolver(args: any) {
     const request = {
@@ -9,4 +9,16 @@ export function createOutlineResolver(args: any) {
     };
 
     return createOutline(request);
+}
+
+export function updateOutlineResolver(args: any) {
+    const request = {
+        ownerId: args.ownerId,
+        magicSystemId: args.magicSystemId,
+        outlineId: args.outlineId,
+        name: args.name,
+        body: args.body,
+    };
+
+    return updateOutline(request);
 }

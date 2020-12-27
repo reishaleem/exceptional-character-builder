@@ -8,7 +8,10 @@ import {
     deleteNoteMutation,
     updateNoteMutation,
 } from "./mutations/note";
-import { createOutlineMutation } from "./mutations/outline";
+import {
+    createOutlineMutation,
+    updateOutlineMutation,
+} from "./mutations/outline";
 import {
     createUserMutation,
     deleteUserMutation,
@@ -47,7 +50,7 @@ const RootMutation = new GraphQLObjectType({
         updateNote: updateNoteMutation,
         deleteNote: deleteNoteMutation,
         createOutline: createOutlineMutation,
-        // update outline
+        updateOutline: updateOutlineMutation,
         // delete outline
     }),
 });
