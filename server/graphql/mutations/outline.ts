@@ -1,6 +1,7 @@
 import { GraphQLID, GraphQLNonNull, GraphQLString } from "graphql";
 import {
     createOutlineResolver,
+    deleteOutlineResolver,
     updateOutlineResolver,
 } from "../resolvers/outline";
 import { OutlineType } from "../typeDefs/Outline";
@@ -32,5 +33,18 @@ export const updateOutlineMutation = {
     },
     resolve: async (_parent: any, args: any) => {
         return updateOutlineResolver(args);
+    },
+};
+
+export const deleteOutlineMutation = {
+    type: GraphQLString,
+    description: "Deletes an Outline with the incoming outline id",
+    args: {
+        ownerId: { type: GraphQLNonNull(GraphQLID) },
+        magicSystemId: { type: GraphQLNonNull(GraphQLString) },
+        outlineId: { type: GraphQLNonNull(GraphQLString) },
+    },
+    resolve: async (_parent: any, args: any) => {
+        return deleteOutlineResolver(args);
     },
 };

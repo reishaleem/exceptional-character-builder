@@ -52,3 +52,27 @@ export async function updateOutline(request: any) {
         throw error;
     }
 }
+
+export async function deleteOutline(request: any) {
+    let owner = await User.findById(request.ownerId).exec();
+    if (owner == null) {
+        throw `User with id ${request.ownerId} does not exist`;
+    }
+
+    let magicSystem = owner.magicSystems.find(
+        (magicSystem) => magicSystem._id == request.magicSystemId
+    );
+    let outlineLocation: number = magicSystem!.outlines.findIndex(
+        (o) => o._id == request.outlineId
+    )!;
+
+    magicSystem?.outlines.splice(outlineLocation, 1);
+
+    try {
+        owner = await owner.save();
+
+        return "Successfully deleted Outline";
+    } catch (error) {
+        throw error;
+    }
+}
