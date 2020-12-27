@@ -13,32 +13,37 @@ export interface MagicSystemFields {
     outlines: OutlineFields[];
 }
 
-export const magicSystemSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        trim: true,
-        maxLength: 50,
+export const magicSystemSchema = new Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+            trim: true,
+            maxLength: 50,
+        },
+        description: {
+            type: String,
+            trim: true,
+            maxLength: 255,
+        },
+        type: {
+            type: [String],
+            required: true,
+        },
+        hardnessRating: {
+            type: Number,
+        },
+        page: {
+            type: String,
+        },
+        notes: {
+            type: [noteSchema],
+        },
+        outlines: {
+            type: [outlineSchema],
+        },
     },
-    description: {
-        type: String,
-        trim: true,
-        maxLength: 255,
-    },
-    type: {
-        type: [String],
-        required: true,
-    },
-    hardnessRating: {
-        type: Number,
-    },
-    page: {
-        type: String,
-    },
-    notes: {
-        type: [noteSchema],
-    },
-    outlines: {
-        type: [outlineSchema],
-    },
-});
+    {
+        timestamps: true,
+    }
+);

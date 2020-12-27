@@ -2,6 +2,8 @@ import { GraphQLObjectType, GraphQLSchema } from "graphql";
 import {
     createMagicSystemMutation,
     deleteMagicSystemMutation,
+    updateMagicSystemDetailsMutation,
+    updateMagicSystemPageMutation,
 } from "./mutations/magicSystem";
 import {
     createNoteMutation,
@@ -45,7 +47,8 @@ const RootMutation = new GraphQLObjectType({
         updateUserPassword: updatePasswordMutation,
         deleteUser: deleteUserMutation,
         createMagicSystem: createMagicSystemMutation,
-        // update system Page
+        updateMagicSystemDetails: updateMagicSystemDetailsMutation,
+        updateMagicSystemPage: updateMagicSystemPageMutation,
         deleteMagicSystem: deleteMagicSystemMutation,
         createNote: createNoteMutation,
         updateNote: updateNoteMutation,

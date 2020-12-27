@@ -8,6 +8,8 @@ import {
 import {
     createMagicSystemResolver,
     deleteMagicSystemResolver,
+    updateMagicSystemDetailsResolver,
+    updateMagicSystemPageResolver,
 } from "../resolvers/magicSystem";
 import { MagicSystemType } from "../typeDefs/MagicSystem";
 
@@ -23,6 +25,35 @@ export const createMagicSystemMutation = {
     },
     resolve: async (_parent: any, args: any) => {
         return createMagicSystemResolver(args);
+    },
+};
+
+export const updateMagicSystemDetailsMutation = {
+    type: MagicSystemType,
+    description: "Update the body of the page field of a magic system",
+    args: {
+        ownerId: { type: GraphQLNonNull(GraphQLID) },
+        magicSystemId: { type: GraphQLNonNull(GraphQLID) },
+        name: { type: GraphQLNonNull(GraphQLString) },
+        type: { type: GraphQLList(GraphQLString) },
+        hardnessRating: { type: GraphQLNonNull(GraphQLInt) },
+        description: { type: GraphQLNonNull(GraphQLString) },
+    },
+    resolve: async (_parent: any, args: any) => {
+        return updateMagicSystemDetailsResolver(args);
+    },
+};
+
+export const updateMagicSystemPageMutation = {
+    type: MagicSystemType,
+    description: "Update the body of the page field of a magic system",
+    args: {
+        ownerId: { type: GraphQLNonNull(GraphQLID) },
+        magicSystemId: { type: GraphQLNonNull(GraphQLID) },
+        page: { type: GraphQLNonNull(GraphQLString) },
+    },
+    resolve: async (_parent: any, args: any) => {
+        return updateMagicSystemPageResolver(args);
     },
 };
 
