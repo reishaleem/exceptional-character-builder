@@ -13,9 +13,12 @@ import { Form } from "../../molecules/Form";
 import { Navbar } from "../../organisms/PublicNavbar";
 
 import { RegisterFields } from "../../../types/form-types";
+import { useMutation } from "@apollo/client";
+import { CREATE_USER_MUTATION } from "../../../graphql/mutations/user";
 
 export const Register = () => {
     const userName = "Reis Haleem";
+    const [createUser] = useMutation(CREATE_USER_MUTATION);
 
     const registerForm = useFormik({
         initialValues: {
@@ -59,8 +62,15 @@ export const Register = () => {
         user: RegisterFields,
         setSubmitting: (isSubmitting: boolean) => void
     ) {
-        await new Promise((r) => setTimeout(r, 500));
-        alert(JSON.stringify(user, null, 2));
+        const newUser = await createUser({
+            variables: {
+                name: user.name,
+                email: user.email,
+                password: user.password,
+            },
+        });
+        console.log(newUser);
+
         // login
         // direct to magic-systems list
         setSubmitting(false);
