@@ -5,6 +5,8 @@ import path from "path";
 import { graphqlHTTP } from "express-graphql";
 import mongoose from "mongoose";
 import schema from "./server/graphql/schema";
+import cookieParser from "cookie-parser";
+import { refreshToken } from "./server/services/auth";
 
 dotenv.config();
 const app = express();
@@ -12,8 +14,19 @@ const port = process.env.PORT || 5000;
 
 app.use(express.static(path.join(__dirname, "../app", "build")));
 
-app.use(cors());
+app.use(
+    cors({
+        origin: process.env.FRONTEND_URL || "http://localhost:3000",
+        credentials: true,
+    })
+);
 app.use(express.json());
+app.use("/refresh-token", cookieParser());
+
+// for revoking refresh tokens, go back to the tutorial later when setting up forgot password.
+app.post("/refresh-token", async (req, res) => {
+    return refreshToken(req, res);
+});
 
 app.use(
     "/graphql",

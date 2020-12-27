@@ -14,7 +14,7 @@ import { NavbarTitle } from "../../atoms/NavbarTitle";
 import { UserMenu } from "../../molecules/UserMenu";
 
 interface Props {
-    dropdownMenuLabel: string;
+    dropdownMenuLabel?: string;
     userLoggedIn: boolean;
     color?: AppBarProps["color"];
 }
@@ -41,7 +41,7 @@ export const Navbar = ({ dropdownMenuLabel, userLoggedIn, color }: Props) => {
                             {userLoggedIn ? (
                                 <UserMenu
                                     buttonDropdownType="button"
-                                    dropdownText={dropdownMenuLabel}
+                                    dropdownText={dropdownMenuLabel!}
                                 >
                                     <MenuItem
                                         component={Link}

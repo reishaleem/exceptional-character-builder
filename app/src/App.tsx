@@ -9,9 +9,23 @@ import { ExploreList } from "./components/pages/ExploreList";
 import { ViewMagicSystem } from "./components/pages/ViewMagicSystem";
 import { UserSettings } from "./components/pages/UserSettings";
 import { MagicSystemRouter } from "./MagicSystemRouter";
+import { refreshAccessToken } from "./services/auth";
+import { useEffect, useState } from "react";
 
 function App() {
-    return (
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function refreshToken() {
+            await refreshAccessToken();
+            setLoading(false);
+        }
+        refreshToken();
+    }, []);
+
+    return loading ? (
+        <p>loading...</p>
+    ) : (
         <BrowserRouter>
             <Switch>
                 <Route

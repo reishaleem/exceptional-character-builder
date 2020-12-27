@@ -13,9 +13,12 @@ import { MagicSystemListItem } from "../../molecules/MagicSystemListItem";
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
 
 import { MagicSystem } from "../../../types/magic-system";
+import { getCurrentUser } from "../../../services/auth";
 
 export const UserMagicList = () => {
     const { url } = useRouteMatch();
+    const currentUser = getCurrentUser();
+    console.log(currentUser);
 
     const magicSystems: MagicSystem[] = [
         {
