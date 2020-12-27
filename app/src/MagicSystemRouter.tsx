@@ -4,7 +4,6 @@ import { EditMagicSystemWrapper } from "./components/organisms/EditMagicSystemWr
 import { EditMagicSystemPage } from "./components/pages/EditMagicSystemPage";
 import { CreateOutline } from "./components/pages/CreateOutline";
 import { EditOutline } from "./components/pages/EditOutline";
-import { CreateNote } from "./components/pages/CreateNote";
 import { EditNote } from "./components/pages/EditNote";
 
 import { MagicSystem } from "./types/magic-system";

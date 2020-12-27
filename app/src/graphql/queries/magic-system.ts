@@ -1,5 +1,16 @@
 import { gql } from "@apollo/client";
 
+export const GET_ALL_MAGIC_SYSTEMS_QUERY = gql`
+    query GetAllMagicSystems {
+        magicSystems {
+            id
+            name
+            description
+            updatedAt
+        }
+    }
+`;
+
 export const GET_USER_MAGIC_SYSTEMS_LIST_QUERY = gql`
     query GetUserMagicSystemsList($id: ID!) {
         user(id: $id) {
@@ -34,6 +45,15 @@ export const GET_MAGIC_SYSTEM_QUERY = gql`
                 body
             }
             updatedAt
+        }
+    }
+`;
+
+export const VIEW_MAGIC_SYSTEM_QUERY = gql`
+    query ViewMagicSystem {
+        magicSystems {
+            id
+            page
         }
     }
 `;
