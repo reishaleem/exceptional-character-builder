@@ -46,11 +46,11 @@ export const MagicSystemRouter = () => {
                     <AppRoute path={`${path}/outlines/:outlineId/edit`} exact>
                         <EditOutline magicSystem={magicSystem} />
                     </AppRoute>
-                    <AppRoute path={`${path}/notes/new`} exact>
+                    {/* <AppRoute path={`${path}/notes/new`} exact>
                         <CreateNote />
-                    </AppRoute>
+                    </AppRoute> */}
                     <AppRoute path={`${path}/notes/:noteId/edit`} exact>
-                        <EditNote />
+                        <EditNote magicSystem={magicSystem} />
                     </AppRoute>
                 </Switch>
             </EditMagicSystemWrapper>

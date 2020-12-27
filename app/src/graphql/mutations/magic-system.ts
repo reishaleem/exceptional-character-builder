@@ -38,6 +38,14 @@ export const CREATE_OUTLINE_MUTATION = gql`
     }
 `;
 
+export const CREATE_NOTE_MUTATION = gql`
+    mutation CreateNote($ownerId: ID!, $magicSystemId: ID!) {
+        createNote(ownerId: $ownerId, magicSystemId: $magicSystemId) {
+            id
+        }
+    }
+`;
+
 export const UPDATE_MAGIC_SYSTEM_PAGE_MUTATION = gql`
     mutation UpdateMagicSystemPage(
         $ownerId: ID!
@@ -69,6 +77,28 @@ export const UPDATE_OUTLINE_MUTATION = gql`
             name: $name
             body: $body
         ) {
+            name
+            body
+        }
+    }
+`;
+
+export const UPDATE_NOTE_MUTATION = gql`
+    mutation UpdateNote(
+        $ownerId: ID!
+        $magicSystemId: ID!
+        $noteId: ID!
+        $name: String!
+        $body: String!
+    ) {
+        updateNote(
+            ownerId: $ownerId
+            magicSystemId: $magicSystemId
+            noteId: $noteId
+            name: $name
+            body: $body
+        ) {
+            name
             body
         }
     }
