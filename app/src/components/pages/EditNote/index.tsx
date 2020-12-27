@@ -26,12 +26,12 @@ export const EditNote = ({ magicSystem }: Props) => {
     const { noteId }: URLParameters = useParams();
     const note = magicSystem.notes.find((item) => item.id === noteId)!;
     console.log(magicSystem.notes);
-    const [noteContent, setNoteContent] = useState<string>(note.body);
+    const [noteContent, setNoteContent] = useState<string>("");
     const currentUser = getCurrentUser();
     const [updateNote] = useMutation(UPDATE_NOTE_MUTATION);
 
     useEffect(() => {
-        setNoteContent(note.body);
+        setNoteContent(note?.body);
     }, [note]);
 
     const editNoteForm = useFormik({
@@ -82,7 +82,7 @@ export const EditNote = ({ magicSystem }: Props) => {
             <Grid item xs={12} sm={12} md={10}>
                 <Box display="flex" alignItems="center">
                     <Typography variant="h3" component="h2" display="inline">
-                        {note.name}
+                        {note?.name}
                     </Typography>
                     <Button
                         color="primary"

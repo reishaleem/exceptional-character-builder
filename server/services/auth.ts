@@ -62,6 +62,11 @@ export async function login(request: any, res: Response) {
     }
 }
 
+export function logout(req: any) {
+    req.res.clearCookie("rjid");
+    return true;
+}
+
 export async function refreshToken(req: Request, res: Response) {
     const token = req.cookies.rjid;
     if (!token) {

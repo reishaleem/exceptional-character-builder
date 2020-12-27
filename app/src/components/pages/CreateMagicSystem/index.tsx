@@ -81,7 +81,7 @@ export const CreateMagicSystem = () => {
         });
         if (response && response.data) {
             history.push(
-                `${url}/${response.data.createMagicSystem.id}/page/edit`
+                `/magic-systems/${response.data.createMagicSystem.id}/page/edit`
             );
         } else {
             setSubmitting(false);

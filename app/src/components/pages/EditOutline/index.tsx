@@ -30,7 +30,7 @@ export const EditOutline = ({ magicSystem }: Props) => {
     const [updateOutline] = useMutation(UPDATE_OUTLINE_MUTATION);
 
     useEffect(() => {
-        setOutlineContent(outline.body);
+        setOutlineContent(outline?.body);
     }, [outline]);
 
     const editOutlineForm = useFormik({
@@ -81,7 +81,7 @@ export const EditOutline = ({ magicSystem }: Props) => {
             <Grid item xs={12} sm={12} md={10}>
                 <Box display="flex" alignItems="center">
                     <Typography variant="h3" component="h2" display="inline">
-                        {outline.name}
+                        {outline?.name}
                     </Typography>
                     <Button
                         color="primary"

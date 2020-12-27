@@ -138,9 +138,9 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
         console.log(system);
         if (response && response.data) {
             console.log("about to redirect");
-            // history.push(
-            //     `/magic-systems/${system.id}/notes/${response.data.createNote.id}/edit`
-            // );
+            history.push(
+                `/magic-systems/${system.id}/notes/${response.data.createNote.id}/edit`
+            );
         }
     }
 
@@ -198,7 +198,7 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
                             unmountOnExit
                         >
                             <List component="div" disablePadding>
-                                {system.outlines.map((outline, i) => {
+                                {system?.outlines.map((outline, i) => {
                                     return (
                                         <ListItem
                                             key={outline.id}
@@ -234,12 +234,12 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
                                     to={`${url}/outlines/new`}
                                     selected={
                                         selectedIndex ===
-                                        1 + system.outlines.length
+                                        1 + system?.outlines.length
                                     }
                                     onClick={(event: any) =>
                                         handleListItemClick(
                                             event,
-                                            1 + system.outlines.length
+                                            1 + system?.outlines.length
                                         )
                                     }
                                 >
@@ -267,7 +267,7 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
                             unmountOnExit
                         >
                             <List component="div" disablePadding>
-                                {system.notes.map((note, i) => {
+                                {system?.notes.map((note, i) => {
                                     return (
                                         <ListItem
                                             key={note.id}
@@ -278,7 +278,7 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
                                             selected={
                                                 selectedIndex ===
                                                 1 +
-                                                    system.outlines.length +
+                                                    system?.outlines.length +
                                                     1 +
                                                     1 +
                                                     i
@@ -287,7 +287,8 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
                                                 handleListItemClick(
                                                     event,
                                                     1 +
-                                                        system.outlines.length +
+                                                        system?.outlines
+                                                            .length +
                                                         1 +
                                                         1 +
                                                         i
@@ -311,10 +312,10 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
                                     selected={
                                         selectedIndex ===
                                         1 +
-                                            system.outlines.length +
+                                            system?.outlines.length +
                                             1 +
                                             1 +
-                                            system.notes.length +
+                                            system?.notes.length +
                                             1
                                     }
                                     onClick={handleCreateNoteClick}

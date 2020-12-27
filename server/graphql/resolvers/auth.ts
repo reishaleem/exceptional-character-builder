@@ -1,4 +1,4 @@
-import { login } from "../../services/auth";
+import { login, logout } from "../../services/auth";
 
 export function loginResolver(args: any, context: any) {
     const request: any = {
@@ -9,7 +9,9 @@ export function loginResolver(args: any, context: any) {
 }
 
 export function logoutResolver(context: any) {
-    const res = context.res;
-    res.clearCookie("rjid");
-    return true;
+    const request = {
+        res: context.res,
+    };
+
+    return logout(request);
 }

@@ -7,6 +7,7 @@ import {
     updateUserProfile,
 } from "../../services/user";
 import { CreateUserRequest } from "../types/user";
+import { logoutResolver } from "./auth";
 
 export function usersResolver() {
     return getAllUsers();

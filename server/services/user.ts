@@ -2,7 +2,7 @@ import { request } from "express";
 import { CreateUserRequest } from "../graphql/types/user";
 import { MagicSystemFields } from "../models/MagicSystem";
 import { User } from "../models/User";
-import { encryptPassword, verifyPassword } from "./auth";
+import { encryptPassword, logout, verifyPassword } from "./auth";
 
 export async function getAllUsers() {
     try {
@@ -122,7 +122,6 @@ export async function updateUserPassword(request: any) {
 
 export async function deleteUser(user: any) {
     try {
-        // log the user out, then proceed to delete
         return await User.deleteOne({ _id: user.id });
     } catch (error) {
         throw error;
