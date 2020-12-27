@@ -1,4 +1,4 @@
-import { Route, Switch, useRouteMatch } from "react-router-dom";
+import { Switch, useRouteMatch } from "react-router-dom";
 import { EditMagicSystemWrapper } from "./components/organisms/EditMagicSystemWrapper";
 
 import { EditMagicSystemPage } from "./components/pages/EditMagicSystemPage";
@@ -8,6 +8,7 @@ import { CreateNote } from "./components/pages/CreateNote";
 import { EditNote } from "./components/pages/EditNote";
 
 import { MagicSystem } from "./types/magic-system";
+import { AppRoute } from "./components/atoms/AppRoute";
 
 export const MagicSystemRouter = () => {
     let { path } = useRouteMatch();
@@ -37,31 +38,21 @@ export const MagicSystemRouter = () => {
     return (
         <EditMagicSystemWrapper system={magicSystem}>
             <Switch>
-                <Route
-                    path={`${path}/page/edit`}
-                    component={EditMagicSystemPage}
-                    exact
-                />
-                <Route
-                    path={`${path}/outlines/new`}
-                    component={CreateOutline}
-                    exact
-                />
-                <Route
-                    path={`${path}/outlines/:outlineId/edit`}
-                    component={EditOutline}
-                    exact
-                />
-                <Route
-                    path={`${path}/notes/new`}
-                    component={CreateNote}
-                    exact
-                />
-                <Route
-                    path={`${path}/notes/:noteId/edit`}
-                    component={EditNote}
-                    exact
-                />
+                <AppRoute path={`${path}/page/edit`} exact>
+                    <EditMagicSystemPage />
+                </AppRoute>
+                <AppRoute path={`${path}/outlines/new`} exact>
+                    <CreateOutline />
+                </AppRoute>
+                <AppRoute path={`${path}/outlines/:outlineId/edit`} exact>
+                    <EditOutline />
+                </AppRoute>
+                <AppRoute path={`${path}/notes/new`} exact>
+                    <CreateNote />
+                </AppRoute>
+                <AppRoute path={`${path}/notes/:noteId/edit`} exact>
+                    <EditNote />
+                </AppRoute>
             </Switch>
         </EditMagicSystemWrapper>
     );

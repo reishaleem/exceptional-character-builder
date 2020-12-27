@@ -9,8 +9,10 @@ import { ExploreList } from "./components/pages/ExploreList";
 import { ViewMagicSystem } from "./components/pages/ViewMagicSystem";
 import { UserSettings } from "./components/pages/UserSettings";
 import { MagicSystemRouter } from "./MagicSystemRouter";
+import { AuthRoute } from "./components/atoms/AuthRoute";
 import { refreshAccessToken } from "./services/auth";
 import { useEffect, useState } from "react";
+import { AppRoute } from "./components/atoms/AppRoute";
 
 function App() {
     const [loading, setLoading] = useState(true);
@@ -38,35 +40,40 @@ function App() {
                     )}
                     exact
                 />
-                <Route path="/register" component={Register} exact />
-                <Route path="/login" component={Login} exact />
+                <AuthRoute path="/register">
+                    <Register />
+                </AuthRoute>
+                <AuthRoute path="/login">
+                    <Login />
+                </AuthRoute>
 
-                <Route path="/magic-systems" component={UserMagicList} exact />
-                <Route
-                    path="/magic-systems/new"
-                    component={CreateMagicSystem}
-                    exact
-                />
-                <Route path="/magic-systems/:magicSystemId">
+                <AppRoute path="/magic-systems" exact>
+                    <UserMagicList />
+                </AppRoute>
+                <AppRoute path="/magic-systems/new" exact>
+                    <CreateMagicSystem />
+                </AppRoute>
+
+                <AppRoute path="/magic-systems/:magicSystemId">
                     <MagicSystemRouter />
-                </Route>
+                </AppRoute>
 
-                <Route path="/explore" component={ExploreList} exact />
-                <Route
-                    path="/explore/view/:magicSystemId"
-                    component={ViewMagicSystem}
-                    exact
-                />
+                <AppRoute path="/explore" exact>
+                    <ExploreList />
+                </AppRoute>
+                <AppRoute path="/explore/view/:magicSystemId" exact>
+                    <ViewMagicSystem />
+                </AppRoute>
 
-                <Route path="/settings/profile" exact>
+                <AppRoute path="/settings/profile" exact>
                     <UserSettings value={0} />
-                </Route>
-                <Route path="/settings/security" exact>
+                </AppRoute>
+                <AppRoute path="/settings/security" exact>
                     <UserSettings value={1} />
-                </Route>
-                <Route path="/settings/delete" exact>
+                </AppRoute>
+                <AppRoute path="/settings/delete" exact>
                     <UserSettings value={2} />
-                </Route>
+                </AppRoute>
             </Switch>
         </BrowserRouter>
     );

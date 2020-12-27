@@ -1,5 +1,6 @@
 import { Box, Button, Grid, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { getCurrentUser, isLoggedIn } from "../../../services/auth";
 
 import { Navbar } from "../../organisms/PublicNavbar";
 
@@ -8,8 +9,8 @@ interface Props {
 }
 
 export const Home = ({ backgroundColor }: Props) => {
-    const userName = "Reis Haleem";
-    const loggedIn = false;
+    const currentUser = getCurrentUser();
+    const loggedIn = isLoggedIn();
     return (
         <Box
             style={{
@@ -18,7 +19,7 @@ export const Home = ({ backgroundColor }: Props) => {
         >
             <Navbar
                 color="transparent"
-                dropdownMenuLabel={userName}
+                dropdownMenuLabel={currentUser && currentUser.name}
                 userLoggedIn={loggedIn}
             />
             <Grid

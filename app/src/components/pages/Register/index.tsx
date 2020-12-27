@@ -80,15 +80,16 @@ export const Register = () => {
                     password: user.password,
                 },
             });
-            console.log(response);
+
             if (response && response.data) {
                 setAccessToken(response.data.login.accessToken);
                 history.push("/magic-systems");
             } else {
                 history.push("/login"); // send them to login screen if there was an error for some reason...
             }
+        } else {
+            setSubmitting(false);
         }
-        setSubmitting(false);
     }
 
     return (
