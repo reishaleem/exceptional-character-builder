@@ -1,46 +1,59 @@
-# Getting Started with Create React App
+# Exceptional Magic Outliner Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) using the Typescript template.
 
-## Available Scripts
+## Folder Structure
 
-In the project directory, you can run:
+### `.storybook`
 
-### `npm start`
+The `.storybook` directory contains the confirguation for Storybook, which is used to test components in isolation.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### `src`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The `src` directory contains all of the actual frontend code.
 
-### `npm test`
+#### `components`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The `components` directory contains the React components that are rendered on the different pages. It is organized using the Atomic Design pattern. More information on the different components can be found [in the readme](./src/components/README.md).
 
-### `npm run build`
+#### `constants`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The `constants` directory contains constant values that are not intended to change. An example would be the choices a user can make when selecting the type of their Magic System. That array of Strings would be a constant.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### `graphql`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The `graphql` directory contains GraphQL queries and mutations that are used with the Apollo Client. These queries are used with Apollo's `useQuery` and `useMutation` hooks and their variants.
 
-### `npm run eject`
+#### `services`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The `services` directory contains any code that is unrelated to the actual rendering of the component and focuses more on business logic. This includes a lot with authentiation and authorization. More information can be found [here](../README.md#Security).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### `types`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The `types` directory contains interfaces used throughout the application to type certain things, such as form fields and other objects that come up.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Tools and Technologies
 
-## Learn More
+### Apollo Client
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Since the backend is written with a GraphQL API, the frontend uses the Apollo Client to communicate with it and do a lot of the heavy lifting. The `apollo-link-token-referesh` library is used to make refreshing the jwt token a lot easier.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Formik
+
+For all forms, Formik is used make using forms much easier and easily validate them. It integrates well with Material-UI's `TextField` component, and in this application, it is also used with the rich text editor.
+
+### Jest and react-testing-library
+
+Testing is done using Jest and react-testing-library. More tests need to be added, but some components have at least a start.
+
+### Material-UI
+
+The `Material-UI` library is used throughout the application as the standard for design, and it makes developing a lot easier, having so many useful components out of the box
+
+### Storybook
+
+The `storybook` library is used for building maintainable components more quickly. It is very useful for testing without needing to render the entire project.
+
+### TinyMCE
+
+TinyMCE powers the rich text editor used throughout the application. I tried using DraftJS, but it seemed like using a ready-made component would be the smarter choice, as the quality of the editor wasn't as much of a priority as just having one.
