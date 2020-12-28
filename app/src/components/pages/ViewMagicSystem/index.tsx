@@ -22,7 +22,6 @@ export const ViewMagicSystem = () => {
         const magicSystem: MagicSystem = magicSystems.find(
             (system) => system.id === magicSystemId
         )!;
-        console.log(magicSystem);
         return (
             <NoSidebarWrapper>
                 <Grid

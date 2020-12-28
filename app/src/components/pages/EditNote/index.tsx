@@ -28,7 +28,6 @@ export const EditNote = ({ magicSystem }: Props) => {
     const [openError, setOpenError] = useState<boolean>(false);
     const { noteId }: URLParameters = useParams();
     const note = magicSystem.notes.find((item) => item.id === noteId)!;
-    console.log(magicSystem.notes);
     const [noteContent, setNoteContent] = useState<string>("");
     const currentUser = getCurrentUser();
     const [updateNote] = useMutation(UPDATE_NOTE_MUTATION, {

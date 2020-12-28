@@ -193,7 +193,6 @@ export const UserSettings = ({ value }: Props) => {
                 id: currentUser.id,
             },
         });
-        console.log(response);
         if (response && response.data) {
             history.push("/");
         } else {

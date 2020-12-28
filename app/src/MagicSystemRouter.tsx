@@ -31,7 +31,6 @@ export const MagicSystemRouter = () => {
         return <p>error</p>;
     } else {
         const magicSystem: MagicSystem = data.magicSystem;
-        console.log("System in router", magicSystem);
 
         return (
             <EditMagicSystemWrapper system={magicSystem}>

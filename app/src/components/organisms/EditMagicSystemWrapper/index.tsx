@@ -136,9 +136,7 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
             ],
             awaitRefetchQueries: true,
         });
-        console.log(system);
         if (response && response.data) {
-            console.log("about to redirect");
             history.push(
                 `/magic-systems/${system.id}/notes/${response.data.createNote.id}/edit`
             );

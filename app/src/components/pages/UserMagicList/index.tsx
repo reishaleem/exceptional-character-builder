@@ -29,7 +29,6 @@ export const UserMagicList = () => {
             },
         }
     );
-    console.log(data);
     if (error) {
         return <p>Error...</p>;
     } else {

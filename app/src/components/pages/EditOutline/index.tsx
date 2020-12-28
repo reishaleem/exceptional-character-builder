@@ -35,7 +35,6 @@ export const EditOutline = ({ magicSystem }: Props) => {
             setOpenError(true);
         },
     });
-    console.log(outline);
     useEffect(() => {
         setOutlineContent(outline?.body);
     }, [outline]);

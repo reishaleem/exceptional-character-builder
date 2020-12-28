@@ -1,5 +1,12 @@
 import { useQuery } from "@apollo/client";
-import { Divider, Grid, List, Typography } from "@material-ui/core";
+import {
+    Box,
+    CircularProgress,
+    Divider,
+    Grid,
+    List,
+    Typography,
+} from "@material-ui/core";
 import { Fragment } from "react";
 
 import { MagicSystemListItem } from "../../molecules/MagicSystemListItem";
@@ -25,29 +32,47 @@ export const ExploreList = () => {
                             Explore
                         </Typography>
                         <Divider />
-                        <Typography
-                            variant="body1"
-                            component="p"
-                            display="inline"
-                        >
-                            Filter:
-                        </Typography>
                     </Grid>
 
                     <Grid item xs={12} sm={12} md={10}>
-                        <List disablePadding>
-                            {magicSystems.map((system, i) => {
-                                return (
-                                    <Fragment key={system.id}>
-                                        {i ? <Divider component="li" /> : ""}
-                                        <MagicSystemListItem
-                                            system={system}
-                                            linkDestination={`/explore/view/${system.id}`}
-                                        />
-                                    </Fragment>
-                                );
-                            })}
-                        </List>
+                        {loading ? (
+                            <Box display="flex" justifyContent="center">
+                                <CircularProgress />
+                            </Box>
+                        ) : magicSystems.length > 0 ? (
+                            <>
+                                <Typography
+                                    variant="body1"
+                                    component="p"
+                                    display="inline"
+                                >
+                                    Filter:
+                                </Typography>
+                                <List disablePadding>
+                                    {magicSystems.map((system, i) => {
+                                        return (
+                                            <Fragment key={system.id}>
+                                                {i ? (
+                                                    <Divider component="li" />
+                                                ) : (
+                                                    ""
+                                                )}
+                                                <MagicSystemListItem
+                                                    system={system}
+                                                    linkDestination={`/explore/view/${system.id}`}
+                                                />
+                                            </Fragment>
+                                        );
+                                    })}
+                                </List>
+                            </>
+                        ) : (
+                            <Box display="flex" justifyContent="center">
+                                <Typography variant="body1" component="p">
+                                    No Magic Systems created
+                                </Typography>
+                            </Box>
+                        )}
                     </Grid>
                 </NoSidebarWrapper>
             </>
