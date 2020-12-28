@@ -1,27 +1,34 @@
+import { useMutation } from "@apollo/client";
 import { Box, Button, Divider, Grid, Typography } from "@material-ui/core";
 import { useFormik } from "formik";
 import { useState } from "react";
 
 import { Form } from "../../molecules/Form";
+import { Notification } from "../../molecules/Notification";
 import { RichTextEditor } from "../../organisms/RichTextEditor";
 
 import { MagicSystem } from "../../../types/magic-system";
 import { EditPageFields } from "../../../types/form-types";
-import { useMutation } from "@apollo/client";
-import { UPDATE_MAGIC_SYSTEM_PAGE_MUTATION } from "../../../graphql/mutations/magic-system";
 import { getCurrentUser } from "../../../services/auth";
+import { UPDATE_MAGIC_SYSTEM_PAGE_MUTATION } from "../../../graphql/mutations/magic-system";
 import { GET_MAGIC_SYSTEM_QUERY } from "../../../graphql/queries/magic-system";
 
 interface Props {
     magicSystem: MagicSystem;
 }
 export const EditMagicSystemPage = ({ magicSystem }: Props) => {
+    const [openSuccess, setOpenSuccess] = useState<boolean>(false);
+    const [openError, setOpenError] = useState<boolean>(false);
     const [pageContent, setPageContent] = useState<string>(magicSystem.page);
     const [updateMagicSystemPage] = useMutation(
-        UPDATE_MAGIC_SYSTEM_PAGE_MUTATION
+        UPDATE_MAGIC_SYSTEM_PAGE_MUTATION,
+        {
+            onError: (error) => {
+                setOpenError(true);
+            },
+        }
     );
     const currentUser = getCurrentUser();
-    console.log(magicSystem.page);
 
     const editMagicSystemPageForm = useFormik({
         initialValues: {
@@ -60,6 +67,7 @@ export const EditMagicSystemPage = ({ magicSystem }: Props) => {
         });
         if (response && response.data) {
             setPageContent(response.data.updateMagicSystemPage.page);
+            setOpenSuccess(true);
         }
         setSubmitting(false);
     }
@@ -96,6 +104,18 @@ export const EditMagicSystemPage = ({ magicSystem }: Props) => {
                     />
                 </Form>
             </Grid>
+            <Notification
+                message="Changes saved"
+                severity="success"
+                open={openSuccess}
+                setOpen={setOpenSuccess}
+            />
+            <Notification
+                message="An error occurred. Please try again."
+                severity="error"
+                open={openError}
+                setOpen={setOpenError}
+            />
         </>
     );
 };

@@ -1,15 +1,15 @@
+import { useQuery } from "@apollo/client";
 import { Switch, useRouteMatch } from "react-router-dom";
-import { EditMagicSystemWrapper } from "./components/organisms/EditMagicSystemWrapper";
 
+import { AppRoute } from "./components/atoms/AppRoute";
+import { EditMagicSystemWrapper } from "./components/organisms/EditMagicSystemWrapper";
 import { EditMagicSystemPage } from "./components/pages/EditMagicSystemPage";
 import { CreateOutline } from "./components/pages/CreateOutline";
 import { EditOutline } from "./components/pages/EditOutline";
 import { EditNote } from "./components/pages/EditNote";
 
 import { MagicSystem } from "./types/magic-system";
-import { AppRoute } from "./components/atoms/AppRoute";
 import { getCurrentUser } from "./services/auth";
-import { useQuery } from "@apollo/client";
 import { GET_MAGIC_SYSTEM_QUERY } from "./graphql/queries/magic-system";
 
 export const MagicSystemRouter = () => {

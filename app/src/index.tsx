@@ -1,8 +1,3 @@
-import { StrictMode } from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import "./index.css";
 import {
     ApolloClient,
     ApolloLink,
@@ -11,9 +6,16 @@ import {
     from,
     InMemoryCache,
 } from "@apollo/client";
-import { getAccessToken, setAccessToken } from "./services/auth";
 import { TokenRefreshLink } from "apollo-link-token-refresh";
 import { decode } from "jsonwebtoken";
+import { StrictMode } from "react";
+import ReactDOM from "react-dom";
+
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+
+import "./index.css";
+import { getAccessToken, setAccessToken } from "./services/auth";
 
 const httpLink = createHttpLink({
     uri: "/graphql",

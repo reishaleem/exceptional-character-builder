@@ -13,8 +13,8 @@ import {
 import { Menu } from "@material-ui/icons";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
-import { Logout } from "../../atoms/Logout";
 
+import { Logout } from "../../atoms/Logout";
 import { UserMenu } from "../../molecules/UserMenu";
 
 interface Props {

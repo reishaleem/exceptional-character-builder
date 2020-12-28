@@ -10,8 +10,8 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-import { NavbarTitle } from "../../atoms/NavbarTitle";
 import { Logout } from "../../atoms/Logout";
+import { NavbarTitle } from "../../atoms/NavbarTitle";
 import { UserMenu } from "../../molecules/UserMenu";
 
 interface Props {

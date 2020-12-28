@@ -1,5 +1,8 @@
+import { useEffect, useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
+import { AuthRoute } from "./components/atoms/AuthRoute";
+import { AppRoute } from "./components/atoms/AppRoute";
 import { Home } from "./components/pages/Home";
 import { Register } from "./components/pages/Register";
 import { Login } from "./components/pages/Login";
@@ -9,10 +12,8 @@ import { ExploreList } from "./components/pages/ExploreList";
 import { ViewMagicSystem } from "./components/pages/ViewMagicSystem";
 import { UserSettings } from "./components/pages/UserSettings";
 import { MagicSystemRouter } from "./MagicSystemRouter";
-import { AuthRoute } from "./components/atoms/AuthRoute";
+
 import { refreshAccessToken } from "./services/auth";
-import { useEffect, useState } from "react";
-import { AppRoute } from "./components/atoms/AppRoute";
 
 function App() {
     const [loading, setLoading] = useState(true);

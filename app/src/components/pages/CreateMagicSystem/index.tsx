@@ -1,3 +1,4 @@
+import { useMutation } from "@apollo/client";
 import {
     Box,
     Button,
@@ -16,9 +17,11 @@ import {
 } from "@material-ui/core";
 import { HelpOutline } from "@material-ui/icons/";
 import { useFormik } from "formik";
-import { Link, useHistory, useRouteMatch } from "react-router-dom";
+import { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 
 import { Form } from "../../molecules/Form";
+import { Notification } from "../../molecules/Notification";
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
 
 import { magicSystemTypes } from "../../../constants/magic-system";
@@ -26,7 +29,6 @@ import {
     MagicSystemDetailsFields,
     MagicSystemDetailsFieldsErrors,
 } from "../../../types/form-types";
-import { useMutation } from "@apollo/client";
 import { CREATE_MAGIC_SYSTEM_MUTATION } from "../../../graphql/mutations/magic-system";
 import { getCurrentUser } from "../../../services/auth";
 
@@ -35,7 +37,7 @@ export const CreateMagicSystem = () => {
     const [createMagicSystem] = useMutation(CREATE_MAGIC_SYSTEM_MUTATION);
     const currentUser = getCurrentUser();
     const history = useHistory();
-    const { url } = useRouteMatch();
+    const [openError, setOpenError] = useState<boolean>(false);
 
     const createMagicSystemForm = useFormik({
         initialValues: {
@@ -442,6 +444,12 @@ export const CreateMagicSystem = () => {
                     </Form>
                 </Grid>
             </NoSidebarWrapper>
+            <Notification
+                message="An error occurred. Please try again."
+                severity="error"
+                open={openError}
+                setOpen={setOpenError}
+            />
         </>
     );
 };

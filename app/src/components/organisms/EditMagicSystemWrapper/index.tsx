@@ -1,3 +1,4 @@
+import { useMutation } from "@apollo/client";
 import {
     Box,
     Collapse,
@@ -30,10 +31,10 @@ import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import { AppNavbar } from "../AppNavbar";
 
 import { MagicSystem } from "../../../types/magic-system";
-import { useMutation } from "@apollo/client";
 import { CREATE_NOTE_MUTATION } from "../../../graphql/mutations/magic-system";
-import { getCurrentUser } from "../../../services/auth";
 import { GET_MAGIC_SYSTEM_QUERY } from "../../../graphql/queries/magic-system";
+import { getCurrentUser } from "../../../services/auth";
+import { JwtUser } from "../../../types/user";
 
 interface Props {
     system: MagicSystem;
@@ -81,6 +82,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const EditMagicSystemWrapper = ({ system, children }: Props) => {
     const theme: Theme = useTheme();
     const classes = useStyles();
+    const history = useHistory();
     const [drawerOpen, setDrawerOpen] = useState<boolean>(true);
     const [outlinesDropdownOpen, setOutlinesDropdownOpen] = useState<boolean>(
         Boolean(false)
@@ -90,8 +92,7 @@ export const EditMagicSystemWrapper = ({ system, children }: Props) => {
     );
     const [selectedIndex, setSelectedIndex] = useState<number>(0);
     const [createNote] = useMutation(CREATE_NOTE_MUTATION);
-    const currentUser = getCurrentUser();
-    const history = useHistory();
+    const currentUser: JwtUser = getCurrentUser();
 
     const { url } = useRouteMatch();
 

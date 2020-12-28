@@ -25,7 +25,7 @@ export async function refreshAccessToken() {
 // the issue with doing things this way, particularly with fetching the current user, is that when the accessToken changes, the react app does not refresh
 // but does that matter? For now, just go without it. If it ends up being an issue, refer back to the tutorial
 export function getCurrentUser() {
-    const user: any = decode(accessToken);
+    const user: any = decode(accessToken)!;
 
     return user;
 }

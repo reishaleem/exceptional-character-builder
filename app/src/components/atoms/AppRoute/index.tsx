@@ -1,5 +1,6 @@
-import { isLoggedIn } from "../../../services/auth";
 import { Redirect, Route } from "react-router-dom";
+
+import { isLoggedIn } from "../../../services/auth";
 
 interface Props {
     path: string;
@@ -8,7 +9,7 @@ interface Props {
 }
 
 export const AppRoute = ({ path, children, ...rest }: Props) => {
-    const userIsLoggedIn = isLoggedIn();
+    const userIsLoggedIn: boolean = isLoggedIn();
 
     return (
         <Route

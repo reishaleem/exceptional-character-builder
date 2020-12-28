@@ -23,6 +23,7 @@ export interface EditPageFields {
 }
 
 export interface EditNoteFields {
+    // name: string;
     body: string;
 }
 
