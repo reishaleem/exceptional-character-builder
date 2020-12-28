@@ -1,4 +1,5 @@
 import { Redirect, Route } from "react-router-dom";
+
 import { isLoggedIn } from "../../../services/auth";
 
 interface Props {
@@ -7,7 +8,7 @@ interface Props {
 }
 
 export const AuthRoute = ({ path, children, ...rest }: Props) => {
-    const userIsLoggedIn = isLoggedIn();
+    const userIsLoggedIn: boolean = isLoggedIn();
 
     return (
         <Route

@@ -1,8 +1,9 @@
 import { Box, Button, Grid, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { getCurrentUser, isLoggedIn } from "../../../services/auth";
 
 import { Navbar } from "../../organisms/PublicNavbar";
+
+import { getCurrentUser, isLoggedIn } from "../../../services/auth";
 
 interface Props {
     backgroundColor: string;

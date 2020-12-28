@@ -1,3 +1,4 @@
+import { useMutation } from "@apollo/client";
 import {
     Box,
     Button,
@@ -8,16 +9,15 @@ import {
     Typography,
 } from "@material-ui/core";
 import { useFormik } from "formik";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import { Form } from "../../molecules/Form";
 import { Navbar } from "../../organisms/PublicNavbar";
 
 import { LoginFields } from "../../../types/form-types";
-import { useMutation } from "@apollo/client";
 import { LOGIN_MUTATION } from "../../../graphql/mutations/auth";
 import { setAccessToken } from "../../../services/auth";
-import { useHistory } from "react-router-dom";
-import { useState } from "react";
 
 export const Login = () => {
     const history = useHistory();

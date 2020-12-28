@@ -1,3 +1,4 @@
+import { useMutation } from "@apollo/client";
 import { Box, Button, Divider, Grid, Typography } from "@material-ui/core";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
@@ -5,13 +6,11 @@ import { useParams } from "react-router-dom";
 
 import { Form } from "../../molecules/Form";
 import { Notification } from "../../molecules/Notification";
-
 import { RichTextEditor } from "../../organisms/RichTextEditor";
 
 import { EditNoteFields } from "../../../types/form-types";
 import { MagicSystem } from "../../../types/magic-system";
 import { getCurrentUser } from "../../../services/auth";
-import { useMutation } from "@apollo/client";
 import { UPDATE_NOTE_MUTATION } from "../../../graphql/mutations/magic-system";
 import { GET_MAGIC_SYSTEM_QUERY } from "../../../graphql/queries/magic-system";
 

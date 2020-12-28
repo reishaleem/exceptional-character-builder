@@ -1,3 +1,4 @@
+import { useMutation } from "@apollo/client";
 import {
     Box,
     Button,
@@ -11,17 +12,16 @@ import {
     Theme,
 } from "@material-ui/core";
 import { useFormik } from "formik";
-import { Link, useHistory, useRouteMatch } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { Form } from "../../molecules/Form";
 
 import { outlineTypes } from "../../../constants/magic-system";
 import { CreateOutlineFields } from "../../../types/form-types";
-import { useMutation } from "@apollo/client";
-import { CREATE_OUTLINE_MUTATION } from "../../../graphql/mutations/magic-system";
-import { getCurrentUser } from "../../../services/auth";
 import { MagicSystem } from "../../../types/magic-system";
+import { CREATE_OUTLINE_MUTATION } from "../../../graphql/mutations/magic-system";
 import { GET_MAGIC_SYSTEM_QUERY } from "../../../graphql/queries/magic-system";
+import { getCurrentUser } from "../../../services/auth";
 
 interface Props {
     magicSystem: MagicSystem;
@@ -30,7 +30,6 @@ interface Props {
 export const CreateOutline = ({ magicSystem }: Props) => {
     const theme: Theme = useTheme();
     const history = useHistory();
-    const { url } = useRouteMatch();
     const currentUser = getCurrentUser();
     const [createOutline] = useMutation(CREATE_OUTLINE_MUTATION);
 

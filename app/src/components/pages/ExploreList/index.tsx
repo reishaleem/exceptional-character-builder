@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client";
 import { Divider, Grid, List, Typography } from "@material-ui/core";
 import { Fragment } from "react";
 
@@ -5,7 +6,6 @@ import { MagicSystemListItem } from "../../molecules/MagicSystemListItem";
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
 
 import { MagicSystem } from "../../../types/magic-system";
-import { useQuery } from "@apollo/client";
 import { GET_ALL_MAGIC_SYSTEMS_QUERY } from "../../../graphql/queries/magic-system";
 
 export const ExploreList = () => {

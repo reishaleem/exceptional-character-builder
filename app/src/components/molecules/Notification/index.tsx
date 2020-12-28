@@ -1,6 +1,9 @@
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert, { AlertProps } from "@material-ui/lab/Alert";
-import { Color as Severity } from "@material-ui/lab";
+import { Snackbar } from "@material-ui/core";
+import {
+    AlertProps,
+    Alert as MuiAlert,
+    Color as Severity,
+} from "@material-ui/lab/";
 
 interface Props {
     message: string;
@@ -12,8 +15,6 @@ interface Props {
 function Alert(props: AlertProps) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-
-export function useNotification() {}
 
 export const Notification = ({ message, severity, open, setOpen }: Props) => {
     const handleClose = (event?: React.SyntheticEvent, reason?: string) => {

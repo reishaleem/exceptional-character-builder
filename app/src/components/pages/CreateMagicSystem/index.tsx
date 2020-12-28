@@ -1,3 +1,4 @@
+import { useMutation } from "@apollo/client";
 import {
     Box,
     Button,
@@ -16,21 +17,20 @@ import {
 } from "@material-ui/core";
 import { HelpOutline } from "@material-ui/icons/";
 import { useFormik } from "formik";
+import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import { Form } from "../../molecules/Form";
-import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
 import { Notification } from "../../molecules/Notification";
+import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
 
 import { magicSystemTypes } from "../../../constants/magic-system";
 import {
     MagicSystemDetailsFields,
     MagicSystemDetailsFieldsErrors,
 } from "../../../types/form-types";
-import { useMutation } from "@apollo/client";
 import { CREATE_MAGIC_SYSTEM_MUTATION } from "../../../graphql/mutations/magic-system";
 import { getCurrentUser } from "../../../services/auth";
-import { useState } from "react";
 
 export const CreateMagicSystem = () => {
     const theme: Theme = useTheme();

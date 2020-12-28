@@ -1,3 +1,4 @@
+import { useMutation } from "@apollo/client";
 import { Box, Button, Divider, Grid, Typography } from "@material-ui/core";
 import { useFormik } from "formik";
 import { useState } from "react";
@@ -8,9 +9,8 @@ import { RichTextEditor } from "../../organisms/RichTextEditor";
 
 import { MagicSystem } from "../../../types/magic-system";
 import { EditPageFields } from "../../../types/form-types";
-import { useMutation } from "@apollo/client";
-import { UPDATE_MAGIC_SYSTEM_PAGE_MUTATION } from "../../../graphql/mutations/magic-system";
 import { getCurrentUser } from "../../../services/auth";
+import { UPDATE_MAGIC_SYSTEM_PAGE_MUTATION } from "../../../graphql/mutations/magic-system";
 import { GET_MAGIC_SYSTEM_QUERY } from "../../../graphql/queries/magic-system";
 
 interface Props {

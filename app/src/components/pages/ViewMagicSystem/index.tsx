@@ -1,15 +1,11 @@
+import { useQuery } from "@apollo/client";
 import { Grid } from "@material-ui/core";
+import { useRouteMatch } from "react-router-dom";
 
 import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
 
 import { MagicSystem } from "../../../types/magic-system";
-import {
-    GET_ALL_MAGIC_SYSTEMS_QUERY,
-    VIEW_MAGIC_SYSTEM_QUERY,
-} from "../../../graphql/queries/magic-system";
-import { useRouteMatch } from "react-router-dom";
-import { getCurrentUser } from "../../../services/auth";
-import { useQuery } from "@apollo/client";
+import { VIEW_MAGIC_SYSTEM_QUERY } from "../../../graphql/queries/magic-system";
 
 export const ViewMagicSystem = () => {
     let { url } = useRouteMatch();

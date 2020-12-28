@@ -1,3 +1,4 @@
+import { useMutation } from "@apollo/client";
 import {
     Box,
     Button,
@@ -8,17 +9,16 @@ import {
     Typography,
 } from "@material-ui/core";
 import { useFormik } from "formik";
+import { useState } from "react";
+import { useHistory, Redirect } from "react-router-dom";
 
 import { Form } from "../../molecules/Form";
 import { Navbar } from "../../organisms/PublicNavbar";
 
 import { RegisterFields } from "../../../types/form-types";
-import { useMutation } from "@apollo/client";
+import { setAccessToken } from "../../../services/auth";
 import { CREATE_USER_MUTATION } from "../../../graphql/mutations/user";
 import { LOGIN_MUTATION } from "../../../graphql/mutations/auth";
-import { useHistory, Redirect } from "react-router-dom";
-import { setAccessToken } from "../../../services/auth";
-import { useState } from "react";
 
 export const Register = () => {
     const history = useHistory();

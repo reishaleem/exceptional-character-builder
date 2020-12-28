@@ -1,5 +1,6 @@
 import { Box, Grid, Theme, useTheme } from "@material-ui/core";
 import { ReactNode } from "react";
+
 import { AppNavbar } from "../AppNavbar";
 
 interface Props {

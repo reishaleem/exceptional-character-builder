@@ -1,3 +1,4 @@
+import { useQuery } from "@apollo/client";
 import {
     Box,
     Button,
@@ -15,7 +16,6 @@ import { NoSidebarWrapper } from "../../organisms/NoSidebarWrapper";
 
 import { MagicSystem } from "../../../types/magic-system";
 import { getCurrentUser } from "../../../services/auth";
-import { useQuery } from "@apollo/client";
 import { GET_USER_MAGIC_SYSTEMS_LIST_QUERY } from "../../../graphql/queries/magic-system";
 
 export const UserMagicList = () => {
