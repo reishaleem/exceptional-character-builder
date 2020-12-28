@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { Form } from "../../molecules/Form";
+import { Notification } from "../../molecules/Notification";
+
 import { RichTextEditor } from "../../organisms/RichTextEditor";
 
 import { EditNoteFields } from "../../../types/form-types";
@@ -23,12 +25,18 @@ interface Props {
 }
 
 export const EditNote = ({ magicSystem }: Props) => {
+    const [openSuccess, setOpenSuccess] = useState<boolean>(false);
+    const [openError, setOpenError] = useState<boolean>(false);
     const { noteId }: URLParameters = useParams();
     const note = magicSystem.notes.find((item) => item.id === noteId)!;
     console.log(magicSystem.notes);
     const [noteContent, setNoteContent] = useState<string>("");
     const currentUser = getCurrentUser();
-    const [updateNote] = useMutation(UPDATE_NOTE_MUTATION);
+    const [updateNote] = useMutation(UPDATE_NOTE_MUTATION, {
+        onError: () => {
+            setOpenError(true);
+        },
+    });
 
     useEffect(() => {
         setNoteContent(note?.body);
@@ -73,6 +81,7 @@ export const EditNote = ({ magicSystem }: Props) => {
         });
         if (response && response.data) {
             setNoteContent(response.data.updateNote.body);
+            setOpenSuccess(true);
         }
         setSubmitting(false);
     }
@@ -108,6 +117,18 @@ export const EditNote = ({ magicSystem }: Props) => {
                     />
                 </Form>
             </Grid>
+            <Notification
+                message="Changes saved"
+                severity="success"
+                open={openSuccess}
+                setOpen={setOpenSuccess}
+            />
+            <Notification
+                message="An error occurred. Please try again."
+                severity="error"
+                open={openError}
+                setOpen={setOpenError}
+            />
         </>
     );
 };
