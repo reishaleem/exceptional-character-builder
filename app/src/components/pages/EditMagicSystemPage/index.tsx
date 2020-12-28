@@ -105,7 +105,7 @@ export const EditMagicSystemPage = ({ magicSystem }: Props) => {
                 </Form>
             </Grid>
             <Notification
-                message="Profile successfully updated"
+                message="Changes saved"
                 severity="success"
                 open={openSuccess}
                 setOpen={setOpenSuccess}
